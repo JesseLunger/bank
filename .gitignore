@@ -9,9 +9,12 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+target
 
-# Package Files #
-*.jar
+# Package Files
+dependency-reduced-pom.xml
+src/main/resources/db.properties
+*.idea
 *.war
 *.nar
 *.ear
