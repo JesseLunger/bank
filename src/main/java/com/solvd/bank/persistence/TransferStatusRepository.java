@@ -1,8 +1,6 @@
 package com.solvd.bank.persistence;
 
-public interface TransferStatusRepository {
+import com.solvd.bank.domain.TransferStatus;
 
-    public void getId();
-
-    public void getStatuses();
+public interface TransferStatusRepository extends IBaseRepository<TransferStatus>{
 }

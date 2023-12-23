@@ -11,31 +11,6 @@ public class Transfers {
     private Timestamp transferTime;
     private double amount;
 
-    public enum TransfersColumns {
-        ID("id", "int"),
-        SENDER_ID("sender_id", "int"),
-        RECEIVER_ID("receiver_id", "int"),
-        STATUS_ID("status_id", "int"),
-        TRANSFER_TIME("transfer_time", "TimeStamp"),
-        AMOUNT("amount", "double");
-
-        private final String columnName;
-        private final String columnType;
-
-        TransfersColumns(String columnName, String columnType) {
-            this.columnName = columnName;
-            this.columnType = columnType;
-        }
-
-        public String getColumnName() {
-            return columnName;
-        }
-
-        public String getColumnType() {
-            return columnType;
-        }
-    }
-
     public int getId() {
         return id;
     }
@@ -84,22 +59,4 @@ public class Transfers {
         this.amount = amount;
     }
 
-    public Object getColumnValue(TransfersColumns column) {
-        switch (column) {
-            case ID:
-                return id;
-            case SENDER_ID:
-                return sender.getId();
-            case RECEIVER_ID:
-                return receiver.getId();
-            case STATUS_ID:
-                return statusId;
-            case TRANSFER_TIME:
-                return transferTime;
-            case AMOUNT:
-                return amount;
-            default:
-                return null;
-        }
-    }
 }

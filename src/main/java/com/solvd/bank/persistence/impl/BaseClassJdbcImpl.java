@@ -4,7 +4,6 @@ import com.solvd.bank.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.text.html.parser.Entity;
 import java.lang.invoke.MethodHandles;
 import java.sql.*;
 import java.util.ArrayList;
@@ -82,27 +81,14 @@ public abstract class BaseClassJdbcImpl<Entity> {
         return results;
     }
 
-    protected void parseEnum(int counter, String valType, Object val, PreparedStatement preparedStatement){
-        try{
-            switch (valType) {
-                case "int":
-                    preparedStatement.setInt(counter, (int)val);
-                    break;
-                case "String":
-                    preparedStatement.setString(counter, (String)val);
-                    break;
-                case "double":
-                    preparedStatement.setDouble(counter, (double)val);
-                    break;
-                case "Timestamp":
-                    preparedStatement.setTimestamp(counter, (Timestamp)val);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unsupported data type");
+    public Integer getAutoIncrementValue(PreparedStatement preparedStatement) throws SQLException{
+        int AICheck = preparedStatement.executeUpdate();
+        if (AICheck > 0){
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()){
+                return generatedKeys.getInt(1);
             }
-        } catch (SQLException e){
-            LOGGER.error(e.getMessage());
         }
-
+        return null;
     }
 }

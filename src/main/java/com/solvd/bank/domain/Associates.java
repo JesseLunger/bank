@@ -11,33 +11,6 @@ public class Associates {
     private String email;
     private String phoneNumber;
 
-    public enum AssociatesColumns {
-        ID("id", "int"),
-        LOCATION_ID("location_id", "int"),
-        PRIMARY_NAME("primary_name", "String"),
-        SECONDARY_NAME("secondary_name", "String"),
-        DATE_JOINED("date_joined", "Timestamp"),
-        EMAIL("email", "String"),
-        PHONE_NUMBER("phone_number", "String");
-
-        private final String columnName;
-
-        private final String columnType;
-
-        AssociatesColumns(String columnName, String columnType) {
-            this.columnName = columnName;
-            this.columnType = columnType;
-        }
-
-        public String getColumnName() {
-            return columnName;
-        }
-
-        public String getColumnType(){
-            return columnType;
-        }
-    }
-
     public int getId() {
         return id;
     }
@@ -94,24 +67,4 @@ public class Associates {
         this.phoneNumber = phoneNumber;
     }
 
-    public Object getColumnValue(AssociatesColumns column) {
-        switch (column) {
-            case ID:
-                return id;
-            case LOCATION_ID:
-                return location.getId();
-            case PRIMARY_NAME:
-                return primaryName;
-            case SECONDARY_NAME:
-                return secondaryName;
-            case DATE_JOINED:
-                return dateJoined;
-            case EMAIL:
-                return email;
-            case PHONE_NUMBER:
-                return phoneNumber;
-            default:
-                return null;
-        }
-    }
 }

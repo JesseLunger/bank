@@ -1,4 +1,6 @@
 package com.solvd.bank.persistence;
 
-public interface CardsRepository {
+import com.solvd.bank.domain.Cards;
+
+public interface CardsRepository extends IBaseRepository<Cards>{
 }

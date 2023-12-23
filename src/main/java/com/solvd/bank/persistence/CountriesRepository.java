@@ -1,4 +1,6 @@
 package com.solvd.bank.persistence;
 
-public interface CountriesRepository {
+import com.solvd.bank.domain.Countries;
+
+public interface CountriesRepository extends IBaseRepository<Countries>{
 }

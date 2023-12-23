@@ -1,4 +1,6 @@
 package com.solvd.bank.persistence;
 
-public interface BranchHasEmployeeRepository {
+import com.solvd.bank.domain.Branches;
+
+public interface BranchHasEmployeeRepository extends IBaseRepository<Branches>{
 }

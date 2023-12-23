@@ -1,14 +1,13 @@
 package com.solvd.bank;
 
-import com.solvd.bank.domain.Cities;
-import com.solvd.bank.domain.Countries;
-import com.solvd.bank.persistence.impl.CitiesJdbcImpl;
-import com.solvd.bank.persistence.impl.CountriesJdbcImpl;
+import com.solvd.bank.domain.*;
+import com.solvd.bank.persistence.impl.*;
 import com.solvd.bank.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Main {
@@ -26,17 +25,17 @@ public class Main {
         ArrayList<Countries> countries = new ArrayList<>(countriesJdbc.getAll());
         Countries nextKey = countriesJdbc.getEntityById(countries.get(0).getId());
 
-        CitiesJdbcImpl citiesJdbc = new CitiesJdbcImpl();
-        Cities testCity = new Cities();
-        testCity.setCountry(nextKey);
-        testCity.setName("testCity");
-        citiesJdbc.saveEntity(testCity);
-        testCity.setName("nameChange");
-        citiesJdbc.updateEntity(testCity);
-        citiesJdbc.removeEntityByID(testCity.getId());
-        ArrayList<Cities> cities = new ArrayList<>(citiesJdbc.getAll());
-        Cities getCity = citiesJdbc.getEntityById(cities.get(0).getId());
-
+//        CitiesJdbcImpl citiesJdbc = new CitiesJdbcImpl();
+//        Cities testCity = new Cities();
+//        testCity.setCountry(nextKey);
+//        testCity.setName("testCity");
+//        citiesJdbc.saveEntity(testCity);
+//        testCity.setName("nameChange");
+//        citiesJdbc.updateEntity(testCity);
+//        citiesJdbc.removeEntityByID(testCity.getId());
+//        ArrayList<Cities> cities = new ArrayList<>(citiesJdbc.getAll());
+//        Cities getCity = citiesJdbc.getEntityById(cities.get(0).getId());
+//
 //        LocationsJdbcImpl locationsJdbc = new LocationsJdbcImpl();
 //        Locations testLocation = new Locations();
 //        testLocation.setCity(getCity);
@@ -96,7 +95,7 @@ public class Main {
 //        staffJdbc.removeEntityByID(testStaff.getAssociate().getId());
 //        ArrayList<Staff> staffList = new ArrayList<>(staffJdbc.getAll());
 //        Staff getStaff = staffJdbc.getEntityById(staffList.get(0).getAssociate().getId());
-
+//
 
 
 

@@ -10,31 +10,6 @@ public class Transactions {
     private Timestamp time;
     private double amount;
 
-    public enum TransactionsColumns {
-        ID("id", "int"),
-        CARD_ID("card_id", "int"),
-        MERCHANT_ID("merchant_id", "int"),
-        STATUS_ID("status_id", "int"),
-        TRANSACTION_TIME("transaction_time", "TimeStamp"),
-        AMOUNT("amount", "double");
-
-        private final String columnName;
-        private final String columnType;
-
-        TransactionsColumns(String columnName, String columnType) {
-            this.columnName = columnName;
-            this.columnType = columnType;
-        }
-
-        public String getColumnName() {
-            return columnName;
-        }
-
-        public String getColumnType() {
-            return columnType;
-        }
-    }
-
     public int getId() {
         return id;
     }
@@ -83,22 +58,4 @@ public class Transactions {
         this.amount = amount;
     }
 
-    public Object getColumnValue(TransactionsColumns column) {
-        switch (column) {
-            case ID:
-                return id;
-            case CARD_ID:
-                return card.getId();
-            case MERCHANT_ID:
-                return merchant.getAssociate().getId();
-            case STATUS_ID:
-                return statusId;
-            case TRANSACTION_TIME:
-                return time;
-            case AMOUNT:
-                return amount;
-            default:
-                return null;
-        }
-    }
 }

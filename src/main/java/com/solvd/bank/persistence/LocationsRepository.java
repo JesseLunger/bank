@@ -1,4 +1,6 @@
 package com.solvd.bank.persistence;
 
-public interface LocationsRepository {
+import com.solvd.bank.domain.Locations;
+
+public interface LocationsRepository extends IBaseRepository<Locations>{
 }

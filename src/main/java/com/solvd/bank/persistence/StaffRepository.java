@@ -1,4 +1,6 @@
 package com.solvd.bank.persistence;
 
-public interface StaffRepository {
+import com.solvd.bank.domain.Staff;
+
+public interface StaffRepository extends IBaseRepository<Staff>{
 }
