@@ -12,7 +12,8 @@ target
 
 # Package Files
 dependency-reduced-pom.xml
-bank/src/main/com/solvd/resources/db.properties
+src/main/resources/db.properties
+
 *.idea
 
 
