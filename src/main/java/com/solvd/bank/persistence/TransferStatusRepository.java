@@ -1,4 +1,4 @@
-package com.solved.bank.persistence;
+package com.solvd.bank.persistence;
 
 public interface TransferStatusRepository {
 
