@@ -21,4 +21,11 @@ public class BranchHasEmployee {
         this.staff = staff;
     }
 
+    @Override
+    public String toString() {
+        return "BranchHasEmployee{" +
+                "branch=" + branch +
+                ", staff=" + staff +
+                '}';
+    }
 }

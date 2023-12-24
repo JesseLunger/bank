@@ -29,4 +29,12 @@ public class Branch {
         this.branchName = branchName;
     }
 
+    @Override
+    public String toString() {
+        return "Branch{" +
+                "id=" + id +
+                ", location=" + location +
+                ", branchName='" + branchName + '\'' +
+                '}';
+    }
 }

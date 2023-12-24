@@ -31,4 +31,12 @@ public class Staff {
         this.dateHired = dateHired;
     }
 
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "associate=" + associate +
+                ", position=" + position +
+                ", dateHired=" + dateHired +
+                '}';
+    }
 }

@@ -59,4 +59,15 @@ public class Transfer {
         this.amount = amount;
     }
 
+    @Override
+    public String toString() {
+        return "Transfer{" +
+                "id=" + id +
+                ", sender=" + sender +
+                ", receiver=" + receiver +
+                ", statusId=" + statusId +
+                ", transferTime=" + transferTime +
+                ", amount=" + amount +
+                '}';
+    }
 }

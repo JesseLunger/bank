@@ -20,4 +20,11 @@ public class Customer {
         this.creditScore = creditScore;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "associate=" + associate +
+                ", creditScore='" + creditScore + '\'' +
+                '}';
+    }
 }

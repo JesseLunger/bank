@@ -39,4 +39,13 @@ public class Position {
         this.hourlyWage = hourlyWage;
     }
 
+    @Override
+    public String toString() {
+        return "Position{" +
+                "id=" + id +
+                ", position='" + position + '\'' +
+                ", salary=" + salary +
+                ", hourlyWage=" + hourlyWage +
+                '}';
+    }
 }

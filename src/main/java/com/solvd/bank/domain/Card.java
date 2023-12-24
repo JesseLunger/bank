@@ -49,4 +49,14 @@ public class Card {
         this.cvv = cvv;
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", account=" + account +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", expirationDate=" + expirationDate +
+                ", cvv='" + cvv + '\'' +
+                '}';
+    }
 }

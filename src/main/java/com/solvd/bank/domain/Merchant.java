@@ -12,4 +12,10 @@ public class Merchant {
         this.associate = associate;
     }
 
+    @Override
+    public String toString() {
+        return "Merchant{" +
+                "associate=" + associate +
+                '}';
+    }
 }

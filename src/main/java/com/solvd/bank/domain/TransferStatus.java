@@ -19,4 +19,12 @@ public class TransferStatus {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "TransferStatus{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

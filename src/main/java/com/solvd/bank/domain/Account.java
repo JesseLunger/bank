@@ -59,4 +59,16 @@ public class Account {
         this.holds = holds;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", branch=" + branch +
+                ", customer=" + customer +
+                ", amount=" + amount +
+                ", dateCreated=" + dateCreated +
+                ", holds=" + holds +
+                '}';
+    }
+
 }

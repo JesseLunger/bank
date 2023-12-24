@@ -39,4 +39,13 @@ public class Location {
         this.address = address;
     }
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", city=" + city +
+                ", zipCode='" + zipCode + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

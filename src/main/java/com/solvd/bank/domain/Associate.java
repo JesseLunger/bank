@@ -67,4 +67,17 @@ public class Associate {
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
+    public String toString() {
+        return "Associate{" +
+                "id=" + id +
+                ", location=" + location +
+                ", primaryName='" + primaryName + '\'' +
+                ", secondaryName='" + secondaryName + '\'' +
+                ", dateJoined=" + dateJoined +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }
+
