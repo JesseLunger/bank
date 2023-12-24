@@ -2,9 +2,9 @@ package com.solvd.bank.domain;
 
 import java.sql.Timestamp;
 
-public class Cards {
+public class Card {
     private int id;
-    private Accounts account;
+    private Account account;
     private String cardNumber;
     private Timestamp expirationDate;
     private String cvv;
@@ -17,11 +17,11 @@ public class Cards {
         this.id = id;
     }
 
-    public Accounts getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(Accounts account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 

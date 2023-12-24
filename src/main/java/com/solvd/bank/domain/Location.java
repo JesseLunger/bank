@@ -1,9 +1,9 @@
 package com.solvd.bank.domain;
 
-public class Locations {
+public class Location {
 
     private int id;
-    private Cities city;
+    private City city;
     private String zipCode;
     private String address;
 
@@ -15,11 +15,11 @@ public class Locations {
         this.id = id;
     }
 
-    public Cities getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(Cities city) {
+    public void setCity(City city) {
         this.city = city;
     }
 

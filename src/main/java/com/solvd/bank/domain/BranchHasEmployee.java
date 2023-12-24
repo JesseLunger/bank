@@ -1,15 +1,15 @@
 package com.solvd.bank.domain;
 
-public class BranchHasEmployees {
+public class BranchHasEmployee {
 
-    private Branches branch;
+    private Branch branch;
     private Staff staff;
 
-    public Branches getBranch() {
+    public Branch getBranch() {
         return branch;
     }
 
-    public void setBranch(Branches branch) {
+    public void setBranch(Branch branch) {
         this.branch = branch;
     }
 

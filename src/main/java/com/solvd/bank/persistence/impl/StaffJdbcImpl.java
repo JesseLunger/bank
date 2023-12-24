@@ -1,17 +1,14 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.domain.Associates;
-import com.solvd.bank.domain.Positions;
 import com.solvd.bank.domain.Staff;
-import com.solvd.bank.persistence.IBaseRepository;
+import com.solvd.bank.persistence.StaffRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 
-public class StaffJdbcImpl extends BaseClassJdbcImpl<Staff> implements IBaseRepository<Staff> {
+public class StaffJdbcImpl extends BaseClassJdbcImpl<Staff> implements StaffRepository {
 
     @Override
     public List<Staff> getAll() {

@@ -1,6 +1,6 @@
 package com.solvd.bank.persistence;
 
-import com.solvd.bank.domain.Transactions;
+import com.solvd.bank.domain.Transaction;
 
-public interface TransactionsRepository extends IBaseRepository<Transactions>{
+public interface TransactionsRepository extends IBaseRepository<Transaction>{
 }

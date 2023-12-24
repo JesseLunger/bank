@@ -7,23 +7,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
-        ConnectionPool.getInstance();
+        ConnectionPool.initializePool();
         CountriesJdbcImpl countriesJdbc = new CountriesJdbcImpl();
-        Countries testCountry = new Countries();
+        Country testCountry = new Country();
         testCountry.setName("testCountry");
         countriesJdbc.saveEntity(testCountry);
         testCountry.setName("nameChange");
         countriesJdbc.updateEntity(testCountry);
         countriesJdbc.removeEntityByID(testCountry.getId());
-        ArrayList<Countries> countries = new ArrayList<>(countriesJdbc.getAll());
-        Countries nextKey = countriesJdbc.getEntityById(countries.get(0).getId());
+        ArrayList<Country> countries = new ArrayList<>(countriesJdbc.getAll());
+        Country nextKey = countriesJdbc.getEntityById(countries.get(0).getId());
 
 //        CitiesJdbcImpl citiesJdbc = new CitiesJdbcImpl();
 //        Cities testCity = new Cities();

@@ -1,67 +1,66 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.domain.Countries;
+import com.solvd.bank.domain.Country;
 import com.solvd.bank.persistence.CountriesRepository;
-import com.solvd.bank.persistence.IBaseRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CountriesJdbcImpl extends BaseClassJdbcImpl<Countries> implements IBaseRepository<Countries>, CountriesRepository {
+public class CountriesJdbcImpl extends BaseClassJdbcImpl<Country> implements CountriesRepository {
 
     @Override
-    public List<Countries> getAll() {
+    public List<Country> getAll() {
         String query = "SELECT * FROM countries;";
         return executeStatement(query, "getAll");
     }
 
     @Override
-    protected Countries getAllHelper(ResultSet resultSet) throws SQLException {
-        Countries countries = new Countries();
-        countries.setId(resultSet.getInt("id"));
-        countries.setName(resultSet.getString("name"));
-        return countries;
+    protected Country getAllHelper(ResultSet resultSet) throws SQLException {
+        Country country = new Country();
+        country.setId(resultSet.getInt("id"));
+        country.setName(resultSet.getString("name"));
+        return country;
     }
 
     @Override
-    public Countries getEntityById(int id) {
+    public Country getEntityById(int id) {
         String query = "SELECT * FROM countries WHERE id = ?";
         return executeStatement(query, "getEntityById", id).get(0);
     }
 
     @Override
-    protected Countries getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected Country getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
         return processResultSet(preparedStatement).get(0);
     }
 
     @Override
-    public void saveEntity(Countries countries) {
+    public void saveEntity(Country country) {
         String query = "INSERT INTO countries (name) VALUES (?)";
-        executeStatement(query, "saveEntity", countries);
+        executeStatement(query, "saveEntity", country);
     }
 
     @Override
-    protected void saveEntityHelper(PreparedStatement preparedStatement, Countries countries) throws SQLException {
-        preparedStatement.setString(1, countries.getName());
+    protected void saveEntityHelper(PreparedStatement preparedStatement, Country country) throws SQLException {
+        preparedStatement.setString(1, country.getName());
         Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
         if (autoIncrementValue != null) {
-            countries.setId(autoIncrementValue);
+            country.setId(autoIncrementValue);
         }
     }
 
     @Override
-    public void updateEntity(Countries countries) {
+    public void updateEntity(Country country) {
         String query = "UPDATE countries SET name = ? WHERE id = ?";
-        executeStatement(query, "updateEntity", countries);
+        executeStatement(query, "updateEntity", country);
     }
 
     @Override
-    protected void updateEntityHelper(PreparedStatement preparedStatement, Countries countries) throws SQLException {
-        preparedStatement.setString(1, countries.getName());
-        preparedStatement.setInt(2, countries.getId());
+    protected void updateEntityHelper(PreparedStatement preparedStatement, Country country) throws SQLException {
+        preparedStatement.setString(1, country.getName());
+        preparedStatement.setInt(2, country.getId());
         preparedStatement.executeUpdate();
     }
 

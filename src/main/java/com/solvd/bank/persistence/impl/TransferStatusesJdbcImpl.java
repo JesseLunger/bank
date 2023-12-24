@@ -2,14 +2,14 @@ package com.solvd.bank.persistence.impl;
 
 
 import com.solvd.bank.domain.TransferStatus;
-import com.solvd.bank.persistence.IBaseRepository;
+import com.solvd.bank.persistence.TransferStatusesRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TransferStatusJdbcImpl extends BaseClassJdbcImpl<TransferStatus> implements IBaseRepository<TransferStatus> {
+public class TransferStatusesJdbcImpl extends BaseClassJdbcImpl<TransferStatus> implements TransferStatusesRepository {
 
     @Override
     public List<TransferStatus> getAll() {

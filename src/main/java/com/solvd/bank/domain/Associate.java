@@ -2,9 +2,9 @@ package com.solvd.bank.domain;
 
 import java.sql.Timestamp;
 
-public class Associates {
+public class Associate {
     private int id;
-    private Locations location;
+    private Location location;
     private String primaryName;
     private String secondaryName;
     private Timestamp dateJoined;
@@ -19,11 +19,11 @@ public class Associates {
         this.id = id;
     }
 
-    public Locations getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(Locations location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

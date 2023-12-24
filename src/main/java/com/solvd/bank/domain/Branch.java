@@ -1,8 +1,8 @@
 package com.solvd.bank.domain;
 
-public class Branches {
+public class Branch {
     private int id;
-    private Locations location;
+    private Location location;
     private String branchName;
 
     public int getId() {
@@ -13,11 +13,11 @@ public class Branches {
         this.id = id;
     }
 
-    public Locations getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(Locations location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

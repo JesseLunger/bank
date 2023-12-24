@@ -2,11 +2,11 @@ package com.solvd.bank.domain;
 
 import java.sql.Timestamp;
 
-public class Transfers {
+public class Transfer {
 
     private int id;
-    private Accounts sender;
-    private Accounts receiver;
+    private Account sender;
+    private Account receiver;
     private int statusId;
     private Timestamp transferTime;
     private double amount;
@@ -19,19 +19,19 @@ public class Transfers {
         this.id = id;
     }
 
-    public Accounts getSender() {
+    public Account getSender() {
         return sender;
     }
 
-    public void setSender(Accounts sender) {
+    public void setSender(Account sender) {
         this.sender = sender;
     }
 
-    public Accounts getReceiver() {
+    public Account getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(Accounts receiver) {
+    public void setReceiver(Account receiver) {
         this.receiver = receiver;
     }
 

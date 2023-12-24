@@ -1,6 +1,6 @@
 package com.solvd.bank.domain;
 
-public class Countries {
+public class Country {
 
     private int id;
     private String name;

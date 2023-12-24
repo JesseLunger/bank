@@ -18,18 +18,18 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         for (int i = 0; i < POOL_SIZE; i++) {
-            FREE_CONNECTIONS.offer(makeConnection());
+            FREE_CONNECTIONS.add(makeConnection());
         }
     }
 
-    public synchronized static ConnectionPool getInstance() {
+    public synchronized static void initializePool() {
         if (instance == null) {
             instance = new ConnectionPool();
         }
-        return instance;
     }
 
     public static Connection getConnection() throws InterruptedException{
+        initializePool();
         LOGGER.info(Thread.currentThread().getName() + " - Waiting for connection");
         return FREE_CONNECTIONS.take();
     }
@@ -45,7 +45,6 @@ public class ConnectionPool {
             }
         }
     }
-
 
     private static Connection makeConnection() {
         Connection connection = null;

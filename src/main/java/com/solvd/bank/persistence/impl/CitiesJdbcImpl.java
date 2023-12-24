@@ -1,51 +1,51 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.persistence.IBaseRepository;
+import com.solvd.bank.persistence.CitiesRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.solvd.bank.domain.Cities;
+import com.solvd.bank.domain.City;
 
-public class CitiesJdbcImpl extends BaseClassJdbcImpl<Cities> implements IBaseRepository<Cities> {
+public class CitiesJdbcImpl extends BaseClassJdbcImpl<City> implements CitiesRepository {
 
 
     @Override
-    public List<Cities> getAll() {
+    public List<City> getAll() {
         String query = "SELECT * FROM cities;";
         return executeStatement(query, "getAll");
     }
     @Override
-    public Cities getAllHelper(ResultSet resultSet) throws SQLException{
-        Cities cities = new Cities();
-        cities.setId(resultSet.getInt("id"));
-        cities.setName(resultSet.getString("name"));
-        cities.setCountry(new CountriesJdbcImpl().getEntityById( resultSet.getInt("country_id")));
-        return cities;
+    public City getAllHelper(ResultSet resultSet) throws SQLException{
+        City city = new City();
+        city.setId(resultSet.getInt("id"));
+        city.setName(resultSet.getString("name"));
+        city.setCountry(new CountriesJdbcImpl().getEntityById( resultSet.getInt("country_id")));
+        return city;
     }
 
     @Override
-    public Cities getEntityById(int id) {
+    public City getEntityById(int id) {
         String query = "SELECT * FROM cities WHERE id = (?);";
         return executeStatement(query, "getEntityById", id).get(0);
     }
 
     @Override
-    public Cities getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException{
+    public City getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException{
         preparedStatement.setInt(1, id);
         return processResultSet(preparedStatement).get(0);
     }
 
     @Override
-    public void saveEntity(Cities cities) {
+    public void saveEntity(City city) {
         String query = "INSERT INTO cities (name, country_id) VALUES ((?), (?))";
-        executeStatement(query, "saveEntity", cities);
+        executeStatement(query, "saveEntity", city);
     }
 
     @Override
-    public void saveEntityHelper(PreparedStatement preparedStatement, Cities city) throws SQLException {
+    public void saveEntityHelper(PreparedStatement preparedStatement, City city) throws SQLException {
         preparedStatement.setString(1, city.getName());
         preparedStatement.setInt(2, city.getCountry().getId());
         Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
@@ -55,12 +55,12 @@ public class CitiesJdbcImpl extends BaseClassJdbcImpl<Cities> implements IBaseRe
     }
 
     @Override
-    public void updateEntity(Cities city) {
+    public void updateEntity(City city) {
         String query = "UPDATE cities set name = (?), country_id = (?) where id = (?);";
         executeStatement(query, "updateEntity", city);
     }
     @Override
-    public void updateEntityHelper(PreparedStatement preparedStatement, Cities city) throws SQLException{
+    public void updateEntityHelper(PreparedStatement preparedStatement, City city) throws SQLException{
         preparedStatement.setString(1, city.getName());
         preparedStatement.setInt(2, city.getCountry().getId());
         preparedStatement.setInt(3, city.getId());

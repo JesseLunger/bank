@@ -3,23 +3,23 @@ package com.solvd.bank.domain;
 import java.sql.Timestamp;
 
 public class Staff {
-    private Associates associate;
-    private Positions position;
+    private Associate associate;
+    private Position position;
     private Timestamp dateHired;
 
-    public Associates getAssociate() {
+    public Associate getAssociate() {
         return associate;
     }
 
-    public void setAssociate(Associates associate) {
+    public void setAssociate(Associate associate) {
         this.associate = associate;
     }
 
-    public Positions getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(Positions position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 

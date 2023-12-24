@@ -1,14 +1,14 @@
 package com.solvd.bank.domain;
 
-public class Customers {
-    private Associates associate;
+public class Customer {
+    private Associate associate;
     private String creditScore;
 
-    public Associates getAssociate() {
+    public Associate getAssociate() {
         return associate;
     }
 
-    public void setAssociate(Associates associate) {
+    public void setAssociate(Associate associate) {
         this.associate = associate;
     }
 

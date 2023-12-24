@@ -2,10 +2,10 @@ package com.solvd.bank.domain;
 
 import java.sql.Timestamp;
 
-public class Transactions {
+public class Transaction {
     private int id;
-    private Cards card;
-    private Merchants merchant;
+    private Card card;
+    private Merchant merchant;
     private int statusId;
     private Timestamp time;
     private double amount;
@@ -18,19 +18,19 @@ public class Transactions {
         this.id = id;
     }
 
-    public Cards getCard() {
+    public Card getCard() {
         return card;
     }
 
-    public void setCard(Cards card) {
+    public void setCard(Card card) {
         this.card = card;
     }
 
-    public Merchants getMerchant() {
+    public Merchant getMerchant() {
         return merchant;
     }
 
-    public void setMerchant(Merchants merchant) {
+    public void setMerchant(Merchant merchant) {
         this.merchant = merchant;
     }
 

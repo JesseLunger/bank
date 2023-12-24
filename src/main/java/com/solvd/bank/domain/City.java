@@ -1,8 +1,8 @@
 package com.solvd.bank.domain;
 
-public class Cities {
+public class City {
     private int id;
-    private Countries country;
+    private Country country;
     private String name;
 
     public int getId() {
@@ -13,11 +13,11 @@ public class Cities {
         this.id = id;
     }
 
-    public Countries getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(Countries country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

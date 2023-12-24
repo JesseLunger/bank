@@ -1,6 +1,8 @@
 package com.solvd.bank.persistence;
 
-public abstract class AssociatesRepository {
+import com.solvd.bank.domain.Associate;
+
+public interface AssociatesRepository extends IBaseRepository<Associate> {
 
 
 

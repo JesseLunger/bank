@@ -1,4 +1,6 @@
 package com.solvd.bank.persistence;
 
-public interface PositionsRepository extends IBaseRepository<PositionsRepository>{
+import com.solvd.bank.domain.Position;
+
+public interface PositionsRepository extends IBaseRepository<Position>{
 }

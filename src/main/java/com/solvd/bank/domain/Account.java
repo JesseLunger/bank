@@ -2,11 +2,11 @@ package com.solvd.bank.domain;
 
 import java.sql.Timestamp;
 
-public class Accounts {
+public class Account {
 
     private int id;
-    private Branches branch;
-    private Customers customer;
+    private Branch branch;
+    private Customer customer;
     private double amount;
     private Timestamp dateCreated;
     private boolean holds;
@@ -19,19 +19,19 @@ public class Accounts {
         this.id = id;
     }
 
-    public Branches getBranch() {
+    public Branch getBranch() {
         return branch;
     }
 
-    public void setBranch(Branches branch) {
+    public void setBranch(Branch branch) {
         this.branch = branch;
     }
 
-    public Customers getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customers customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 

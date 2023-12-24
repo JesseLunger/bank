@@ -1,24 +1,24 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.domain.Positions;
-import com.solvd.bank.persistence.IBaseRepository;
+import com.solvd.bank.domain.Position;
+import com.solvd.bank.persistence.PositionsRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class PositionsJdbcImpl extends BaseClassJdbcImpl<Positions> implements IBaseRepository<Positions> {
+public class PositionsJdbcImpl extends BaseClassJdbcImpl<Position> implements PositionsRepository {
 
     @Override
-    public List<Positions> getAll() {
+    public List<Position> getAll() {
         String query = "SELECT * FROM positions;";
         return executeStatement(query, "getAll");
     }
 
     @Override
-    public Positions getAllHelper(ResultSet resultSet) throws SQLException {
-        Positions position = new Positions();
+    public Position getAllHelper(ResultSet resultSet) throws SQLException {
+        Position position = new Position();
         position.setId(resultSet.getInt("id"));
         position.setPosition(resultSet.getString("position"));
         position.setSalary(resultSet.getDouble("salary"));
@@ -27,25 +27,25 @@ public class PositionsJdbcImpl extends BaseClassJdbcImpl<Positions> implements I
     }
 
     @Override
-    public Positions getEntityById(int id) {
+    public Position getEntityById(int id) {
         String query = "SELECT * FROM positions WHERE id = (?);";
         return executeStatement(query, "getEntityById", id).get(0);
     }
 
     @Override
-    public Positions getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
+    public Position getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
         return processResultSet(preparedStatement).get(0);
     }
 
     @Override
-    public void saveEntity(Positions position) {
+    public void saveEntity(Position position) {
         String query = "INSERT INTO positions (position, salary, hourly_wage) VALUES ((?), (?), (?))";
         executeStatement(query, "saveEntity", position);
     }
 
     @Override
-    public void saveEntityHelper(PreparedStatement preparedStatement, Positions position) throws SQLException {
+    public void saveEntityHelper(PreparedStatement preparedStatement, Position position) throws SQLException {
         preparedStatement.setString(1, position.getPosition());
         preparedStatement.setDouble(2, position.getSalary());
         preparedStatement.setDouble(3, position.getHourlyWage());
@@ -57,13 +57,13 @@ public class PositionsJdbcImpl extends BaseClassJdbcImpl<Positions> implements I
     }
 
     @Override
-    public void updateEntity(Positions position) {
+    public void updateEntity(Position position) {
         String query = "UPDATE positions SET position = (?), salary = (?), hourly_wage = (?) WHERE id = (?)";
         executeStatement(query, "updateEntity", position);
     }
 
     @Override
-    public void updateEntityHelper(PreparedStatement preparedStatement, Positions position) throws SQLException {
+    public void updateEntityHelper(PreparedStatement preparedStatement, Position position) throws SQLException {
         preparedStatement.setString(1, position.getPosition());
         preparedStatement.setDouble(2, position.getSalary());
         preparedStatement.setDouble(3, position.getHourlyWage());

@@ -1,83 +1,82 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.domain.Associates;
-import com.solvd.bank.persistence.IBaseRepository;
+import com.solvd.bank.domain.Associate;
+import com.solvd.bank.persistence.AssociatesRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 
-public class AssociatesJdbcImpl extends BaseClassJdbcImpl<Associates> implements IBaseRepository<Associates> {
+public class AssociatesJdbcImpl extends BaseClassJdbcImpl<Associate> implements AssociatesRepository {
 
     @Override
-    public List<Associates> getAll() {
+    public List<Associate> getAll() {
         String query = "SELECT * FROM associates;";
         return executeStatement(query, "getAll");
     }
 
     @Override
-    public Associates getAllHelper(ResultSet resultSet) throws SQLException {
-        Associates associates = new Associates();
-        associates.setId(resultSet.getInt("id"));
-        associates.setLocation(new LocationsJdbcImpl().getEntityById(resultSet.getInt("location_id")));
-        associates.setPrimaryName(resultSet.getString("primary_name"));
-        associates.setSecondaryName(resultSet.getString("secondary_name"));
-        associates.setDateJoined(resultSet.getTimestamp("date_joined"));
-        associates.setEmail(resultSet.getString("email"));
-        associates.setPhoneNumber(resultSet.getString("phone_number"));
-        return associates;
+    public Associate getAllHelper(ResultSet resultSet) throws SQLException {
+        Associate associate = new Associate();
+        associate.setId(resultSet.getInt("id"));
+        associate.setLocation(new LocationsJdbcImpl().getEntityById(resultSet.getInt("location_id")));
+        associate.setPrimaryName(resultSet.getString("primary_name"));
+        associate.setSecondaryName(resultSet.getString("secondary_name"));
+        associate.setDateJoined(resultSet.getTimestamp("date_joined"));
+        associate.setEmail(resultSet.getString("email"));
+        associate.setPhoneNumber(resultSet.getString("phone_number"));
+        return associate;
     }
 
     @Override
-    public Associates getEntityById(int id) {
+    public Associate getEntityById(int id) {
         String query = "SELECT * FROM associates WHERE id = (?);";
         return executeStatement(query, "getEntityById", id).get(0);
     }
 
     @Override
-    public Associates getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
+    public Associate getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
         return processResultSet(preparedStatement).get(0);
     }
 
     @Override
-    public void saveEntity(Associates associates) {
+    public void saveEntity(Associate associate) {
         String query = "INSERT INTO associates (location_id, primary_name, secondary_name, date_joined, email, phone_number) VALUES ((?), (?), (?), (?), (?), (?))";
-        executeStatement(query, "saveEntity", associates);
+        executeStatement(query, "saveEntity", associate);
     }
 
     @Override
-    public void saveEntityHelper(PreparedStatement preparedStatement, Associates associates) throws SQLException {
-        preparedStatement.setInt(1, associates.getLocation().getId());
-        preparedStatement.setString(2, associates.getPrimaryName());
-        preparedStatement.setString(3, associates.getSecondaryName());
-        preparedStatement.setTimestamp(4, associates.getDateJoined());
-        preparedStatement.setString(5, associates.getEmail());
-        preparedStatement.setString(6, associates.getPhoneNumber());
+    public void saveEntityHelper(PreparedStatement preparedStatement, Associate associate) throws SQLException {
+        preparedStatement.setInt(1, associate.getLocation().getId());
+        preparedStatement.setString(2, associate.getPrimaryName());
+        preparedStatement.setString(3, associate.getSecondaryName());
+        preparedStatement.setTimestamp(4, associate.getDateJoined());
+        preparedStatement.setString(5, associate.getEmail());
+        preparedStatement.setString(6, associate.getPhoneNumber());
 
         Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
         if (autoIncrementValue != null) {
-            associates.setId(autoIncrementValue);
+            associate.setId(autoIncrementValue);
         }
     }
 
     @Override
-    public void updateEntity(Associates associates) {
+    public void updateEntity(Associate associate) {
         String query = "UPDATE associates SET location_id = (?), primary_name = (?), secondary_name = (?), date_joined = (?), email = (?), phone_number = (?) WHERE id = (?)";
-        executeStatement(query, "updateEntity", associates);
+        executeStatement(query, "updateEntity", associate);
     }
 
     @Override
-    public void updateEntityHelper(PreparedStatement preparedStatement, Associates associates) throws SQLException {
-        preparedStatement.setInt(1, associates.getLocation().getId());
-        preparedStatement.setString(2, associates.getPrimaryName());
-        preparedStatement.setString(3, associates.getSecondaryName());
-        preparedStatement.setTimestamp(4, associates.getDateJoined());
-        preparedStatement.setString(5, associates.getEmail());
-        preparedStatement.setString(6, associates.getPhoneNumber());
-        preparedStatement.setInt(7, associates.getId());
+    public void updateEntityHelper(PreparedStatement preparedStatement, Associate associate) throws SQLException {
+        preparedStatement.setInt(1, associate.getLocation().getId());
+        preparedStatement.setString(2, associate.getPrimaryName());
+        preparedStatement.setString(3, associate.getSecondaryName());
+        preparedStatement.setTimestamp(4, associate.getDateJoined());
+        preparedStatement.setString(5, associate.getEmail());
+        preparedStatement.setString(6, associate.getPhoneNumber());
+        preparedStatement.setInt(7, associate.getId());
         preparedStatement.executeUpdate();
     }
 

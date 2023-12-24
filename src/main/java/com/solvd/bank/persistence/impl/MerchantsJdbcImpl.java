@@ -1,66 +1,66 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.domain.Merchants;
-import com.solvd.bank.persistence.IBaseRepository;
+import com.solvd.bank.domain.Merchant;
+import com.solvd.bank.persistence.MerchantsRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MerchantsJdbcImpl extends BaseClassJdbcImpl<Merchants> implements IBaseRepository<Merchants> {
+public class MerchantsJdbcImpl extends BaseClassJdbcImpl<Merchant> implements MerchantsRepository {
 
     @Override
-    public List<Merchants> getAll() {
+    public List<Merchant> getAll() {
         String query = "SELECT * FROM merchants;";
         return executeStatement(query, "getAll");
     }
 
     @Override
-    public Merchants getAllHelper(ResultSet resultSet) throws SQLException {
-        Merchants merchants = new Merchants();
-        merchants.setAssociate(new AssociatesJdbcImpl().getEntityById(resultSet.getInt("associate_id")));
-        return merchants;
+    public Merchant getAllHelper(ResultSet resultSet) throws SQLException {
+        Merchant merchant = new Merchant();
+        merchant.setAssociate(new AssociatesJdbcImpl().getEntityById(resultSet.getInt("associate_id")));
+        return merchant;
     }
 
     @Override
-    public Merchants getEntityById(int id) {
+    public Merchant getEntityById(int id) {
         String query = "SELECT * FROM merchants WHERE associate_id = (?);";
         return executeStatement(query, "getEntityById", id).get(0);
     }
 
     @Override
-    public Merchants getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
+    public Merchant getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
         return processResultSet(preparedStatement).get(0);
     }
 
     @Override
-    public void saveEntity(Merchants merchants) {
+    public void saveEntity(Merchant merchant) {
         String query = "INSERT INTO merchants (associate_id) VALUES ((?))";
-        executeStatement(query, "saveEntity", merchants);
+        executeStatement(query, "saveEntity", merchant);
     }
 
     @Override
-    public void saveEntityHelper(PreparedStatement preparedStatement, Merchants merchants) throws SQLException {
-        preparedStatement.setInt(1, merchants.getAssociate().getId());
+    public void saveEntityHelper(PreparedStatement preparedStatement, Merchant merchant) throws SQLException {
+        preparedStatement.setInt(1, merchant.getAssociate().getId());
 
         Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
         if (autoIncrementValue != null) {
-            merchants.setAssociate(new AssociatesJdbcImpl().getEntityById(autoIncrementValue));
+            merchant.setAssociate(new AssociatesJdbcImpl().getEntityById(autoIncrementValue));
         }
     }
 
     @Override
-    public void updateEntity(Merchants merchants) {
+    public void updateEntity(Merchant merchant) {
         String query = "UPDATE merchants SET associate_id = (?) WHERE associate_id = (?)";
-        executeStatement(query, "updateEntity", merchants);
+        executeStatement(query, "updateEntity", merchant);
     }
 
     @Override
-    public void updateEntityHelper(PreparedStatement preparedStatement, Merchants merchants) throws SQLException {
-        preparedStatement.setInt(1, merchants.getAssociate().getId());
-        preparedStatement.setInt(2, merchants.getAssociate().getId());
+    public void updateEntityHelper(PreparedStatement preparedStatement, Merchant merchant) throws SQLException {
+        preparedStatement.setInt(1, merchant.getAssociate().getId());
+        preparedStatement.setInt(2, merchant.getAssociate().getId());
         preparedStatement.executeUpdate();
     }
 

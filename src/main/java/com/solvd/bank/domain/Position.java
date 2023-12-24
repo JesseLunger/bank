@@ -1,6 +1,6 @@
 package com.solvd.bank.domain;
 
-public class Positions {
+public class Position {
 
     private int id;
     private String position;

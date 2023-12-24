@@ -1,25 +1,24 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.domain.Cards;
-import com.solvd.bank.persistence.IBaseRepository;
+import com.solvd.bank.domain.Card;
+import com.solvd.bank.persistence.CardsRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 
-public class CardsJdbcImpl extends BaseClassJdbcImpl<Cards> implements IBaseRepository<Cards> {
+public class CardsJdbcImpl extends BaseClassJdbcImpl<Card> implements CardsRepository {
 
     @Override
-    public List<Cards> getAll() {
+    public List<Card> getAll() {
         String query = "SELECT * FROM cards;";
         return executeStatement(query, "getAll");
     }
 
     @Override
-    public Cards getAllHelper(ResultSet resultSet) throws SQLException {
-        Cards card = new Cards();
+    public Card getAllHelper(ResultSet resultSet) throws SQLException {
+        Card card = new Card();
         card.setId(resultSet.getInt("id"));
         card.setAccount(new AccountsJdbcImpl().getEntityById(resultSet.getInt("account_id")));
         card.setCardNumber(resultSet.getString("card_number"));
@@ -29,26 +28,26 @@ public class CardsJdbcImpl extends BaseClassJdbcImpl<Cards> implements IBaseRepo
     }
 
     @Override
-    public Cards getEntityById(int id) {
+    public Card getEntityById(int id) {
         String query = "SELECT * FROM cards WHERE id = (?);";
         return executeStatement(query, "getEntityById", id).get(0);
     }
 
     @Override
-    public Cards getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
+    public Card getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
         return processResultSet(preparedStatement).get(0);
     }
 
     @Override
-    public void saveEntity(Cards card) {
+    public void saveEntity(Card card) {
         String query = "INSERT INTO cards (account_id, card_number, expiration_date, cvv) " +
                 "VALUES ((?), (?), (?), (?))";
         executeStatement(query, "saveEntity", card);
     }
 
     @Override
-    public void saveEntityHelper(PreparedStatement preparedStatement, Cards card) throws SQLException {
+    public void saveEntityHelper(PreparedStatement preparedStatement, Card card) throws SQLException {
         preparedStatement.setInt(1, card.getAccount().getId());
         preparedStatement.setString(2, card.getCardNumber());
         preparedStatement.setTimestamp(3, card.getExpirationDate());
@@ -61,14 +60,14 @@ public class CardsJdbcImpl extends BaseClassJdbcImpl<Cards> implements IBaseRepo
     }
 
     @Override
-    public void updateEntity(Cards card) {
+    public void updateEntity(Card card) {
         String query = "UPDATE cards SET account_id = (?), card_number = (?), " +
                 "expiration_date = (?), cvv = (?) WHERE id = (?);";
         executeStatement(query, "updateEntity", card);
     }
 
     @Override
-    public void updateEntityHelper(PreparedStatement preparedStatement, Cards card) throws SQLException {
+    public void updateEntityHelper(PreparedStatement preparedStatement, Card card) throws SQLException {
         preparedStatement.setInt(1, card.getAccount().getId());
         preparedStatement.setString(2, card.getCardNumber());
         preparedStatement.setTimestamp(3, card.getExpirationDate());

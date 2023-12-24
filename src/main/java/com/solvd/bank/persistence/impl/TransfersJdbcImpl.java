@@ -1,25 +1,24 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.domain.Transfers;
-import com.solvd.bank.persistence.IBaseRepository;
+import com.solvd.bank.domain.Transfer;
+import com.solvd.bank.persistence.TransfersRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 
-public class TransfersJdbcImpl extends BaseClassJdbcImpl<Transfers> implements IBaseRepository<Transfers> {
+public class TransfersJdbcImpl extends BaseClassJdbcImpl<Transfer> implements TransfersRepository {
 
     @Override
-    public List<Transfers> getAll() {
+    public List<Transfer> getAll() {
         String query = "SELECT * FROM transfers;";
         return executeStatement(query, "getAll");
     }
 
     @Override
-    public Transfers getAllHelper(ResultSet resultSet) throws SQLException {
-        Transfers transfer = new Transfers();
+    public Transfer getAllHelper(ResultSet resultSet) throws SQLException {
+        Transfer transfer = new Transfer();
         transfer.setId(resultSet.getInt("id"));
         transfer.setSender(new AccountsJdbcImpl().getEntityById(resultSet.getInt("sender_account_id")));
         transfer.setReceiver(new AccountsJdbcImpl().getEntityById(resultSet.getInt("receiver_account_id")));
@@ -30,26 +29,26 @@ public class TransfersJdbcImpl extends BaseClassJdbcImpl<Transfers> implements I
     }
 
     @Override
-    public Transfers getEntityById(int id) {
+    public Transfer getEntityById(int id) {
         String query = "SELECT * FROM transfers WHERE id = (?);";
         return executeStatement(query, "getEntityById", id).get(0);
     }
 
     @Override
-    public Transfers getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
+    public Transfer getEntityByIdHelper(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
         return processResultSet(preparedStatement).get(0);
     }
 
     @Override
-    public void saveEntity(Transfers transfer) {
+    public void saveEntity(Transfer transfer) {
         String query = "INSERT INTO transfers (sender_account_id, receiver_account_id, status_id, transfer_time, amount) " +
                 "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", transfer);
     }
 
     @Override
-    public void saveEntityHelper(PreparedStatement preparedStatement, Transfers transfer) throws SQLException {
+    public void saveEntityHelper(PreparedStatement preparedStatement, Transfer transfer) throws SQLException {
         preparedStatement.setInt(1, transfer.getSender().getId());
         preparedStatement.setInt(2, transfer.getReceiver().getId());
         preparedStatement.setInt(3, transfer.getStatusId());
@@ -63,14 +62,14 @@ public class TransfersJdbcImpl extends BaseClassJdbcImpl<Transfers> implements I
     }
 
     @Override
-    public void updateEntity(Transfers transfer) {
+    public void updateEntity(Transfer transfer) {
         String query = "UPDATE transfers SET sender_account_id = (?), receiver_account_id = (?), " +
                 "status_id = (?), transfer_time = (?), amount = (?) WHERE id = (?);";
         executeStatement(query, "updateEntity", transfer);
     }
 
     @Override
-    public void updateEntityHelper(PreparedStatement preparedStatement, Transfers transfer) throws SQLException {
+    public void updateEntityHelper(PreparedStatement preparedStatement, Transfer transfer) throws SQLException {
         preparedStatement.setInt(1, transfer.getSender().getId());
         preparedStatement.setInt(2, transfer.getReceiver().getId());
         preparedStatement.setInt(3, transfer.getStatusId());
