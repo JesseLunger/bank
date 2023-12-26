@@ -1,36 +1,36 @@
 package com.solvd.bank.service;
 
 import com.solvd.bank.domain.TransferStatus;
-import com.solvd.bank.persistence.TransferStatusesRepository;
-import com.solvd.bank.persistence.impl.TransferStatusesJdbcImpl;
+import com.solvd.bank.persistence.ITransferStatusDAO;
+import com.solvd.bank.persistence.impl.TransferStatusDAO;
 
 import java.util.List;
 
 public class TransferStatusesService {
 
-    private final TransferStatusesRepository transferStatusesRepository;
+    private final ITransferStatusDAO I_TRANSFER_STATUS_DAO;
 
     public TransferStatusesService() {
-        this.transferStatusesRepository = new TransferStatusesJdbcImpl();
+        this.I_TRANSFER_STATUS_DAO = new TransferStatusDAO();
     }
 
     public List<TransferStatus> getAllTransferStatuses() {
-        return transferStatusesRepository.getAll();
+        return I_TRANSFER_STATUS_DAO.getAll();
     }
 
     public TransferStatus getTransferStatusById(int id) {
-        return transferStatusesRepository.getEntityById(id);
+        return I_TRANSFER_STATUS_DAO.getEntityById(id);
     }
 
     public void saveTransferStatus(TransferStatus transferStatus) {
-        transferStatusesRepository.saveEntity(transferStatus);
+        I_TRANSFER_STATUS_DAO.saveEntity(transferStatus);
     }
 
     public void updateTransferStatus(TransferStatus transferStatus) {
-        transferStatusesRepository.updateEntity(transferStatus);
+        I_TRANSFER_STATUS_DAO.updateEntity(transferStatus);
     }
 
     public void removeTransferStatusById(int id) {
-        transferStatusesRepository.removeEntityByID(id);
+        I_TRANSFER_STATUS_DAO.removeEntityByID(id);
     }
 }

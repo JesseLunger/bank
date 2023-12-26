@@ -1,36 +1,36 @@
 package com.solvd.bank.service;
 
 import com.solvd.bank.domain.Transfer;
-import com.solvd.bank.persistence.TransfersRepository;
-import com.solvd.bank.persistence.impl.TransfersJdbcImpl;
+import com.solvd.bank.persistence.ITransferDAO;
+import com.solvd.bank.persistence.impl.TransferDAO;
 
 import java.util.List;
 
 public class TransfersService {
 
-    private final TransfersRepository transfersRepository;
+    private final ITransferDAO I_TRANSFER_DAO;
 
     public TransfersService() {
-        this.transfersRepository = new TransfersJdbcImpl();
+        this.I_TRANSFER_DAO = new TransferDAO();
     }
 
     public List<Transfer> getAllTransfers() {
-        return transfersRepository.getAll();
+        return I_TRANSFER_DAO.getAll();
     }
 
     public Transfer getTransferById(int id) {
-        return transfersRepository.getEntityById(id);
+        return I_TRANSFER_DAO.getEntityById(id);
     }
 
     public void saveTransfer(Transfer transfer) {
-        transfersRepository.saveEntity(transfer);
+        I_TRANSFER_DAO.saveEntity(transfer);
     }
 
     public void updateTransfer(Transfer transfer) {
-        transfersRepository.updateEntity(transfer);
+        I_TRANSFER_DAO.updateEntity(transfer);
     }
 
     public void removeTransferById(int id) {
-        transfersRepository.removeEntityByID(id);
+        I_TRANSFER_DAO.removeEntityByID(id);
     }
 }

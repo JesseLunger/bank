@@ -1,0 +1,37 @@
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <properties resource="db.properties"/>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value= "${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/example/mappers/account-mapper.xml"/>
+        <mapper resource="com/example/mappers/associate-mapper.xml"/>
+        <mapper resource="com/example/mappers/branch-mapper.xml"/>
+        <mapper resource="com/example/mappers/branchHasEmployee-mapper.xml"/>
+        <mapper resource="com/example/mappers/card-mapper.xml"/>
+        <mapper resource="com/example/mappers/city-mapper.xml"/>
+        <mapper resource="com/example/mappers/country-mapper.xml"/>
+        <mapper resource="com/example/mappers/customer-mapper.xml"/>
+        <mapper resource="com/example/mappers/location-mapper.xml"/>
+        <mapper resource="com/example/mappers/merchant-mapper.xml"/>
+        <mapper resource="com/example/mappers/position-mapper.xml"/>
+        <mapper resource="com/example/mappers/staff-mapper.xml"/>
+        <mapper resource="com/example/mappers/transaction-mapper.xml"/>
+        <mapper resource="com/example/mappers/transfer-mapper.xml"/>
+        <mapper resource="com/example/mappers/transferStatus-mapper.xml"/>
+    </mappers>
+</configuration>

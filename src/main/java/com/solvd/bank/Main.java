@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         ConnectionPool.initializePool();
-        CountriesJdbcImpl countriesJdbc = new CountriesJdbcImpl();
+        CountryDAO countriesJdbc = new CountryDAO();
         Country testCountry = new Country();
         testCountry.setName("testCountry");
         countriesJdbc.saveEntity(testCountry);
