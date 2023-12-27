@@ -9,33 +9,33 @@ import java.util.List;
 
 public class LocationsServices {
 
-    private final ILocationDAO I_LOCATION_DAO;
+    private ILocationDAO locationDAO;
 
     public LocationsServices(){
-        I_LOCATION_DAO = new LocationDAO();
+        locationDAO = new LocationDAO();
     }
 
     public void updateCity(Location location, City city){
-        I_LOCATION_DAO.updateCity(location, city);
+        locationDAO.updateCity(location, city);
     }
 
     public List<Location> getAllLocations(){
-        return I_LOCATION_DAO.getAll();
+        return locationDAO.getAll();
     }
 
     public Location getLocationById(int id){
-        return I_LOCATION_DAO.getEntityById(id);
+        return locationDAO.getEntityById(id);
     }
 
     public void saveLocation(Location location){
-        I_LOCATION_DAO.saveEntity(location);
+        locationDAO.saveEntity(location);
     }
 
     public void updateLocation(Location location){
-        I_LOCATION_DAO.updateEntity(location);
+        locationDAO.updateEntity(location);
     }
 
     public void removeLocationById(int id){
-        I_LOCATION_DAO.removeEntityByID(id);
+        locationDAO.removeEntityByID(id);
     }
 }

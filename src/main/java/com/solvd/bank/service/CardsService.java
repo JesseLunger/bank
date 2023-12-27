@@ -10,33 +10,33 @@ import java.util.List;
 
 public class CardsService {
 
-    private final ICardDAO I_CARD_DAO;
+    private ICardDAO cardDAO;
 
     public CardsService() {
-        this.I_CARD_DAO = new CardDAO();
+        this.cardDAO = new CardDAO();
     }
 
     public ArrayList<Transaction> getAllTransActionsByCard(Card card){
-        return I_CARD_DAO.getAllTransactions(card);
+        return cardDAO.getAllTransactions(card);
     }
 
     public List<Card> getAllCards() {
-        return I_CARD_DAO.getAll();
+        return cardDAO.getAll();
     }
 
     public Card getCardById(int id) {
-        return I_CARD_DAO.getEntityById(id);
+        return cardDAO.getEntityById(id);
     }
 
     public void saveCard(Card card) {
-        I_CARD_DAO.saveEntity(card);
+        cardDAO.saveEntity(card);
     }
 
     public void updateCard(Card card) {
-        I_CARD_DAO.updateEntity(card);
+        cardDAO.updateEntity(card);
     }
 
     public void removeCardById(int id) {
-        I_CARD_DAO.removeEntityByID(id);
+        cardDAO.removeEntityByID(id);
     }
 }

@@ -8,4 +8,5 @@ import java.util.ArrayList;
 public interface IPositionDAO extends IBaseDAO<Position> {
 
     ArrayList<Branch> getBranchWithMissingPosition(Position position);
+
 }

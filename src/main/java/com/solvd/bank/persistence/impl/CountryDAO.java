@@ -42,7 +42,7 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
     }
 
     @Override
-    protected Country createEntity(ResultSet resultSet) throws SQLException {
+    public Country createEntity(ResultSet resultSet) throws SQLException {
         Country country = new Country();
         country.setId(resultSet.getInt("id"));
         country.setName(resultSet.getString("name"));
@@ -56,24 +56,23 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
     }
 
     @Override
-    protected Country prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    public void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
     public void saveEntity(Country country) {
         String query = "INSERT INTO countries (name) VALUES (?)";
         executeStatement(query, "saveEntity", country);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null){
+            country.setId(autoIncrementValue);
+        }
     }
 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, Country country) throws SQLException {
         preparedStatement.setString(1, country.getName());
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
-        if (autoIncrementValue != null) {
-            country.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -86,7 +85,6 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, Country country) throws SQLException {
         preparedStatement.setString(1, country.getName());
         preparedStatement.setInt(2, country.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -98,6 +96,5 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

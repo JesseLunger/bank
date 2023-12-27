@@ -9,33 +9,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CountriesService {
-    private final ICountryDAO I_COUNTRY_DAO;
+    private ICountryDAO countryDAO;
 
     public CountriesService(){
-        this.I_COUNTRY_DAO = new CountryDAO();
+        this.countryDAO = new CountryDAO();
     }
 
     public ArrayList<Location> getAllLocationsByCountry(Country country){
-        return I_COUNTRY_DAO.getAllLocationsByCountry(country);
+        return countryDAO.getAllLocationsByCountry(country);
     }
 
     public List<Country> getAllCountries(){
-        return I_COUNTRY_DAO.getAll();
+        return countryDAO.getAll();
     }
 
     public Country getCountryById(int id){
-        return I_COUNTRY_DAO.getEntityById(id);
+        return countryDAO.getEntityById(id);
     }
 
     public void saveCountry(Country country){
-        I_COUNTRY_DAO.saveEntity(country);
+        countryDAO.saveEntity(country);
     }
 
     public void updateCountry(Country country){
-        I_COUNTRY_DAO.updateEntity(country);
+        countryDAO.updateEntity(country);
     }
 
     public void removeCountryById(int id){
-        I_COUNTRY_DAO.removeEntityByID(id);
+        countryDAO.removeEntityByID(id);
     }
 }

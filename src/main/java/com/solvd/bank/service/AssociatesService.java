@@ -8,33 +8,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AssociatesService {
-    private final IAssociateDAO I_ASSOCIATE_DOA;
+    private IAssociateDAO associateDAO;
 
     public ArrayList<Associate> getAllByLocationId(int id){
-        return I_ASSOCIATE_DOA.getAllByLocationId(id);
+        return associateDAO.getAllByLocationId(id);
     }
 
     public AssociatesService(){
-        I_ASSOCIATE_DOA = new AssociateDAO();
+        associateDAO = new AssociateDAO();
     }
 
     public List<Associate> getAllAssociates(){
-        return I_ASSOCIATE_DOA.getAll();
+        return associateDAO.getAll();
     }
 
     public Associate getAssociateById(int id){
-        return I_ASSOCIATE_DOA.getEntityById(id);
+        return associateDAO.getEntityById(id);
     }
 
     public void saveAssociate(Associate associate){
-        I_ASSOCIATE_DOA.saveEntity(associate);
+        associateDAO.saveEntity(associate);
     }
 
     public void updateAssociates(Associate associate){
-        I_ASSOCIATE_DOA.updateEntity(associate);
+        associateDAO.updateEntity(associate);
     }
 
     public void removeAssociatesById(int id){
-        I_ASSOCIATE_DOA.removeEntityByID(id);
+        associateDAO.removeEntityByID(id);
     }
 }

@@ -10,33 +10,33 @@ import java.util.List;
 
 public class MerchantsService {
 
-    private final IMerchantDAO I_MERCHANT_DAO;
+    private IMerchantDAO merchantDAO;
 
     public MerchantsService() {
-        this.I_MERCHANT_DAO = new MerchantDAO();
+        this.merchantDAO = new MerchantDAO();
     }
 
     public ArrayList<Customer> getCustomersWithTransactions(Merchant merchant){
-        return I_MERCHANT_DAO.getCustomersWithTransactions(merchant);
+        return merchantDAO.getCustomersWithTransactions(merchant);
     }
 
     public List<Merchant> getAllMerchants() {
-        return I_MERCHANT_DAO.getAll();
+        return merchantDAO.getAll();
     }
 
     public Merchant getMerchantById(int id) {
-        return I_MERCHANT_DAO.getEntityById(id);
+        return merchantDAO.getEntityById(id);
     }
 
     public void saveMerchant(Merchant merchant) {
-        I_MERCHANT_DAO.saveEntity(merchant);
+        merchantDAO.saveEntity(merchant);
     }
 
     public void updateMerchant(Merchant merchant) {
-        I_MERCHANT_DAO.updateEntity(merchant);
+        merchantDAO.updateEntity(merchant);
     }
 
     public void removeMerchantById(int id) {
-        I_MERCHANT_DAO.removeEntityByID(id);
+        merchantDAO.removeEntityByID(id);
     }
 }

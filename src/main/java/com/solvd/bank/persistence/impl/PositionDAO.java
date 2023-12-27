@@ -2,7 +2,6 @@ package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.Position;
-import com.solvd.bank.domain.Staff;
 import com.solvd.bank.persistence.IPositionDAO;
 import com.solvd.bank.utils.ConnectionPool;
 
@@ -46,7 +45,7 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
     }
 
     @Override
-    protected Position createEntity(ResultSet resultSet) throws SQLException {
+    public Position createEntity(ResultSet resultSet) throws SQLException {
         Position position = new Position();
         position.setId(resultSet.getInt("id"));
         position.setPosition(resultSet.getString("position"));
@@ -62,9 +61,8 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
     }
 
     @Override
-    protected Position prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -78,8 +76,7 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
         preparedStatement.setString(1, position.getPosition());
         preparedStatement.setDouble(2, position.getSalary());
         preparedStatement.setDouble(3, position.getHourlyWage());
-
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
+        Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
             position.setId(autoIncrementValue);
         }
@@ -97,7 +94,6 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
         preparedStatement.setDouble(2, position.getSalary());
         preparedStatement.setDouble(3, position.getHourlyWage());
         preparedStatement.setInt(4, position.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -109,6 +105,5 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

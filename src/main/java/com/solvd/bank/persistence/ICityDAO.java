@@ -7,5 +7,6 @@ import java.util.ArrayList;
 
 public interface ICityDAO extends IBaseDAO<City> {
 
-    public ArrayList<Location> getLocationsByCity(City city);
+    ArrayList<Location> getLocationsByCity(City city);
+
 }

@@ -14,16 +14,21 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
 
     @Override
     public ArrayList<Associate> getAllByLocationId(int id){
+        ArrayList<Associate> associates = new ArrayList<>();
         String query = "SELECT * FROM associates Where location_id = (?);";
         try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
             preparedStatement.setInt(1, id);
-            return getResultsFromStatement(preparedStatement);
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                AssociateDAO associateDAO = new AssociateDAO();
+                while (resultSet.next()){
+                    associates.add(associateDAO.createEntity(resultSet));
+                }
+            }
         } catch (InterruptedException | SQLException e){
             LOGGER.error(e.getMessage());
         }
-        return null;
+        return associates;
     }
 
     @Override
@@ -33,7 +38,7 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
     }
 
     @Override
-    protected Associate createEntity(ResultSet resultSet) throws SQLException {
+    public Associate createEntity(ResultSet resultSet) throws SQLException {
         Associate associate = new Associate();
         associate.setId(resultSet.getInt("id"));
         associate.setLocation(new LocationDAO().getEntityById(resultSet.getInt("location_id")));
@@ -52,15 +57,18 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
     }
 
     @Override
-    protected Associate prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
     public void saveEntity(Associate associate) {
         String query = "INSERT INTO associates (location_id, primary_name, secondary_name, date_joined, email, phone_number) VALUES ((?), (?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", associate);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null){
+            associate.setId(autoIncrementValue);
+        }
     }
 
     @Override
@@ -71,11 +79,6 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
         preparedStatement.setTimestamp(4, associate.getDateJoined());
         preparedStatement.setString(5, associate.getEmail());
         preparedStatement.setString(6, associate.getPhoneNumber());
-
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
-        if (autoIncrementValue != null) {
-            associate.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -93,7 +96,6 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
         preparedStatement.setString(5, associate.getEmail());
         preparedStatement.setString(6, associate.getPhoneNumber());
         preparedStatement.setInt(7, associate.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -105,6 +107,5 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

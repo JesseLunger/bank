@@ -16,7 +16,7 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
     }
 
     @Override
-    protected Staff createEntity(ResultSet resultSet) throws SQLException {
+    public Staff createEntity(ResultSet resultSet) throws SQLException {
         Staff staff = new Staff();
         staff.setAssociate(new AssociateDAO().getEntityById(resultSet.getInt("associate_id")));
         staff.setPosition(new PositionDAO().getEntityById(resultSet.getInt("position_id")));
@@ -31,9 +31,8 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
     }
 
     @Override
-    protected Staff prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -60,7 +59,6 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
         preparedStatement.setInt(1, staff.getPosition().getId());
         preparedStatement.setTimestamp(2, staff.getDateHired());
         preparedStatement.setInt(3, staff.getAssociate().getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -72,6 +70,5 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

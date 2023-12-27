@@ -9,33 +9,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CitiesService {
-    private final ICityDAO I_CITY_DAO;
+    private ICityDAO cityDAO;
 
     public CitiesService(){
-        I_CITY_DAO = new CityDAO();
+        cityDAO = new CityDAO();
     }
 
     public ArrayList<Location> getLocationsByCity(City city){
-        return I_CITY_DAO.getLocationsByCity(city);
+        return cityDAO.getLocationsByCity(city);
     }
 
     public List<City> getAllCities(){
-        return I_CITY_DAO.getAll();
+        return cityDAO.getAll();
     }
 
     public City getCityById(int id){
-        return I_CITY_DAO.getEntityById(id);
+        return cityDAO.getEntityById(id);
     }
 
     public void SaveCity(City city){
-        I_CITY_DAO.saveEntity(city);
+        cityDAO.saveEntity(city);
     }
 
     public void updateCity(City city){
-        I_CITY_DAO.updateEntity(city);
+        cityDAO.updateEntity(city);
     }
 
     public void removeCityById(int id){
-        I_CITY_DAO.removeEntityByID(id);
+        cityDAO.removeEntityByID(id);
     }
 }

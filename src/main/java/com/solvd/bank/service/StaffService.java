@@ -8,29 +8,29 @@ import java.util.List;
 
 public class StaffService {
 
-    private final IStaffDAO I_STAFF_DAO;
+    private IStaffDAO staffDAO;
 
     public StaffService() {
-        this.I_STAFF_DAO = new StaffDAO();
+        this.staffDAO = new StaffDAO();
     }
 
     public List<Staff> getAllStaff() {
-        return I_STAFF_DAO.getAll();
+        return staffDAO.getAll();
     }
 
     public Staff getStaffById(int id) {
-        return I_STAFF_DAO.getEntityById(id);
+        return staffDAO.getEntityById(id);
     }
 
     public void saveStaff(Staff staff) {
-        I_STAFF_DAO.saveEntity(staff);
+        staffDAO.saveEntity(staff);
     }
 
     public void updateStaff(Staff staff) {
-        I_STAFF_DAO.updateEntity(staff);
+        staffDAO.updateEntity(staff);
     }
 
     public void removeStaffById(int id) {
-        I_STAFF_DAO.removeEntityByID(id);
+        staffDAO.removeEntityByID(id);
     }
 }

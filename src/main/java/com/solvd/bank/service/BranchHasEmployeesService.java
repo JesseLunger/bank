@@ -11,33 +11,33 @@ import java.util.List;
 
 public class BranchHasEmployeesService {
 
-    private final IBranchHasEmployeeDAO I_BRANCH_HAS_EMPLOYEE_DAO;
+    private IBranchHasEmployeeDAO branchHasEmployeeDAO;
 
     public BranchHasEmployeesService() {
-        this.I_BRANCH_HAS_EMPLOYEE_DAO = new BranchHasEmployeeDAO();
+        this.branchHasEmployeeDAO = new BranchHasEmployeeDAO();
     }
 
     public ArrayList<Staff> getAllByBranch(Branch branch){
-        return I_BRANCH_HAS_EMPLOYEE_DAO.getAllStaffByBranch(branch);
+        return branchHasEmployeeDAO.getAllStaffByBranch(branch);
     }
 
     public List<BranchHasEmployee> getAllBranchHasEmployees() {
-        return I_BRANCH_HAS_EMPLOYEE_DAO.getAll();
+        return branchHasEmployeeDAO.getAll();
     }
 
     public BranchHasEmployee getBranchHasEmployeesById(int id) {
-        return I_BRANCH_HAS_EMPLOYEE_DAO.getEntityById(id);
+        return branchHasEmployeeDAO.getEntityById(id);
     }
 
     public void saveBranchHasEmployees(BranchHasEmployee branchHasEmployee) {
-        I_BRANCH_HAS_EMPLOYEE_DAO.saveEntity(branchHasEmployee);
+        branchHasEmployeeDAO.saveEntity(branchHasEmployee);
     }
 
     public void updateBranchHasEmployees(BranchHasEmployee branchHasEmployee) {
-        I_BRANCH_HAS_EMPLOYEE_DAO.updateEntity(branchHasEmployee);
+        branchHasEmployeeDAO.updateEntity(branchHasEmployee);
     }
 
     public void removeBranchHasEmployeesById(int id) {
-        I_BRANCH_HAS_EMPLOYEE_DAO.removeEntityByID(id);
+        branchHasEmployeeDAO.removeEntityByID(id);
     }
 }

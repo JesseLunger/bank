@@ -14,15 +14,21 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
 
     @Override
     public ArrayList<Branch> getAllByLocationId(int id){
+        ArrayList<Branch> branches = new ArrayList<>();
         String query = "SELECT * FROM branches WHERE location_id = (?)";
         try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setInt(1, id);
-            return  getResultsFromStatement(preparedStatement);
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                BranchDAO branchDAO = new BranchDAO();
+                while (resultSet.next()){
+                    branches.add(branchDAO.createEntity(resultSet));
+                }
+            }
         } catch (InterruptedException | SQLException e){
             LOGGER.error(e.getMessage());
         }
-        return null;
+        return branches;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
     }
 
     @Override
-    protected Branch createEntity(ResultSet resultSet) throws SQLException {
+    public Branch createEntity(ResultSet resultSet) throws SQLException {
         Branch branch = new Branch();
         branch.setId(resultSet.getInt("id"));
         branch.setLocation(new LocationDAO().getEntityById(resultSet.getInt("location_id")));
@@ -47,9 +53,8 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
     }
 
     @Override
-    protected Branch prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -62,8 +67,7 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
     protected void prepareSaveStatement(PreparedStatement preparedStatement, Branch branch) throws SQLException {
         preparedStatement.setInt(1, branch.getLocation().getId());
         preparedStatement.setString(2, branch.getBranchName());
-
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
+        Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
             branch.setId(autoIncrementValue);
         }
@@ -80,7 +84,6 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
         preparedStatement.setInt(1, branch.getLocation().getId());
         preparedStatement.setString(2, branch.getBranchName());
         preparedStatement.setInt(3, branch.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -92,6 +95,5 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

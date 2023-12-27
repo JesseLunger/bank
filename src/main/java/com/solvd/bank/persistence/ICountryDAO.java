@@ -7,5 +7,6 @@ import java.util.ArrayList;
 
 public interface ICountryDAO extends IBaseDAO<Country> {
 
-    public ArrayList<Location> getAllLocationsByCountry(Country country);
+    ArrayList<Location> getAllLocationsByCountry(Country country);
+
 }

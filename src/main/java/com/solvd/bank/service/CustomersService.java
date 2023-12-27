@@ -8,29 +8,29 @@ import java.util.List;
 
 public class CustomersService {
 
-    private final ICustomersDAO I_CUSTOMER_DAO;
+    private ICustomersDAO customersDAO;
 
     public CustomersService() {
-        this.I_CUSTOMER_DAO = new CustomerDAO();
+        this.customersDAO = new CustomerDAO();
     }
 
     public List<Customer> getAllCustomers() {
-        return I_CUSTOMER_DAO.getAll();
+        return customersDAO.getAll();
     }
 
     public Customer getCustomerById(int id) {
-        return I_CUSTOMER_DAO.getEntityById(id);
+        return customersDAO.getEntityById(id);
     }
 
     public void saveCustomer(Customer customer) {
-        I_CUSTOMER_DAO.saveEntity(customer);
+        customersDAO.saveEntity(customer);
     }
 
     public void updateCustomer(Customer customer) {
-        I_CUSTOMER_DAO.updateEntity(customer);
+        customersDAO.updateEntity(customer);
     }
 
     public void removeCustomerById(int id) {
-        I_CUSTOMER_DAO.removeEntityByID(id);
+        customersDAO.removeEntityByID(id);
     }
 }

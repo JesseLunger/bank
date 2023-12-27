@@ -6,5 +6,6 @@ import com.solvd.bank.domain.Location;
 
 public interface ILocationDAO extends IBaseDAO<Location> {
 
-    public void updateCity(Location location, City city);
+    void updateCity(Location location, City city);
+
 }

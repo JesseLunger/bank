@@ -40,7 +40,7 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
     }
 
     @Override
-    protected Account createEntity(ResultSet resultSet) throws SQLException {
+    public Account createEntity(ResultSet resultSet) throws SQLException {
         Account account = new Account();
         account.setId(resultSet.getInt("id"));
         account.setBranch(new BranchDAO().getEntityById(resultSet.getInt("branch_id")));
@@ -58,9 +58,8 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
     }
 
     @Override
-    protected Account prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -78,10 +77,7 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
         preparedStatement.setTimestamp(4, account.getDateCreated());
         preparedStatement.setBoolean(5, account.isHolds());
 
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
-        if (autoIncrementValue != null) {
-            account.setId(autoIncrementValue);
-        }
+
     }
 
     @Override
@@ -99,7 +95,6 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
         preparedStatement.setTimestamp(4, account.getDateCreated());
         preparedStatement.setBoolean(5, account.isHolds());
         preparedStatement.setInt(6, account.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -111,6 +106,5 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

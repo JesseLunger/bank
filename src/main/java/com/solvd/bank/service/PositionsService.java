@@ -10,33 +10,33 @@ import java.util.List;
 
 public class PositionsService {
 
-    private final IPositionDAO I_POSITION_DAO;
+    private IPositionDAO positionDAO;
 
     public PositionsService() {
-        this.I_POSITION_DAO = new PositionDAO();
+        this.positionDAO = new PositionDAO();
     }
 
     public ArrayList<Branch> getBranchWithMissingPosition(Position position){
-        return I_POSITION_DAO.getBranchWithMissingPosition(position);
+        return positionDAO.getBranchWithMissingPosition(position);
     }
 
     public List<Position> getAllPositions() {
-        return I_POSITION_DAO.getAll();
+        return positionDAO.getAll();
     }
 
     public Position getPositionById(int id) {
-        return I_POSITION_DAO.getEntityById(id);
+        return positionDAO.getEntityById(id);
     }
 
     public void savePosition(Position position) {
-        I_POSITION_DAO.saveEntity(position);
+        positionDAO.saveEntity(position);
     }
 
     public void updatePosition(Position position) {
-        I_POSITION_DAO.updateEntity(position);
+        positionDAO.updateEntity(position);
     }
 
     public void removePositionById(int id) {
-        I_POSITION_DAO.removeEntityByID(id);
+        positionDAO.removeEntityByID(id);
     }
 }

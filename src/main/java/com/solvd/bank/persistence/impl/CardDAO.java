@@ -1,6 +1,7 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.Card;
+import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.utils.ConnectionPool;
 
@@ -39,7 +40,7 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
     }
 
     @Override
-    protected Card createEntity(ResultSet resultSet) throws SQLException {
+    public Card createEntity(ResultSet resultSet) throws SQLException {
         Card card = new Card();
         card.setId(resultSet.getInt("id"));
         card.setAccount(new AccountDAO().getEntityById(resultSet.getInt("account_id")));
@@ -56,9 +57,8 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
     }
 
     @Override
-    protected Card prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -66,6 +66,10 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
         String query = "INSERT INTO cards (account_id, card_number, expiration_date, cvv) " +
                 "VALUES ((?), (?), (?), (?))";
         executeStatement(query, "saveEntity", card);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null){
+            card.setId(autoIncrementValue);
+        }
     }
 
     @Override
@@ -74,11 +78,6 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
         preparedStatement.setString(2, card.getCardNumber());
         preparedStatement.setTimestamp(3, card.getExpirationDate());
         preparedStatement.setString(4, card.getCvv());
-
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
-        if (autoIncrementValue != null) {
-            card.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -95,7 +94,6 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
         preparedStatement.setTimestamp(3, card.getExpirationDate());
         preparedStatement.setString(4, card.getCvv());
         preparedStatement.setInt(5, card.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -107,6 +105,5 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

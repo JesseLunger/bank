@@ -35,9 +35,8 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
     }
 
     @Override
-    protected Transaction prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -54,8 +53,7 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
         preparedStatement.setInt(3, transaction.getStatusId());
         preparedStatement.setTimestamp(4, transaction.getTime());
         preparedStatement.setDouble(5, transaction.getAmount());
-
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
+        Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
             transaction.setId(autoIncrementValue);
         }
@@ -76,7 +74,6 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
         preparedStatement.setTimestamp(4, transaction.getTime());
         preparedStatement.setDouble(5, transaction.getAmount());
         preparedStatement.setInt(6, transaction.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -88,6 +85,5 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

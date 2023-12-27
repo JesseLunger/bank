@@ -1,7 +1,6 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.City;
-import com.solvd.bank.domain.Country;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ILocationDAO;
 import com.solvd.bank.utils.ConnectionPool;
@@ -35,7 +34,7 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
         return executeStatement(query, "getAll");
     }
     @Override
-    protected Location createEntity(ResultSet resultSet) throws SQLException{
+    public Location createEntity(ResultSet resultSet) throws SQLException{
         Location location = new Location();
         location.setId(resultSet.getInt("id"));
         location.setCity(new CityDAO().getEntityById(resultSet.getInt("city_id")));
@@ -51,9 +50,8 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     }
 
     @Override
-    protected Location prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException{
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException{
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -67,7 +65,7 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
             preparedStatement.setInt(1, location.getCity().getId());
             preparedStatement.setString(2, location.getZipCode());
             preparedStatement.setString(3, location.getAddress());
-            Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
+            Integer autoIncrementValue = getAutoIncrementValue();
             if (autoIncrementValue != null){
                 location.setId(autoIncrementValue);
             }
@@ -86,7 +84,6 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
         preparedStatement.setString(2, location.getZipCode());
         preparedStatement.setString(1, location.getAddress());
         preparedStatement.setInt(4, location.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -98,7 +95,5 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException{
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
-
     }
 }

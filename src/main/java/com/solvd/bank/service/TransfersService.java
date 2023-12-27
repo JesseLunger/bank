@@ -8,29 +8,29 @@ import java.util.List;
 
 public class TransfersService {
 
-    private final ITransferDAO I_TRANSFER_DAO;
+    private ITransferDAO transferDAO;
 
     public TransfersService() {
-        this.I_TRANSFER_DAO = new TransferDAO();
+        this.transferDAO = new TransferDAO();
     }
 
     public List<Transfer> getAllTransfers() {
-        return I_TRANSFER_DAO.getAll();
+        return transferDAO.getAll();
     }
 
     public Transfer getTransferById(int id) {
-        return I_TRANSFER_DAO.getEntityById(id);
+        return transferDAO.getEntityById(id);
     }
 
     public void saveTransfer(Transfer transfer) {
-        I_TRANSFER_DAO.saveEntity(transfer);
+        transferDAO.saveEntity(transfer);
     }
 
     public void updateTransfer(Transfer transfer) {
-        I_TRANSFER_DAO.updateEntity(transfer);
+        transferDAO.updateEntity(transfer);
     }
 
     public void removeTransferById(int id) {
-        I_TRANSFER_DAO.removeEntityByID(id);
+        transferDAO.removeEntityByID(id);
     }
 }

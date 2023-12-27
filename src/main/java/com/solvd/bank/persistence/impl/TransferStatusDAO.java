@@ -18,7 +18,7 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
     }
 
     @Override
-    protected TransferStatus createEntity(ResultSet resultSet) throws SQLException {
+    public TransferStatus createEntity(ResultSet resultSet) throws SQLException {
         TransferStatus transferStatus = new TransferStatus();
         transferStatus.setId(resultSet.getInt("id"));
         transferStatus.setStatus(resultSet.getString("status"));
@@ -32,9 +32,8 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
     }
 
     @Override
-    protected TransferStatus prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, TransferStatus transferStatus) throws SQLException {
         preparedStatement.setString(1, transferStatus.getStatus());
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
+        Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
             transferStatus.setId(autoIncrementValue);
         }
@@ -62,7 +61,6 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, TransferStatus transferStatus) throws SQLException {
         preparedStatement.setString(1, transferStatus.getStatus());
         preparedStatement.setInt(2, transferStatus.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -74,6 +72,5 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

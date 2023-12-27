@@ -17,7 +17,7 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
     }
 
     @Override
-    protected Transfer createEntity(ResultSet resultSet) throws SQLException {
+    public Transfer createEntity(ResultSet resultSet) throws SQLException {
         Transfer transfer = new Transfer();
         transfer.setId(resultSet.getInt("id"));
         transfer.setSender(new AccountDAO().getEntityById(resultSet.getInt("sender_account_id")));
@@ -35,9 +35,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
     }
 
     @Override
-    protected Transfer prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -54,8 +53,7 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
         preparedStatement.setInt(3, transfer.getStatusId());
         preparedStatement.setTimestamp(4, transfer.getTime());
         preparedStatement.setDouble(5, transfer.getAmount());
-
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
+        Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
             transfer.setId(autoIncrementValue);
         }
@@ -76,7 +74,6 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
         preparedStatement.setTimestamp(4, transfer.getTime());
         preparedStatement.setDouble(5, transfer.getAmount());
         preparedStatement.setInt(6, transfer.getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -88,6 +85,5 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

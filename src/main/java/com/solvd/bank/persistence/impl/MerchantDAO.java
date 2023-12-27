@@ -45,7 +45,7 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     }
 
     @Override
-    protected Merchant createEntity(ResultSet resultSet) throws SQLException {
+    public Merchant createEntity(ResultSet resultSet) throws SQLException {
         Merchant merchant = new Merchant();
         merchant.setAssociate(new AssociateDAO().getEntityById(resultSet.getInt("associate_id")));
         return merchant;
@@ -58,9 +58,8 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     }
 
     @Override
-    protected Merchant prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -72,8 +71,7 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, Merchant merchant) throws SQLException {
         preparedStatement.setInt(1, merchant.getAssociate().getId());
-
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
+        Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
             merchant.setAssociate(new AssociateDAO().getEntityById(autoIncrementValue));
         }
@@ -89,7 +87,6 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, Merchant merchant) throws SQLException {
         preparedStatement.setInt(1, merchant.getAssociate().getId());
         preparedStatement.setInt(2, merchant.getAssociate().getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -101,6 +98,5 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }

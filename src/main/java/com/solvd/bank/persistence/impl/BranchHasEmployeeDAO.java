@@ -28,7 +28,7 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
     }
 
     @Override
-    protected BranchHasEmployee createEntity(ResultSet resultSet) throws SQLException {
+    public BranchHasEmployee createEntity(ResultSet resultSet) throws SQLException {
         BranchHasEmployee branchHasEmployee = new BranchHasEmployee();
         branchHasEmployee.setBranch(new BranchDAO().getEntityById(resultSet.getInt("branch_id")));
         branchHasEmployee.setStaff(new StaffDAO().getEntityById(resultSet.getInt("staff_id")));
@@ -42,9 +42,8 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
     }
 
     @Override
-    protected BranchHasEmployee prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException {
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
@@ -70,7 +69,6 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
         preparedStatement.setInt(1, branchHasEmployee.getBranch().getId());
         preparedStatement.setInt(2, branchHasEmployee.getStaff().getAssociate().getId());
         preparedStatement.setInt(3, branchHasEmployee.getStaff().getAssociate().getId());
-        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -82,7 +80,6 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 
 

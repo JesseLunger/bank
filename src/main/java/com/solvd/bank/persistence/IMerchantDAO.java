@@ -6,5 +6,6 @@ import com.solvd.bank.domain.Merchant;
 import java.util.ArrayList;
 
 public interface IMerchantDAO extends IBaseDAO<Merchant> {
-    public ArrayList<Customer> getCustomersWithTransactions(Merchant merchant);
+    ArrayList<Customer> getCustomersWithTransactions(Merchant merchant);
+
 }

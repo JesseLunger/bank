@@ -8,29 +8,29 @@ import java.util.List;
 
 public class TransactionsService {
 
-    private final ITransactionDAO I_TRANSACTION_DAO;
+    private ITransactionDAO transactionDAO;
 
     public TransactionsService() {
-        this.I_TRANSACTION_DAO = new TransactionDAO();
+        this.transactionDAO = new TransactionDAO();
     }
 
     public List<Transaction> getAllTransactions() {
-        return I_TRANSACTION_DAO.getAll();
+        return transactionDAO.getAll();
     }
 
     public Transaction getTransactionById(int id) {
-        return I_TRANSACTION_DAO.getEntityById(id);
+        return transactionDAO.getEntityById(id);
     }
 
     public void saveTransaction(Transaction transaction) {
-        I_TRANSACTION_DAO.saveEntity(transaction);
+        transactionDAO.saveEntity(transaction);
     }
 
     public void updateTransaction(Transaction transaction) {
-        I_TRANSACTION_DAO.updateEntity(transaction);
+        transactionDAO.updateEntity(transaction);
     }
 
     public void removeTransactionById(int id) {
-        I_TRANSACTION_DAO.removeEntityByID(id);
+        transactionDAO.removeEntityByID(id);
     }
 }

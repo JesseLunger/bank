@@ -39,7 +39,7 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
         return executeStatement(query, "getAll");
     }
     @Override
-    protected City createEntity(ResultSet resultSet) throws SQLException{
+    public City createEntity(ResultSet resultSet) throws SQLException{
         City city = new City();
         city.setId(resultSet.getInt("id"));
         city.setName(resultSet.getString("name"));
@@ -54,25 +54,24 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
     }
 
     @Override
-    protected City prepareCreateSingleEntityStatement(PreparedStatement preparedStatement, int id) throws SQLException{
+    public void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException{
         preparedStatement.setInt(1, id);
-        return getResultsFromStatement(preparedStatement).get(0);
     }
 
     @Override
     public void saveEntity(City city) {
         String query = "INSERT INTO cities (name, country_id) VALUES ((?), (?))";
         executeStatement(query, "saveEntity", city);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null){
+            city.setId(autoIncrementValue);
+        }
     }
 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, City city) throws SQLException {
         preparedStatement.setString(1, city.getName());
         preparedStatement.setInt(2, city.getCountry().getId());
-        Integer autoIncrementValue = getAutoIncrementValue(preparedStatement);
-        if (autoIncrementValue != null){
-            city.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -85,7 +84,6 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
         preparedStatement.setString(1, city.getName());
         preparedStatement.setInt(2, city.getCountry().getId());
         preparedStatement.setInt(3, city.getId());
-        preparedStatement.execute();
     }
 
     @Override
@@ -98,6 +96,5 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
     @Override
     protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException{
         preparedStatement.setInt(1, id);
-        preparedStatement.execute();
     }
 }
