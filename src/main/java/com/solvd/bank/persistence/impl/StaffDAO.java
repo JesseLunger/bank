@@ -1,5 +1,6 @@
 package com.solvd.bank.persistence.impl;
 
+import com.solvd.bank.domain.Position;
 import com.solvd.bank.domain.Staff;
 
 import java.sql.PreparedStatement;
@@ -8,6 +9,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.persistence.IStaffDAO {
+
+    @Override
+    public void updatePosition(Staff staff, Position position) {
+        staff.setPosition(position);
+        updateEntity(staff);
+    }
 
     @Override
     public List<Staff> getAll() {
@@ -62,7 +69,7 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM staff WHERE associate_id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

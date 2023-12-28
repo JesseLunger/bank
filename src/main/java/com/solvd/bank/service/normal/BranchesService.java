@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.normal;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.persistence.IBranchDAO;
@@ -11,31 +11,31 @@ public class BranchesService {
 
     private IBranchDAO branchDAO;
 
-    public BranchesService(){
+    public BranchesService() {
         branchDAO = new BranchDAO();
     }
 
-    public ArrayList<Branch> getAllByLocationId(int id){
+    public ArrayList<Branch> getAllByLocationId(int id) {
         return branchDAO.getAllByLocationId(id);
     }
 
-    public List<Branch> getAllBranches(){
+    public List<Branch> getAllBranches() {
         return branchDAO.getAll();
     }
 
-    public Branch getBranchById(int id){
+    public Branch getBranchById(int id) {
         return branchDAO.getEntityById(id);
     }
 
-    public void saveBranch(Branch branch){
+    public void saveBranch(Branch branch) {
         branchDAO.saveEntity(branch);
     }
 
-    public void updateBranch(Branch branch){
+    public void updateBranch(Branch branch) {
         branchDAO.updateEntity(branch);
     }
 
-    public void removeBranchById(int id){
-        branchDAO.removeEntityByID(id);
+    public void removeBranchById(int id) {
+        branchDAO.removeEntityById(id);
     }
 }

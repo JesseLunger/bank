@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.normal;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.BranchHasEmployee;
@@ -17,7 +17,7 @@ public class BranchHasEmployeesService {
         this.branchHasEmployeeDAO = new BranchHasEmployeeDAO();
     }
 
-    public ArrayList<Staff> getAllByBranch(Branch branch){
+    public ArrayList<Staff> getAllByBranch(Branch branch) {
         return branchHasEmployeeDAO.getAllStaffByBranch(branch);
     }
 
@@ -38,6 +38,6 @@ public class BranchHasEmployeesService {
     }
 
     public void removeBranchHasEmployeesById(int id) {
-        branchHasEmployeeDAO.removeEntityByID(id);
+        branchHasEmployeeDAO.removeEntityById(id);
     }
 }

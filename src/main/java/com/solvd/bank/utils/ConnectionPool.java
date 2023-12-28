@@ -28,7 +28,7 @@ public class ConnectionPool {
         }
     }
 
-    public static Connection getConnection() throws InterruptedException{
+    public static Connection getConnection() throws InterruptedException {
         initializePool();
         LOGGER.info(Thread.currentThread().getName() + " - Waiting for connection");
         return FREE_CONNECTIONS.take();

@@ -11,16 +11,19 @@ import java.util.ArrayList;
 public abstract class BaseClassDAO<Entity> {
 
     protected static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
-    public abstract Entity createEntity(ResultSet resultSet) throws SQLException;
-    protected abstract void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException;
-    protected abstract void prepareSaveStatement(PreparedStatement preparedStatement, Entity entity) throws SQLException;
-    protected abstract void prepareUpdateStatement(PreparedStatement preparedStatement, Entity entity) throws SQLException;
-    protected abstract void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException;
-
     protected Integer autoIncrementValue;
 
-    protected Integer getAutoIncrementValue(){
+    public abstract Entity createEntity(ResultSet resultSet) throws SQLException;
+
+    protected abstract void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException;
+
+    protected abstract void prepareSaveStatement(PreparedStatement preparedStatement, Entity entity) throws SQLException;
+
+    protected abstract void prepareUpdateStatement(PreparedStatement preparedStatement, Entity entity) throws SQLException;
+
+    protected abstract void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException;
+
+    protected Integer getAutoIncrementValue() {
         return autoIncrementValue;
     }
 
@@ -83,12 +86,11 @@ public abstract class BaseClassDAO<Entity> {
         }
     }
 
-
     private ArrayList<Entity> getResultsFromResultSet(ResultSet resultSet) throws SQLException {
         ArrayList<Entity> results = new ArrayList<>();
-        while (resultSet.next()){
-                results.add(createEntity(resultSet));
-            }
+        while (resultSet.next()) {
+            results.add(createEntity(resultSet));
+        }
         return results;
     }
 

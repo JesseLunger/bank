@@ -11,6 +11,12 @@ import java.util.List;
 public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomersDAO {
 
     @Override
+    public void updateCreditScore(Customer customer, double newScore) {
+        customer.setCreditScore(newScore);
+        updateEntity(customer);
+    }
+
+    @Override
     public List<Customer> getAll() {
         String query = "SELECT * FROM customers;";
         return executeStatement(query, "getAll");
@@ -20,7 +26,7 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomersDAO
     public Customer createEntity(ResultSet resultSet) throws SQLException {
         Customer customer = new Customer();
         customer.setAssociate(new AssociateDAO().getEntityById(resultSet.getInt("associate_id")));
-        customer.setCreditScore(resultSet.getString("credit_score"));
+        customer.setCreditScore(resultSet.getDouble("credit_score"));
         return customer;
     }
 
@@ -39,17 +45,16 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomersDAO
     public void saveEntity(Customer customer) {
         String query = "INSERT INTO customers (associate_id, credit_score) VALUES ((?), (?))";
         executeStatement(query, "saveEntity", customer);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            customer.setAssociate(new AssociateDAO().getEntityById(autoIncrementValue));
+        }
     }
 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, Customer customer) throws SQLException {
         preparedStatement.setInt(1, customer.getAssociate().getId());
-        preparedStatement.setString(2, customer.getCreditScore());
-
-        Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null) {
-            customer.setAssociate(new AssociateDAO().getEntityById(autoIncrementValue));
-        }
+        preparedStatement.setDouble(2, customer.getCreditScore());
     }
 
     @Override
@@ -61,12 +66,12 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomersDAO
     @Override
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, Customer customer) throws SQLException {
         preparedStatement.setInt(1, customer.getAssociate().getId());
-        preparedStatement.setString(2, customer.getCreditScore());
+        preparedStatement.setDouble(2, customer.getCreditScore());
         preparedStatement.setInt(3, customer.getAssociate().getId());
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM customers WHERE associate_id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.normal;
 
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
@@ -11,31 +11,31 @@ import java.util.List;
 public class CitiesService {
     private ICityDAO cityDAO;
 
-    public CitiesService(){
+    public CitiesService() {
         cityDAO = new CityDAO();
     }
 
-    public ArrayList<Location> getLocationsByCity(City city){
+    public ArrayList<Location> getLocationsByCity(City city) {
         return cityDAO.getLocationsByCity(city);
     }
 
-    public List<City> getAllCities(){
+    public List<City> getAllCities() {
         return cityDAO.getAll();
     }
 
-    public City getCityById(int id){
+    public City getCityById(int id) {
         return cityDAO.getEntityById(id);
     }
 
-    public void SaveCity(City city){
+    public void SaveCity(City city) {
         cityDAO.saveEntity(city);
     }
 
-    public void updateCity(City city){
+    public void updateCity(City city) {
         cityDAO.updateEntity(city);
     }
 
-    public void removeCityById(int id){
-        cityDAO.removeEntityByID(id);
+    public void removeCityById(int id) {
+        cityDAO.removeEntityById(id);
     }
 }

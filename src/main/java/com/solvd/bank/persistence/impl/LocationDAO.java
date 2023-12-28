@@ -16,14 +16,14 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     @Override
     public void updateCity(Location location, City city) {
         String query = "UPDATE locations SET cities_id = (?) WHERE id = (?);";
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, city.getId());
             preparedStatement.setInt(2, location.getId());
             preparedStatement.executeUpdate();
             location.setCity(city);
-        }catch (InterruptedException | SQLException e){
+        } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
     }
@@ -33,8 +33,9 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
         String query = "SELECT * FROM locations";
         return executeStatement(query, "getAll");
     }
+
     @Override
-    public Location createEntity(ResultSet resultSet) throws SQLException{
+    public Location createEntity(ResultSet resultSet) throws SQLException {
         Location location = new Location();
         location.setId(resultSet.getInt("id"));
         location.setCity(new CityDAO().getEntityById(resultSet.getInt("city_id")));
@@ -50,7 +51,7 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     }
 
     @Override
-    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException{
+    protected void prepareCreateStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
     }
 
@@ -58,18 +59,17 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     public void saveEntity(Location location) {
         String query = "INSERT INTO locations (city_id, zip_code, address) VALUES (?, ?, ?);";
         executeStatement(query, "saveEntity", location);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            location.setId(autoIncrementValue);
+        }
     }
 
     @Override
-    protected void prepareSaveStatement(PreparedStatement preparedStatement, Location location) throws SQLException{
-            preparedStatement.setInt(1, location.getCity().getId());
-            preparedStatement.setString(2, location.getZipCode());
-            preparedStatement.setString(3, location.getAddress());
-            Integer autoIncrementValue = getAutoIncrementValue();
-            if (autoIncrementValue != null){
-                location.setId(autoIncrementValue);
-            }
-
+    protected void prepareSaveStatement(PreparedStatement preparedStatement, Location location) throws SQLException {
+        preparedStatement.setInt(1, location.getCity().getId());
+        preparedStatement.setString(2, location.getZipCode());
+        preparedStatement.setString(3, location.getAddress());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     }
 
     @Override
-    protected void prepareUpdateStatement(PreparedStatement preparedStatement, Location location) throws SQLException{
+    protected void prepareUpdateStatement(PreparedStatement preparedStatement, Location location) throws SQLException {
         preparedStatement.setInt(1, location.getCity().getId());
         preparedStatement.setString(2, location.getZipCode());
         preparedStatement.setString(1, location.getAddress());
@@ -87,13 +87,13 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM locations WHERE id = ?";
         executeStatement(query, "removeEntityById", id);
     }
 
     @Override
-    protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException{
+    protected void prepareRemoveStatement(PreparedStatement preparedStatement, int id) throws SQLException {
         preparedStatement.setInt(1, id);
     }
 }

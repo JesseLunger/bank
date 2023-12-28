@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.normal;
 
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.domain.Merchant;
@@ -16,7 +16,7 @@ public class MerchantsService {
         this.merchantDAO = new MerchantDAO();
     }
 
-    public ArrayList<Customer> getCustomersWithTransactions(Merchant merchant){
+    public ArrayList<Customer> getCustomersWithTransactions(Merchant merchant) {
         return merchantDAO.getCustomersWithTransactions(merchant);
     }
 
@@ -37,6 +37,6 @@ public class MerchantsService {
     }
 
     public void removeMerchantById(int id) {
-        merchantDAO.removeEntityByID(id);
+        merchantDAO.removeEntityById(id);
     }
 }

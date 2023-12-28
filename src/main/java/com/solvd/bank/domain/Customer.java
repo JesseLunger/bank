@@ -2,7 +2,7 @@ package com.solvd.bank.domain;
 
 public class Customer {
     private Associate associate;
-    private String creditScore;
+    private double creditScore;
 
     public Associate getAssociate() {
         return associate;
@@ -12,11 +12,11 @@ public class Customer {
         this.associate = associate;
     }
 
-    public String getCreditScore() {
+    public double getCreditScore() {
         return creditScore;
     }
 
-    public void setCreditScore(String creditScore) {
+    public void setCreditScore(double creditScore) {
         this.creditScore = creditScore;
     }
 

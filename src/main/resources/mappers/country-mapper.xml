@@ -2,10 +2,33 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mappers.UserMapper">
+<mapper namespace="com.solvd.bank.persistence.ICountryDAO">
 
-    <!-- Define CRUD operations for the User entity -->
+    <resultMap id="CountryResultMap" type="Country" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
 
-    <!-- SELECT, INSERT, UPDATE, DELETE statements go here -->
+    <select id="getAll" resultType="Country">
+        SELECT * FROM countries;
+    </select>
+
+    <select id="getEntityById" resultType="Country">
+        SELECT * FROM countries WHERE id = #{id};
+    </select>
+
+    <insert id="saveEntity" parameterType="Country" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO countries (name) VALUES (#{name});
+    </insert>
+
+    <update id="updateEntity" parameterType="Country">
+        UPDATE countries SET
+        name = #{name}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM countries WHERE id = #{id};
+    </delete>
 
 </mapper>

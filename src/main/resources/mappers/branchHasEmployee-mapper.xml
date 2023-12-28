@@ -2,10 +2,38 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mappers.UserMapper">
+<mapper namespace="com.solvd.bank.persistence.IBranchHasEmployeeDAO">
 
-    <!-- Define CRUD operations for the User entity -->
+    <resultMap id="BranchHasEmployeeResultMap" type="BranchHasEmployee" autoMapping="false">
+        <association property="branch" column="branch_id" javaType="Branch"
+                     select="com.solvd.bank.persistence.IBranchDAO.getEntityById"/>
+        <association property="staff" column="staff_id" javaType="Staff"
+                     select="com.solvd.bank.persistence.IStaffDAO.getEntityById"/>
+    </resultMap>
 
-    <!-- SELECT, INSERT, UPDATE, DELETE statements go here -->
+    <select id="getAll" resultMap="BranchHasEmployeeResultMap">
+        SELECT * FROM branch_has_employees;
+    </select>
+
+    <select id="getAllStaffByBranch" resultMap="BranchHasEmployeeResultMap">
+        SELECT * FROM branch_has_employees WHERE branch_id = #{branch.id};
+    </select>
+
+    <select id="getEntityById" resultMap="BranchHasEmployeeResultMap">
+        SELECT * FROM branch_has_employees WHERE staff_id = #{id};
+    </select>
+
+    <insert id="saveEntity" parameterType="BranchHasEmployee">
+        INSERT INTO branch_has_employees (branch_id, staff_id) VALUES (#{branch.id}, #{staff.associate.id});
+    </insert>
+
+    <update id="updateEntity" parameterType="BranchHasEmployee">
+        UPDATE branch_has_employees SET branch_id = #{branch.id}, staff_id = #{staff.associate.id} WHERE staff_id =
+        #{staff.associate.id};
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM branch_has_employees WHERE staff_id = #{id};
+    </delete>
 
 </mapper>

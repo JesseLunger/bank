@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Staff;
 import com.solvd.bank.persistence.IStaffDAO;
@@ -6,11 +6,11 @@ import com.solvd.bank.persistence.impl.StaffDAO;
 
 import java.util.List;
 
-public class StaffService {
+public class MBStaffService {
 
     private IStaffDAO staffDAO;
 
-    public StaffService() {
+    public MBStaffService() {
         this.staffDAO = new StaffDAO();
     }
 
@@ -31,6 +31,6 @@ public class StaffService {
     }
 
     public void removeStaffById(int id) {
-        staffDAO.removeEntityByID(id);
+        staffDAO.removeEntityById(id);
     }
 }

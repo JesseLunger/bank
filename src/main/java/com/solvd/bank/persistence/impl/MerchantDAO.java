@@ -17,27 +17,28 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     @Override
     public ArrayList<Customer> getCustomersWithTransactions(Merchant merchant) {
         ArrayList<Customer> customers = new ArrayList<>();
-        String query =  "SELECT cus.* FROM customers cus" +
-                        "LEFT JOIN accounts acc ON cus.associate_id = acc.customer_id" +
-                        "LEFT JOIN cards car ON acc.id = car.account_id" +
-                        "LEFT JOIN transactions trans ON car.id = trans.card_id" +
-                        "RIGHT JOIN merchants mer ON trans.merchant_id = mer.associate_id" +
-                        "WHERE mer.id = (?);";
+        String query = "SELECT cus.* FROM customers cus" +
+                "LEFT JOIN accounts acc ON cus.associate_id = acc.customer_id" +
+                "LEFT JOIN cards car ON acc.id = car.account_id" +
+                "LEFT JOIN transactions trans ON car.id = trans.card_id" +
+                "RIGHT JOIN merchants mer ON trans.merchant_id = mer.associate_id" +
+                "WHERE mer.id = (?);";
         try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, merchant.getAssociate().getId());
-            try(ResultSet resultSet = preparedStatement.executeQuery()){
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 CustomerDAO customersDAO = new CustomerDAO();
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     customers.add(customersDAO.createEntity(resultSet));
                 }
             }
-        } catch (InterruptedException | SQLException e){
+        } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
         return customers;
     }
+
     @Override
     public List<Merchant> getAll() {
         String query = "SELECT * FROM merchants;";
@@ -66,15 +67,15 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     public void saveEntity(Merchant merchant) {
         String query = "INSERT INTO merchants (associate_id) VALUES ((?))";
         executeStatement(query, "saveEntity", merchant);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            merchant.setAssociate(new AssociateDAO().getEntityById(autoIncrementValue));
+        }
     }
 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, Merchant merchant) throws SQLException {
         preparedStatement.setInt(1, merchant.getAssociate().getId());
-        Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null) {
-            merchant.setAssociate(new AssociateDAO().getEntityById(autoIncrementValue));
-        }
     }
 
     @Override
@@ -90,7 +91,7 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM merchants WHERE associate_id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

@@ -11,6 +11,13 @@ import java.util.List;
 public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO {
 
     @Override
+    public void removeDeclinedTransfers(Transfer transfer) {
+        if (transfer.getTransferStatus().getStatus().equals("declined")) {
+            removeEntityById(transfer.getId());
+        }
+    }
+
+    @Override
     public List<Transfer> getAll() {
         String query = "SELECT * FROM transfers;";
         return executeStatement(query, "getAll");
@@ -22,7 +29,7 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
         transfer.setId(resultSet.getInt("id"));
         transfer.setSender(new AccountDAO().getEntityById(resultSet.getInt("sender_account_id")));
         transfer.setReceiver(new AccountDAO().getEntityById(resultSet.getInt("receiver_account_id")));
-        transfer.setStatusId(resultSet.getInt("status_id"));
+        transfer.setTransferStatus(new TransferStatusDAO().getEntityById(resultSet.getInt("status_id")));
         transfer.setTime(resultSet.getTimestamp("transfer_time"));
         transfer.setAmount(resultSet.getDouble("amount"));
         return transfer;
@@ -44,19 +51,19 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
         String query = "INSERT INTO transfers (sender_account_id, receiver_account_id, status_id, transfer_time, amount) " +
                 "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", transfer);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            transfer.setId(autoIncrementValue);
+        }
     }
 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, Transfer transfer) throws SQLException {
         preparedStatement.setInt(1, transfer.getSender().getId());
         preparedStatement.setInt(2, transfer.getReceiver().getId());
-        preparedStatement.setInt(3, transfer.getStatusId());
+        preparedStatement.setInt(3, transfer.getTransferStatus().getId());
         preparedStatement.setTimestamp(4, transfer.getTime());
         preparedStatement.setDouble(5, transfer.getAmount());
-        Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null) {
-            transfer.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -70,14 +77,14 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, Transfer transfer) throws SQLException {
         preparedStatement.setInt(1, transfer.getSender().getId());
         preparedStatement.setInt(2, transfer.getReceiver().getId());
-        preparedStatement.setInt(3, transfer.getStatusId());
+        preparedStatement.setInt(3, transfer.getTransferStatus().getId());
         preparedStatement.setTimestamp(4, transfer.getTime());
         preparedStatement.setDouble(5, transfer.getAmount());
         preparedStatement.setInt(6, transfer.getId());
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM transfers WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

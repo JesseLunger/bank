@@ -13,19 +13,19 @@ import java.util.List;
 public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.bank.persistence.IAssociateDAO {
 
     @Override
-    public ArrayList<Associate> getAllByLocationId(int id){
+    public ArrayList<Associate> getAllByLocationId(int id) {
         ArrayList<Associate> associates = new ArrayList<>();
         String query = "SELECT * FROM associates Where location_id = (?);";
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            try(ResultSet resultSet = preparedStatement.executeQuery()){
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 AssociateDAO associateDAO = new AssociateDAO();
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     associates.add(associateDAO.createEntity(resultSet));
                 }
             }
-        } catch (InterruptedException | SQLException e){
+        } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
         return associates;
@@ -66,7 +66,7 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
         String query = "INSERT INTO associates (location_id, primary_name, secondary_name, date_joined, email, phone_number) VALUES ((?), (?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", associate);
         Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null){
+        if (autoIncrementValue != null) {
             associate.setId(autoIncrementValue);
         }
     }
@@ -99,7 +99,7 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM associates WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

@@ -1,15 +1,28 @@
 package com.solvd.bank.persistence.impl;
 
 
+import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransferStatusDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements ITransferStatusDAO {
+
+    @Override
+    public ArrayList<Transaction> getTransactionsByStatusId(int id) {
+        ArrayList<Transaction> transactions = new ArrayList<>(new TransactionDAO().getAll());
+        ArrayList<Transaction> acceptedTransactions = transactions.stream()
+                .filter(transaction -> "accepted".equals(transaction.getTransferStatus().getStatus()))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return acceptedTransactions;
+    }
+
 
     @Override
     public List<TransferStatus> getAll() {
@@ -40,15 +53,15 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
     public void saveEntity(TransferStatus transferStatus) {
         String query = "INSERT INTO transfer_status (status) VALUES (?);";
         executeStatement(query, "saveEntity", transferStatus);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            transferStatus.setId(autoIncrementValue);
+        }
     }
 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, TransferStatus transferStatus) throws SQLException {
         preparedStatement.setString(1, transferStatus.getStatus());
-        Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null) {
-            transferStatus.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -64,7 +77,7 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM transfer_status WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

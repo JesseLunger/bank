@@ -1,9 +1,21 @@
 package com.solvd.bank.domain;
 
+import java.util.ArrayList;
+
 public class Branch {
     private int id;
     private Location location;
     private String branchName;
+
+    private ArrayList<Staff> branchStaff;
+
+    public ArrayList<Staff> getBranchStaff() {
+        return branchStaff;
+    }
+
+    public void setBranchStaff(ArrayList<Staff> branchStaff) {
+        this.branchStaff = branchStaff;
+    }
 
     public int getId() {
         return id;

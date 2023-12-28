@@ -7,7 +7,7 @@ public class Transfer {
     private int id;
     private Account sender;
     private Account receiver;
-    private int statusId;
+    private TransferStatus transferStatus;
     private Timestamp transferTime;
     private double amount;
 
@@ -35,12 +35,12 @@ public class Transfer {
         this.receiver = receiver;
     }
 
-    public int getStatusId() {
-        return statusId;
+    public TransferStatus getTransferStatus() {
+        return transferStatus;
     }
 
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
+    public void setTransferStatus(TransferStatus transferStatus) {
+        this.transferStatus = transferStatus;
     }
 
     public Timestamp getTime() {
@@ -65,7 +65,7 @@ public class Transfer {
                 "id=" + id +
                 ", sender=" + sender +
                 ", receiver=" + receiver +
-                ", statusId=" + statusId +
+                ", statusId=" + transferStatus +
                 ", transferTime=" + transferTime +
                 ", amount=" + amount +
                 '}';

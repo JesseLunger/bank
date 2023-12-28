@@ -1,6 +1,7 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.Transaction;
+import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransactionDAO;
 
 import java.sql.PreparedStatement;
@@ -9,6 +10,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransactionDAO {
+
+    @Override
+    public void updateStatus(Transaction transaction, TransferStatus transferStatus) {
+        transaction.setTransferStatus(transferStatus);
+        updateEntity(transaction);
+    }
 
     @Override
     public List<Transaction> getAll() {
@@ -22,7 +29,7 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
         transaction.setId(resultSet.getInt("id"));
         transaction.setCard(new CardDAO().getEntityById(resultSet.getInt("card_id")));
         transaction.setMerchant(new MerchantDAO().getEntityById(resultSet.getInt("merchant_id")));
-        transaction.setStatusId(resultSet.getInt("status_id"));
+        transaction.setTransferStatus(new TransferStatusDAO().getEntityById(resultSet.getInt("status_id")));
         transaction.setTime(resultSet.getTimestamp("time"));
         transaction.setAmount(resultSet.getDouble("amount"));
         return transaction;
@@ -44,19 +51,19 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
         String query = "INSERT INTO transactions (card_id, merchant_id, status_id, time, amount) " +
                 "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", transaction);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            transaction.setId(autoIncrementValue);
+        }
     }
 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, Transaction transaction) throws SQLException {
         preparedStatement.setInt(1, transaction.getCard().getId());
         preparedStatement.setInt(2, transaction.getMerchant().getAssociate().getId());
-        preparedStatement.setInt(3, transaction.getStatusId());
+        preparedStatement.setInt(3, transaction.getTransferStatus().getId());
         preparedStatement.setTimestamp(4, transaction.getTime());
         preparedStatement.setDouble(5, transaction.getAmount());
-        Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null) {
-            transaction.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -70,14 +77,14 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, Transaction transaction) throws SQLException {
         preparedStatement.setInt(1, transaction.getCard().getId());
         preparedStatement.setInt(2, transaction.getMerchant().getAssociate().getId());
-        preparedStatement.setInt(3, transaction.getStatusId());
+        preparedStatement.setInt(3, transaction.getTransferStatus().getId());
         preparedStatement.setTimestamp(4, transaction.getTime());
         preparedStatement.setDouble(5, transaction.getAmount());
         preparedStatement.setInt(6, transaction.getId());
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM transactions WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

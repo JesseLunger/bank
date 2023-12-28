@@ -1,7 +1,6 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.Card;
-import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.utils.ConnectionPool;
 
@@ -15,19 +14,19 @@ import java.util.List;
 public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persistence.ICardDAO {
 
     @Override
-    public ArrayList<Transaction> getAllTransactions(Card card){
+    public ArrayList<Transaction> getAllTransactions(Card card) {
         ArrayList<Transaction> transactions = new ArrayList<>();
         TransactionDAO transactionDAO = new TransactionDAO();
         String query = "SELECT * FROM transactions where card_id = (?);";
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, card.getId());
-            try(ResultSet resultSet = preparedStatement.executeQuery()){
-                while (resultSet.next()){
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
                     transactions.add(transactionDAO.createEntity(resultSet));
                 }
             }
-        } catch (InterruptedException | SQLException e){
+        } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
         return transactions;
@@ -67,7 +66,7 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
                 "VALUES ((?), (?), (?), (?))";
         executeStatement(query, "saveEntity", card);
         Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null){
+        if (autoIncrementValue != null) {
             card.setId(autoIncrementValue);
         }
     }
@@ -97,7 +96,7 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM cards WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

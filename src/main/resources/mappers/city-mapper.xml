@@ -2,10 +2,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mappers.UserMapper">
+<mapper namespace="com.solvd.bank.persistence.ICityDAO">
 
-    <!-- Define CRUD operations for the User entity -->
+    <resultMap id="CityResultMap" type="City" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <association property="country" column="country_id" javaType="Country" resultMap="CountryResultMap"/>
+    </resultMap>
 
-    <!-- SELECT, INSERT, UPDATE, DELETE statements go here -->
+    <select id="getAll" resultMap="CityResultMap">
+        SELECT * FROM cities;
+    </select>
+
+    <select id="getLocationsByCity" resultMap="CityResultMap">
+        SELECT * FROM locations WHERE city_id = #{id};
+    </select>
+
+    <select id="getEntityById" resultMap="CityResultMap">
+        SELECT * FROM cities WHERE id = #{id};
+    </select>
+
+    <insert id="saveEntity" parameterType="City" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO cities (name, country_id) VALUES (#{name}, #{country.id});
+    </insert>
+
+    <update id="updateEntity" parameterType="City">
+        UPDATE cities SET
+        name = #{name},
+        country_id = #{country.id}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM cities WHERE id = #{id};
+    </delete>
 
 </mapper>

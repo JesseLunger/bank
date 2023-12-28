@@ -1,6 +1,5 @@
 package com.solvd.bank.persistence.impl;
 
-import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.BranchHasEmployee;
 import com.solvd.bank.domain.Staff;
 
@@ -14,11 +13,12 @@ import java.util.stream.Collectors;
 public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implements com.solvd.bank.persistence.IBranchHasEmployeeDAO {
 
     @Override
-    public ArrayList<Staff> getAllStaffByBranch(Branch branch) {
+    public ArrayList<Staff> getAllStaffById(int id) {
         ArrayList<BranchHasEmployee> branchHasEmployees = new ArrayList<>(getAll());
         return branchHasEmployees.stream()
-                .filter(bhe -> bhe.getBranch().getId() == (branch.getId()))
-                .map(BranchHasEmployee::getStaff).collect(Collectors.toCollection(ArrayList::new));
+                .filter(bhe -> bhe.getBranch().getId() == (id))
+                .map(BranchHasEmployee::getStaff)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM branch_has_employees WHERE staff_id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

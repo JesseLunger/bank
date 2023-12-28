@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.normal;
 
 import com.solvd.bank.domain.Card;
 import com.solvd.bank.domain.Transaction;
@@ -16,7 +16,7 @@ public class CardsService {
         this.cardDAO = new CardDAO();
     }
 
-    public ArrayList<Transaction> getAllTransActionsByCard(Card card){
+    public ArrayList<Transaction> getAllTransActionsByCard(Card card) {
         return cardDAO.getAllTransactions(card);
     }
 
@@ -37,6 +37,6 @@ public class CardsService {
     }
 
     public void removeCardById(int id) {
-        cardDAO.removeEntityByID(id);
+        cardDAO.removeEntityById(id);
     }
 }

@@ -1,35 +1,18 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.Account;
-import com.solvd.bank.utils.ConnectionPool;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.persistence.IAccountDAO {
 
     @Override
     public void addAmount(Account account, double amountToAdd) {
-        String selectQuery = "SELECT amount FROM accounts WHERE id = (?)";
-        String updateQuery = "UPDATE accounts SET amount = (?) WHERE id = (?)";
-
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
-             PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
-
-            selectStatement.setInt(1, account.getId());
-            try (ResultSet resultSet = selectStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    double newAmount = resultSet.getDouble("amount") + amountToAdd;
-                    updateStatement.setDouble(1, newAmount);
-                    updateStatement.setInt(2, account.getId());
-                    updateStatement.executeUpdate();
-                    account.setAmount(newAmount);
-                }
-            }
-        } catch (InterruptedException | SQLException e) {
-            LOGGER.error(e.getMessage());
-        }
+        account.setAmount(account.getAmount() + amountToAdd);
+        updateEntity(account);
     }
 
 
@@ -67,6 +50,10 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
         String query = "INSERT INTO accounts (branch_id, customer_associate_id, amount, date_created, holds) " +
                 "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", account);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            account.setId(autoIncrementValue);
+        }
     }
 
     @Override
@@ -98,7 +85,7 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM accounts WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

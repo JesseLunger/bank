@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Transfer;
 import com.solvd.bank.persistence.ITransferDAO;
@@ -6,11 +6,11 @@ import com.solvd.bank.persistence.impl.TransferDAO;
 
 import java.util.List;
 
-public class TransfersService {
+public class MBTransfersService {
 
     private ITransferDAO transferDAO;
 
-    public TransfersService() {
+    public MBTransfersService() {
         this.transferDAO = new TransferDAO();
     }
 
@@ -31,6 +31,6 @@ public class TransfersService {
     }
 
     public void removeTransferById(int id) {
-        transferDAO.removeEntityByID(id);
+        transferDAO.removeEntityById(id);
     }
 }

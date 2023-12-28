@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Account;
 import com.solvd.bank.persistence.IAccountDAO;
@@ -6,34 +6,34 @@ import com.solvd.bank.persistence.impl.AccountDAO;
 
 import java.util.List;
 
-public class AccountsService {
+public class MBAccountsService {
     private IAccountDAO accountDAO;
 
-    public AccountsService(){
+    public MBAccountsService() {
         this.accountDAO = new AccountDAO();
     }
 
-    public void addAmount(Account account, double amountToAdd){
+    public void addAmount(Account account, double amountToAdd) {
         accountDAO.addAmount(account, amountToAdd);
     }
 
-    public List<Account> getAllAccounts(){
+    public List<Account> getAllAccounts() {
         return accountDAO.getAll();
     }
 
-    public Account getAccountById(int id){
+    public Account getAccountById(int id) {
         return accountDAO.getEntityById(id);
     }
 
-    public void saveAccount(Account account){
+    public void saveAccount(Account account) {
         accountDAO.saveEntity(account);
     }
 
-    public void updateAccount(Account account){
+    public void updateAccount(Account account) {
         accountDAO.updateEntity(account);
     }
 
-    public void removeAccountById(int id){
-        accountDAO.removeEntityByID(id);
+    public void removeAccountById(int id) {
+        accountDAO.removeEntityById(id);
     }
 }

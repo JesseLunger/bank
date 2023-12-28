@@ -1,4 +1,4 @@
-package com.solvd.bank.service;
+package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.Position;
@@ -8,15 +8,15 @@ import com.solvd.bank.persistence.impl.PositionDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PositionsService {
+public class MBPositionsService {
 
     private IPositionDAO positionDAO;
 
-    public PositionsService() {
+    public MBPositionsService() {
         this.positionDAO = new PositionDAO();
     }
 
-    public ArrayList<Branch> getBranchWithMissingPosition(Position position){
+    public ArrayList<Branch> getBranchWithMissingPosition(Position position) {
         return positionDAO.getBranchWithMissingPosition(position);
     }
 
@@ -37,6 +37,6 @@ public class PositionsService {
     }
 
     public void removePositionById(int id) {
-        positionDAO.removeEntityByID(id);
+        positionDAO.removeEntityById(id);
     }
 }

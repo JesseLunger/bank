@@ -23,16 +23,16 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
                 "LEFT JOIN staff st ON pos.id = st.position_id " +
                 "LEFT JOIN branch_has_employees bhe ON st.associate_id = bhe.staff_id " +
                 "WHERE bhe.branch_id = br.id AND pos.position = (?));";
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)){
-           preparedStatement.setString(1, position.getPosition());
-           try(ResultSet resultSet = preparedStatement.executeQuery()){
-               BranchDAO branchDAO = new BranchDAO();
-               while (resultSet.next()){
-                   branches.add(branchDAO.createEntity(resultSet));
-               }
-           }
-        } catch (InterruptedException | SQLException e){
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, position.getPosition());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                BranchDAO branchDAO = new BranchDAO();
+                while (resultSet.next()) {
+                    branches.add(branchDAO.createEntity(resultSet));
+                }
+            }
+        } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
         return branches;
@@ -69,6 +69,10 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
     public void saveEntity(Position position) {
         String query = "INSERT INTO positions (position, salary, hourly_wage) VALUES ((?), (?), (?))";
         executeStatement(query, "saveEntity", position);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            position.setId(autoIncrementValue);
+        }
     }
 
     @Override
@@ -76,10 +80,6 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
         preparedStatement.setString(1, position.getPosition());
         preparedStatement.setDouble(2, position.getSalary());
         preparedStatement.setDouble(3, position.getHourlyWage());
-        Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null) {
-            position.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -97,7 +97,7 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM positions WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }

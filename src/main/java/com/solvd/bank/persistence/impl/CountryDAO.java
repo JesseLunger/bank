@@ -19,17 +19,17 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
     public ArrayList<Location> getAllLocationsByCountry(Country country) {
         ArrayList<Location> locations = new ArrayList<>();
         String query = "SELECT * FROM cities WHERE country_id = (?);";
-        try(Connection connection = ConnectionPool.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(query)){
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, country.getId());
-            try(ResultSet resultSet = preparedStatement.executeQuery()){
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 CityDAO cityDAO = new CityDAO();
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     City city = cityDAO.createEntity(resultSet);
                     locations.addAll(cityDAO.getLocationsByCity(city));
                 }
             }
-        } catch (InterruptedException | SQLException e){
+        } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
         return locations;
@@ -65,7 +65,7 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
         String query = "INSERT INTO countries (name) VALUES (?)";
         executeStatement(query, "saveEntity", country);
         Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null){
+        if (autoIncrementValue != null) {
             country.setId(autoIncrementValue);
         }
     }
@@ -88,7 +88,7 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM countries WHERE id = ?";
         executeStatement(query, "removeEntityById", id);
     }

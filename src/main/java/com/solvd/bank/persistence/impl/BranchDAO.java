@@ -13,19 +13,19 @@ import java.util.List;
 public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.persistence.IBranchDAO {
 
     @Override
-    public ArrayList<Branch> getAllByLocationId(int id){
+    public ArrayList<Branch> getAllByLocationId(int id) {
         ArrayList<Branch> branches = new ArrayList<>();
         String query = "SELECT * FROM branches WHERE location_id = (?)";
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            try(ResultSet resultSet = preparedStatement.executeQuery()){
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 BranchDAO branchDAO = new BranchDAO();
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     branches.add(branchDAO.createEntity(resultSet));
                 }
             }
-        } catch (InterruptedException | SQLException e){
+        } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
         return branches;
@@ -43,6 +43,7 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
         branch.setId(resultSet.getInt("id"));
         branch.setLocation(new LocationDAO().getEntityById(resultSet.getInt("location_id")));
         branch.setBranchName(resultSet.getString("branch_name"));
+        branch.setBranchStaff(new BranchHasEmployeeDAO().getAllStaffById(branch.getId()));
         return branch;
     }
 
@@ -61,16 +62,16 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
     public void saveEntity(Branch branch) {
         String query = "INSERT INTO branches (location_id, branch_name) VALUES ((?), (?))";
         executeStatement(query, "saveEntity", branch);
+        Integer autoIncrementValue = getAutoIncrementValue();
+        if (autoIncrementValue != null) {
+            branch.setId(autoIncrementValue);
+        }
     }
 
     @Override
     protected void prepareSaveStatement(PreparedStatement preparedStatement, Branch branch) throws SQLException {
         preparedStatement.setInt(1, branch.getLocation().getId());
         preparedStatement.setString(2, branch.getBranchName());
-        Integer autoIncrementValue = getAutoIncrementValue();
-        if (autoIncrementValue != null) {
-            branch.setId(autoIncrementValue);
-        }
     }
 
     @Override
@@ -87,7 +88,7 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
     }
 
     @Override
-    public void removeEntityByID(int id) {
+    public void removeEntityById(int id) {
         String query = "DELETE FROM branches WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
