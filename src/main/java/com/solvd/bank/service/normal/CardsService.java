@@ -17,7 +17,7 @@ public class CardsService {
     }
 
     public ArrayList<Transaction> getAllTransActionsByCard(Card card) {
-        return cardDAO.getAllTransactions(card);
+        return cardDAO.getAllTransactionsByCard(card);
     }
 
     public List<Card> getAllCards() {

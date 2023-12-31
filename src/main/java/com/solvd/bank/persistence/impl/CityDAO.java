@@ -1,6 +1,7 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.City;
+import com.solvd.bank.domain.Country;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.utils.ConnectionPool;
 
@@ -44,13 +45,18 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
         City city = new City();
         city.setId(resultSet.getInt("id"));
         city.setName(resultSet.getString("name"));
-        city.setCountry(new CountryDAO().getEntityById(resultSet.getInt("country_id")));
+        Country country = new CountryDAO().getEntityById(resultSet.getInt("country_id"));
+        city.setCountry(country);
         return city;
     }
 
     @Override
     public City getEntityById(int id) {
         String query = "SELECT * FROM cities WHERE id = (?);";
+        ArrayList<City> cities = executeStatement(query, "getEntityById", id);
+        if (cities == null || cities.isEmpty()) {
+            return null;
+        }
         return executeStatement(query, "getEntityById", id).get(0);
     }
 
@@ -77,7 +83,9 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
 
     @Override
     public void updateEntity(City city) {
-        String query = "UPDATE cities set name = (?), country_id = (?) where id = (?);";
+        String query = "UPDATE cities set name = (?), " +
+                "country_id = (?) " +
+                "where id = (?);";
         executeStatement(query, "updateEntity", city);
     }
 

@@ -1,6 +1,7 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.Associate;
+import com.solvd.bank.domain.Location;
 import com.solvd.bank.utils.ConnectionPool;
 
 import java.sql.Connection;
@@ -13,7 +14,7 @@ import java.util.List;
 public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.bank.persistence.IAssociateDAO {
 
     @Override
-    public ArrayList<Associate> getAllByLocationId(int id) {
+    public ArrayList<Associate> getAllAssociatesByLocationId(int id) {
         ArrayList<Associate> associates = new ArrayList<>();
         String query = "SELECT * FROM associates Where location_id = (?);";
         try (Connection connection = ConnectionPool.getConnection();
@@ -41,7 +42,8 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
     public Associate createEntity(ResultSet resultSet) throws SQLException {
         Associate associate = new Associate();
         associate.setId(resultSet.getInt("id"));
-        associate.setLocation(new LocationDAO().getEntityById(resultSet.getInt("location_id")));
+        Location location = new LocationDAO().getEntityById(resultSet.getInt("location_id"));
+        associate.setLocation(location);
         associate.setPrimaryName(resultSet.getString("primary_name"));
         associate.setSecondaryName(resultSet.getString("secondary_name"));
         associate.setDateJoined(resultSet.getTimestamp("date_joined"));
@@ -53,7 +55,11 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
     @Override
     public Associate getEntityById(int id) {
         String query = "SELECT * FROM associates WHERE id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Associate> associates = executeStatement(query, "getEntityById", id);
+        if (associates == null || associates.isEmpty()) {
+            return null;
+        }
+        return associates.get(0);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class MBPositionDAO extends MBBaseClassDAO implements IPositionDAO {
     }
 
     @Override
-    public ArrayList<Branch> getBranchWithMissingPosition(Position position) {
+    public ArrayList<Branch> getBranchesWithMissingPosition(String positionName) {
         return null;
     }
 }

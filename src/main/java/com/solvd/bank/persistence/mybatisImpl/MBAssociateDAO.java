@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MBAssociateDAO extends MBBaseClassDAO implements IAssociateDAO {
     @Override
-    public ArrayList<Associate> getAllByLocationId(int id) {
+    public ArrayList<Associate> getAllAssociatesByLocationId(int id) {
         return null;
     }
 

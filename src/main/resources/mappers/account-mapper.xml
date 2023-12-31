@@ -3,13 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.solvd.bank.persistence.IAccountDAO">
+
     <resultMap id="AccountResultMap" type="Account" autoMapping="false">
         <result property="id" column="id"/>
         <result property="amount" column="amount"/>
         <result property="dateCreated" column="date_created"/>
         <result property="holds" column="holds"/>
-        <association property="branch" column="branch_id" javaType="Branch"
-                     select="com.solvd.bank.persistence.IBranchDAO.getEntityById"/>
+        <association property="branch" column="branch_id" javaType="Branch" resultMap="BranchResultMap"/>
         <association property="customer" column="associate_id" javaType="Customer"
                      select="com.solvd.bank.persistence.ICustomersDAO.getEntityById"/>
     </resultMap>

@@ -5,18 +5,16 @@
 <mapper namespace="com.solvd.bank.persistence.IBranchHasEmployeeDAO">
 
     <resultMap id="BranchHasEmployeeResultMap" type="BranchHasEmployee" autoMapping="false">
-        <association property="branch" column="branch_id" javaType="Branch"
-                     select="com.solvd.bank.persistence.IBranchDAO.getEntityById"/>
-        <association property="staff" column="staff_id" javaType="Staff"
-                     select="com.solvd.bank.persistence.IStaffDAO.getEntityById"/>
+        <association property="branch" column="branch_id" javaType="Branch" resultMap="BranchResultMap"/>
+        <association property="staff" column="staff_id" javaType="Staff" resultMap="StaffResultMap"/>
     </resultMap>
-
-    <select id="getAll" resultMap="BranchHasEmployeeResultMap">
-        SELECT * FROM branch_has_employees;
-    </select>
 
     <select id="getAllStaffByBranch" resultMap="BranchHasEmployeeResultMap">
         SELECT * FROM branch_has_employees WHERE branch_id = #{branch.id};
+    </select>
+
+    <select id="getAll" resultMap="BranchHasEmployeeResultMap">
+        SELECT * FROM branch_has_employees;
     </select>
 
     <select id="getEntityById" resultMap="BranchHasEmployeeResultMap">
@@ -24,12 +22,15 @@
     </select>
 
     <insert id="saveEntity" parameterType="BranchHasEmployee">
-        INSERT INTO branch_has_employees (branch_id, staff_id) VALUES (#{branch.id}, #{staff.associate.id});
+        INSERT INTO branch_has_employees (branch_id, staff_id)
+        VALUES (#{branch.id}, #{staff.associate.id});
     </insert>
 
     <update id="updateEntity" parameterType="BranchHasEmployee">
-        UPDATE branch_has_employees SET branch_id = #{branch.id}, staff_id = #{staff.associate.id} WHERE staff_id =
-        #{staff.associate.id};
+        UPDATE branch_has_employees SET
+        branch_id = #{branch.id},
+        staff_id = #{staff.associate.id}
+        WHERE staff_id = #{staff.associate.id};
     </update>
 
     <delete id="removeEntityById" parameterType="int">

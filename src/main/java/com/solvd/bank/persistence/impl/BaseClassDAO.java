@@ -39,6 +39,7 @@ public abstract class BaseClassDAO<Entity> {
                         ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
                         updateAutoIncrementValue(generatedKeys);
                     }
+                    break;
                 case "query":
                     return getResultsFromResultSet(preparedStatement.executeQuery());
             }

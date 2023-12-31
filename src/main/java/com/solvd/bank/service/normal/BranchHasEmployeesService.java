@@ -18,7 +18,7 @@ public class BranchHasEmployeesService {
     }
 
     public ArrayList<Staff> getAllByBranch(Branch branch) {
-        return branchHasEmployeeDAO.getAllStaffByBranch(branch);
+        return null;
     }
 
     public List<BranchHasEmployee> getAllBranchHasEmployees() {

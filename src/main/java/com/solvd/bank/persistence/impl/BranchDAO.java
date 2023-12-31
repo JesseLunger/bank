@@ -1,6 +1,7 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.Branch;
+import com.solvd.bank.domain.Staff;
 import com.solvd.bank.utils.ConnectionPool;
 
 import java.sql.Connection;
@@ -13,7 +14,7 @@ import java.util.List;
 public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.persistence.IBranchDAO {
 
     @Override
-    public ArrayList<Branch> getAllByLocationId(int id) {
+    public ArrayList<Branch> getAllBranchesByLocationId(int id) {
         ArrayList<Branch> branches = new ArrayList<>();
         String query = "SELECT * FROM branches WHERE location_id = (?)";
         try (Connection connection = ConnectionPool.getConnection();
@@ -43,14 +44,19 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
         branch.setId(resultSet.getInt("id"));
         branch.setLocation(new LocationDAO().getEntityById(resultSet.getInt("location_id")));
         branch.setBranchName(resultSet.getString("branch_name"));
-        branch.setBranchStaff(new BranchHasEmployeeDAO().getAllStaffById(branch.getId()));
+        ArrayList<Staff> staff = new BranchHasEmployeeDAO().getAllStaffByBranchId(branch.getId());
+        branch.setBranchStaff(staff);
         return branch;
     }
 
     @Override
     public Branch getEntityById(int id) {
         String query = "SELECT * FROM branches WHERE id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Branch> branches = executeStatement(query, "getEntityById", id);
+        if (branches == null || branches.isEmpty()) {
+            return null;
+        }
+        return branches.get(0);
     }
 
     @Override

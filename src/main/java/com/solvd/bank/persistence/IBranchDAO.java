@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public interface IBranchDAO extends IBaseDAO<Branch> {
 
-    ArrayList<Branch> getAllByLocationId(int id);
+    ArrayList<Branch> getAllBranchesByLocationId(int id);
 
 }

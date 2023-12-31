@@ -7,8 +7,7 @@
     <resultMap id="BranchResultMap" type="Branch" autoMapping="false">
         <result property="id" column="id"/>
         <result property="branchName" column="branch_name"/>
-        <association property="location" column="location_id" javaType="Location"
-                     select="com.solvd.bank.persistence.ILocationDAO.getEntityById"/>
+        <association property="location" column="location_id" javaType="Location" resultMap="LocationResultMap"/>
     </resultMap>
 
     <select id="getAll" resultMap="BranchResultMap">

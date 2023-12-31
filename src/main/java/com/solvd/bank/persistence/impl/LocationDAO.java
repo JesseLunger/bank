@@ -3,29 +3,19 @@ package com.solvd.bank.persistence.impl;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ILocationDAO;
-import com.solvd.bank.utils.ConnectionPool;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO {
 
     @Override
     public void updateCity(Location location, City city) {
-        String query = "UPDATE locations SET cities_id = (?) WHERE id = (?);";
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, city.getId());
-            preparedStatement.setInt(2, location.getId());
-            preparedStatement.executeUpdate();
-            location.setCity(city);
-        } catch (InterruptedException | SQLException e) {
-            LOGGER.error(e.getMessage());
-        }
+        location.setCity(city);
+        updateEntity(location);
     }
 
     @Override
@@ -38,7 +28,8 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     public Location createEntity(ResultSet resultSet) throws SQLException {
         Location location = new Location();
         location.setId(resultSet.getInt("id"));
-        location.setCity(new CityDAO().getEntityById(resultSet.getInt("city_id")));
+        City city = new CityDAO().getEntityById(resultSet.getInt("city_id"));
+        location.setCity(city);
         location.setZipCode(resultSet.getString("zip_code"));
         location.setAddress(resultSet.getString("address"));
         return location;
@@ -47,7 +38,11 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     @Override
     public Location getEntityById(int id) {
         String query = "SELECT * FROM locations WHERE id = ?";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Location> locations = executeStatement(query, "getEntityById", id);
+        if (locations == null || locations.isEmpty()) {
+            return null;
+        }
+        return locations.get(0);
     }
 
     @Override
@@ -82,7 +77,7 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, Location location) throws SQLException {
         preparedStatement.setInt(1, location.getCity().getId());
         preparedStatement.setString(2, location.getZipCode());
-        preparedStatement.setString(1, location.getAddress());
+        preparedStatement.setString(3, location.getAddress());
         preparedStatement.setInt(4, location.getId());
     }
 

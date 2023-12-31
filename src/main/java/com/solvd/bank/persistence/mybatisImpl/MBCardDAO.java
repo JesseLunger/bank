@@ -34,7 +34,7 @@ public class MBCardDAO extends MBBaseClassDAO implements ICardDAO {
     }
 
     @Override
-    public ArrayList<Transaction> getAllTransactions(Card card) {
+    public ArrayList<Transaction> getAllTransactionsByCard(Card card) {
         return null;
     }
 }

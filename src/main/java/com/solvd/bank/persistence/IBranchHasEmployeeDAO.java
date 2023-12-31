@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface IBranchHasEmployeeDAO extends IBaseDAO<BranchHasEmployee> {
 
-    ArrayList<Staff> getAllStaffById(int id);
+    ArrayList<Staff> getAllStaffByBranchId(int id);
 
 }

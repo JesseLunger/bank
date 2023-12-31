@@ -17,12 +17,12 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     @Override
     public ArrayList<Customer> getCustomersWithTransactions(Merchant merchant) {
         ArrayList<Customer> customers = new ArrayList<>();
-        String query = "SELECT cus.* FROM customers cus" +
-                "LEFT JOIN accounts acc ON cus.associate_id = acc.customer_id" +
-                "LEFT JOIN cards car ON acc.id = car.account_id" +
-                "LEFT JOIN transactions trans ON car.id = trans.card_id" +
-                "RIGHT JOIN merchants mer ON trans.merchant_id = mer.associate_id" +
-                "WHERE mer.id = (?);";
+        String query = "SELECT cus.* FROM customers cus " +
+                "LEFT JOIN accounts acc ON cus.associate_id = acc.customer_id " +
+                "LEFT JOIN cards car ON acc.id = car.account_id " +
+                "LEFT JOIN transactions trans ON car.id = trans.card_id " +
+                "RIGHT JOIN merchants mer ON trans.merchant_id = mer.associate_id " +
+                "WHERE mer.associate_id = (?);";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -55,7 +55,11 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     @Override
     public Merchant getEntityById(int id) {
         String query = "SELECT * FROM merchants WHERE associate_id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Merchant> merchants = executeStatement(query, "getEntityById", id);
+        if (merchants == null || merchants.isEmpty()) {
+            return null;
+        }
+        return merchants.get(0);
     }
 
     @Override
@@ -80,14 +84,12 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
 
     @Override
     public void updateEntity(Merchant merchant) {
-        String query = "UPDATE merchants SET associate_id = (?) WHERE associate_id = (?)";
-        executeStatement(query, "updateEntity", merchant);
+        new AssociateDAO().updateEntity(merchant.getAssociate());
     }
 
     @Override
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, Merchant merchant) throws SQLException {
-        preparedStatement.setInt(1, merchant.getAssociate().getId());
-        preparedStatement.setInt(2, merchant.getAssociate().getId());
+        //placeHolderFunction
     }
 
     @Override

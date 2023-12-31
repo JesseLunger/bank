@@ -2,10 +2,41 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mappers.UserMapper">
+<mapper namespace="com.solvd.bank.persistence.ITransferDAO">
 
-    <!-- Define CRUD operations for the User entity -->
+    <resultMap id="TransferResultMap" type="Transfer" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="transferTime" column="transfer_time"/>
+        <result property="amount" column="amount"/>
+        <association property="customer" column="customer_id" javaType="Customer" resultMap="CustomerResultMap"/>
+        <association property="receiver" column="receiver_id" javaType="Account" resultMap="AccountResultMap"/>
+        <association property="sender" column="sender_id" javaType="Account" resultMap="AccountResultMap"/>
+    </resultMap>
 
-    <!-- SELECT, INSERT, UPDATE, DELETE statements go here -->
+    <select id="getAll" resultMap="TransferResultMap">
+        SELECT * FROM transfers;
+    </select>
 
+    <select id="getEntityById" resultMap="TransferResultMap">
+        SELECT * FROM transfers WHERE id = #{id};
+    </select>
+
+    <insert id="saveEntity" parameterType="Transfer" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO transfers (transfer_time, amount, customer_id, receiver_id, sender_id)
+        VALUES (#{transferTime}, #{amount}, #{customer.id}, #{receiver.id}, #{sender.id})
+    </insert>
+
+    <update id="updateEntity" parameterType="Transfer">
+        UPDATE transfers SET
+        transfer_time = #{transferTime},
+        amount = #{amount},
+        customer_id = #{customer.id},
+        receiver_id = #{receiver.id},
+        sender_id = #{sender.id}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM transfers WHERE id = #{id};
+    </delete>
 </mapper>

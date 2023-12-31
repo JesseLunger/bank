@@ -15,7 +15,7 @@ public class MBAssociatesService {
     }
 
     public ArrayList<Associate> getAllByLocationId(int id) {
-        return associateDAO.getAllByLocationId(id);
+        return associateDAO.getAllAssociatesByLocationId(id);
     }
 
     public List<Associate> getAllAssociates() {

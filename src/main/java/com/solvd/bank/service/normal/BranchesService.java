@@ -16,7 +16,7 @@ public class BranchesService {
     }
 
     public ArrayList<Branch> getAllByLocationId(int id) {
-        return branchDAO.getAllByLocationId(id);
+        return branchDAO.getAllBranchesByLocationId(id);
     }
 
     public List<Branch> getAllBranches() {

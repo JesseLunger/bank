@@ -14,7 +14,7 @@ import java.util.List;
 public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persistence.ICardDAO {
 
     @Override
-    public ArrayList<Transaction> getAllTransactions(Card card) {
+    public ArrayList<Transaction> getAllTransactionsByCard(Card card) {
         ArrayList<Transaction> transactions = new ArrayList<>();
         TransactionDAO transactionDAO = new TransactionDAO();
         String query = "SELECT * FROM transactions where card_id = (?);";
@@ -52,7 +52,11 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
     @Override
     public Card getEntityById(int id) {
         String query = "SELECT * FROM cards WHERE id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Card> cards = executeStatement(query, "getEntityById", id);
+        if (cards == null || cards.isEmpty()) {
+            return null;
+        }
+        return cards.get(0);
     }
 
     @Override

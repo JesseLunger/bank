@@ -1,11 +1,13 @@
 package com.solvd.bank.persistence.impl;
 
+import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.Position;
 import com.solvd.bank.domain.Staff;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.persistence.IStaffDAO {
@@ -25,7 +27,8 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
     @Override
     public Staff createEntity(ResultSet resultSet) throws SQLException {
         Staff staff = new Staff();
-        staff.setAssociate(new AssociateDAO().getEntityById(resultSet.getInt("associate_id")));
+        Associate associate = new AssociateDAO().getEntityById(resultSet.getInt("associate_id"));
+        staff.setAssociate(associate);
         staff.setPosition(new PositionDAO().getEntityById(resultSet.getInt("position_id")));
         staff.setDateHired(resultSet.getTimestamp("date_hired"));
         return staff;
@@ -34,7 +37,11 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
     @Override
     public Staff getEntityById(int id) {
         String query = "SELECT * FROM staff WHERE associate_id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Staff> staff = executeStatement(query, "getEntityById", id);
+        if (staff == null || staff.isEmpty()) {
+            return null;
+        }
+        return staff.get(0);
     }
 
     @Override

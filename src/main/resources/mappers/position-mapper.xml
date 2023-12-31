@@ -2,10 +2,37 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mappers.UserMapper">
+<mapper namespace="com.solvd.bank.persistence.IPositionDAO">
 
-    <!-- Define CRUD operations for the User entity -->
+    <resultMap id="PositionResultMap" type="Position" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="position" column="position"/>
+        <result property="hourlyWage" column="hourly_wage"/>
+        <result property="salary" column="salary"/>
+    </resultMap>
 
-    <!-- SELECT, INSERT, UPDATE, DELETE statements go here -->
+    <select id="getAll" resultMap="PositionResultMap">
+        SELECT * FROM positions;
+    </select>
 
+    <select id="getEntityById" resultMap="PositionResultMap">
+        SELECT * FROM positions WHERE id = #{id};
+    </select>
+
+    <insert id="saveEntity" parameterType="Position" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO positions (position, hourly_wage, salary)
+        VALUES (#{position}, #{hourlyWage}, #{salary})
+    </insert>
+
+    <update id="updateEntity" parameterType="Position">
+        UPDATE positions SET
+        position = #{position},
+        hourly_wage = #{hourlyWage},
+        salary = #{salary}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM positions WHERE id = #{id};
+    </delete>
 </mapper>

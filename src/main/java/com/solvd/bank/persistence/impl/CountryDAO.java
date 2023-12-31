@@ -52,6 +52,10 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
     @Override
     public Country getEntityById(int id) {
         String query = "SELECT * FROM countries WHERE id = ?";
+        ArrayList<Country> countries = executeStatement(query, "getEntityById", id);
+        if (countries == null || countries.isEmpty()) {
+            return null;
+        }
         return executeStatement(query, "getEntityById", id).get(0);
     }
 

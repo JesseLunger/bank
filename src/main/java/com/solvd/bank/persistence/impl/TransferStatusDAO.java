@@ -17,16 +17,15 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
     @Override
     public ArrayList<Transaction> getTransactionsByStatusId(int id) {
         ArrayList<Transaction> transactions = new ArrayList<>(new TransactionDAO().getAll());
-        ArrayList<Transaction> acceptedTransactions = transactions.stream()
+        return transactions.stream()
                 .filter(transaction -> "accepted".equals(transaction.getTransferStatus().getStatus()))
                 .collect(Collectors.toCollection(ArrayList::new));
-        return acceptedTransactions;
     }
 
 
     @Override
     public List<TransferStatus> getAll() {
-        String query = "SELECT * FROM transfer_status;";
+        String query = "SELECT * FROM transfer_statuses;";
         return executeStatement(query, "getAll");
     }
 
@@ -40,8 +39,12 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
 
     @Override
     public TransferStatus getEntityById(int id) {
-        String query = "SELECT * FROM transfer_status WHERE id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        String query = "SELECT * FROM transfer_statuses WHERE id = (?);";
+        ArrayList<TransferStatus> transferStatuses = executeStatement(query, "getEntityById", id);
+        if (transferStatuses == null || transferStatuses.isEmpty()) {
+            return null;
+        }
+        return transferStatuses.get(0);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
 
     @Override
     public void saveEntity(TransferStatus transferStatus) {
-        String query = "INSERT INTO transfer_status (status) VALUES (?);";
+        String query = "INSERT INTO transfer_statuses (status) VALUES (?);";
         executeStatement(query, "saveEntity", transferStatus);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -66,7 +69,7 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
 
     @Override
     public void updateEntity(TransferStatus transferStatus) {
-        String query = "UPDATE transfer_status SET status = (?) WHERE id = (?);";
+        String query = "UPDATE transfer_statuses SET status = (?) WHERE id = (?);";
         executeStatement(query, "updateEntity", transferStatus);
     }
 
@@ -78,7 +81,7 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
 
     @Override
     public void removeEntityById(int id) {
-        String query = "DELETE FROM transfer_status WHERE id = (?);";
+        String query = "DELETE FROM transfer_statuses WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

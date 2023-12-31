@@ -1,32 +1,33 @@
+<!-- src/main/resources/mappers/CityMapper.xml -->
+
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.solvd.bank.persistence.ICityDAO">
 
-    <resultMap id="CityResultMap" type="City" autoMapping="false">
-        <result property="id" column="id"/>
+    <resultMap id="cityResultMap" type="City" autoMapping="false">
+        <id property="id" column="id"/>
         <result property="name" column="name"/>
-        <association property="country" column="country_id" javaType="Country" resultMap="CountryResultMap"/>
+        <association property="country" column="country_id" javaType="com.solvd.bank.domain.Country"
+                     select="com.solvd.bank.persistence.ICountryDAO.getEntityById"/>
     </resultMap>
 
-    <select id="getAll" resultMap="CityResultMap">
+    <select id="getAll" resultMap="cityResultMap">
         SELECT * FROM cities;
     </select>
 
-    <select id="getLocationsByCity" resultMap="CityResultMap">
-        SELECT * FROM locations WHERE city_id = #{id};
-    </select>
-
-    <select id="getEntityById" resultMap="CityResultMap">
+    <select id="getEntityById" parameterType="int" resultMap="cityResultMap">
         SELECT * FROM cities WHERE id = #{id};
     </select>
 
-    <insert id="saveEntity" parameterType="City" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO cities (name, country_id) VALUES (#{name}, #{country.id});
+    <insert id="saveEntity" parameterType="com.solvd.bank.domain.City" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        INSERT INTO cities (id, name, country_id)
+        VALUES (#{id}, #{name}, #{country.id});
     </insert>
 
-    <update id="updateEntity" parameterType="City">
+    <update id="updateEntity" parameterType="com.solvd.bank.domain.City">
         UPDATE cities SET
         name = #{name},
         country_id = #{country.id}

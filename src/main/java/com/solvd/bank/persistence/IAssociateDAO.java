@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public interface IAssociateDAO extends IBaseDAO<Associate> {
 
-    ArrayList<Associate> getAllByLocationId(int id);
+    ArrayList<Associate> getAllAssociatesByLocationId(int id);
 
 }

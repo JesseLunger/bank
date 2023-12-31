@@ -6,6 +6,7 @@ import com.solvd.bank.persistence.ICustomersDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomersDAO {
@@ -33,7 +34,11 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomersDAO
     @Override
     public Customer getEntityById(int id) {
         String query = "SELECT * FROM customers WHERE associate_id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Customer> customers = executeStatement(query, "getEntityById", id);
+        if (customers == null || customers.isEmpty()) {
+            return null;
+        }
+        return customers.get(0);
     }
 
     @Override

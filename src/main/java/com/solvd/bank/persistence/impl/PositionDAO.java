@@ -15,7 +15,7 @@ import java.util.List;
 public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO {
 
     @Override
-    public ArrayList<Branch> getBranchWithMissingPosition(Position position) {
+    public ArrayList<Branch> getBranchesWithMissingPosition(String positionName) {
         ArrayList<Branch> branches = new ArrayList<>();
         String query = "SELECT * FROM branches br " +
                 "WHERE NOT EXISTS ( " +
@@ -25,7 +25,7 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
                 "WHERE bhe.branch_id = br.id AND pos.position = (?));";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, position.getPosition());
+            preparedStatement.setString(1, positionName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 BranchDAO branchDAO = new BranchDAO();
                 while (resultSet.next()) {
@@ -57,7 +57,11 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
     @Override
     public Position getEntityById(int id) {
         String query = "SELECT * FROM positions WHERE id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Position> positions = executeStatement(query, "getEntityById", id);
+        if (positions == null || positions.isEmpty()) {
+            return null;
+        }
+        return positions.get(0);
     }
 
     @Override

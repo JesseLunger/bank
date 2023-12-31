@@ -11,8 +11,7 @@
         <result property="dateJoined" column="date_joined"/>
         <result property="email" column="email"/>
         <result property="phoneNumber" column="phone_number"/>
-        <association property="location" column="location_id" javaType="Location"
-                     select="com.solvd.bank.persistence.ILocationDAO.getEntityById"/>
+        <association property="location" column="location_id" javaType="Location" resultMap="LocationResultMap"/>
     </resultMap>
 
     <select id="getAll" resultType="Associate">

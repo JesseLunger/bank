@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface ICardDAO extends IBaseDAO<Card> {
 
-    ArrayList<Transaction> getAllTransactions(Card card);
+    ArrayList<Transaction> getAllTransactionsByCard(Card card);
 
 }

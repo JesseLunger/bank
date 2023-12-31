@@ -6,16 +6,7 @@ public class Branch {
     private int id;
     private Location location;
     private String branchName;
-
     private ArrayList<Staff> branchStaff;
-
-    public ArrayList<Staff> getBranchStaff() {
-        return branchStaff;
-    }
-
-    public void setBranchStaff(ArrayList<Staff> branchStaff) {
-        this.branchStaff = branchStaff;
-    }
 
     public int getId() {
         return id;
@@ -39,6 +30,14 @@ public class Branch {
 
     public void setBranchName(String branchName) {
         this.branchName = branchName;
+    }
+
+    public ArrayList<Staff> getBranchStaff() {
+        return branchStaff;
+    }
+
+    public void setBranchStaff(ArrayList<Staff> branchStaff) {
+        this.branchStaff = branchStaff;
     }
 
     @Override

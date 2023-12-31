@@ -2,10 +2,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mappers.UserMapper">
+<mapper namespace="com.solvd.bank.persistence.IMerchantDAO">
+    <resultMap id="MerchantResultMap" type="Merchant" autoMapping="false">
+        <association property="associate" column="associate_id" javaType="Associate" resultMap="AssociateResultMap"/>
+    </resultMap>
 
-    <!-- Define CRUD operations for the User entity -->
+    <select id="getAll" resultMap="MerchantResultMap">
+        SELECT * FROM merchants;
+    </select>
 
-    <!-- SELECT, INSERT, UPDATE, DELETE statements go here -->
+    <select id="getEntityById" resultMap="MerchantResultMap">
+        SELECT * FROM merchants WHERE associate_id = #{associate.id};
+    </select>
+
+    <insert id="saveEntity" parameterType="Merchant">
+        INSERT INTO merchants (associate_id)
+        VALUES (#{associate.id});
+    </insert>
+
+    <update id="updateEntity" parameterType="Merchant">
+        <!--   Do nothing-->
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM merchants WHERE associate_id = #{associate.id};
+    </delete>
 
 </mapper>

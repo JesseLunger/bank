@@ -2,23 +2,37 @@ package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.BranchHasEmployee;
 import com.solvd.bank.domain.Staff;
+import com.solvd.bank.utils.ConnectionPool;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implements com.solvd.bank.persistence.IBranchHasEmployeeDAO {
 
     @Override
-    public ArrayList<Staff> getAllStaffById(int id) {
-        ArrayList<BranchHasEmployee> branchHasEmployees = new ArrayList<>(getAll());
-        return branchHasEmployees.stream()
-                .filter(bhe -> bhe.getBranch().getId() == (id))
-                .map(BranchHasEmployee::getStaff)
-                .collect(Collectors.toCollection(ArrayList::new));
+    public ArrayList<Staff> getAllStaffByBranchId(int id) {
+        ArrayList<Staff> staff = new ArrayList<>();
+        StaffDAO staffDAO = new StaffDAO();
+        String query = "select st.* from branch_has_employees bhe " +
+                "left join staff st on bhe.staff_id = st.associate_id " +
+                "where branch_id = (?);";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    staff.add(staffDAO.createEntity(resultSet));
+                }
+            }
+        } catch (InterruptedException | SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return staff;
     }
 
     @Override
@@ -38,7 +52,11 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
     @Override
     public BranchHasEmployee getEntityById(int id) {
         String query = "SELECT * FROM branch_has_employees WHERE staff_id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<BranchHasEmployee> branchHasEmployees = executeStatement(query, "getEntityById", id);
+        if (branchHasEmployees == null || branchHasEmployees.isEmpty()) {
+            return null;
+        }
+        return branchHasEmployees.get(0);
     }
 
     @Override
@@ -60,15 +78,14 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
 
     @Override
     public void updateEntity(BranchHasEmployee branchHasEmployee) {
-        String query = "UPDATE branch_has_employees SET branch_id = (?), staff_id = (?) WHERE staff_id = (?)";
-        executeStatement(query, "updateEntity", branchHasEmployee);
+        // we do not update because table only contains one pk consisting of two fk
+        removeEntityById(branchHasEmployee.getStaff().getAssociate().getId());
+        saveEntity(branchHasEmployee);
     }
 
     @Override
     protected void prepareUpdateStatement(PreparedStatement preparedStatement, BranchHasEmployee branchHasEmployee) throws SQLException {
-        preparedStatement.setInt(1, branchHasEmployee.getBranch().getId());
-        preparedStatement.setInt(2, branchHasEmployee.getStaff().getAssociate().getId());
-        preparedStatement.setInt(3, branchHasEmployee.getStaff().getAssociate().getId());
+        //placeHolder function
     }
 
     @Override

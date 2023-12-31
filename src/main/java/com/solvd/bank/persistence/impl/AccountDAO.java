@@ -5,6 +5,7 @@ import com.solvd.bank.domain.Account;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.persistence.IAccountDAO {
@@ -14,7 +15,6 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
         account.setAmount(account.getAmount() + amountToAdd);
         updateEntity(account);
     }
-
 
     @Override
     public List<Account> getAll() {
@@ -27,7 +27,7 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
         Account account = new Account();
         account.setId(resultSet.getInt("id"));
         account.setBranch(new BranchDAO().getEntityById(resultSet.getInt("branch_id")));
-        account.setCustomer(new CustomerDAO().getEntityById(resultSet.getInt("customer_associate_id")));
+        account.setCustomer(new CustomerDAO().getEntityById(resultSet.getInt("customer_id")));
         account.setAmount(resultSet.getDouble("amount"));
         account.setDateCreated(resultSet.getTimestamp("date_created"));
         account.setHolds(resultSet.getBoolean("holds"));
@@ -37,7 +37,11 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
     @Override
     public Account getEntityById(int id) {
         String query = "SELECT * FROM accounts WHERE id = (?);";
-        return executeStatement(query, "getEntityById", id).get(0);
+        ArrayList<Account> accounts = executeStatement(query, "getEntityById", id);
+        if (accounts == null || accounts.isEmpty()) {
+            return null;
+        }
+        return accounts.get(0);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
 
     @Override
     public void saveEntity(Account account) {
-        String query = "INSERT INTO accounts (branch_id, customer_associate_id, amount, date_created, holds) " +
+        String query = "INSERT INTO accounts (branch_id, customer_id, amount, date_created, holds) " +
                 "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", account);
         Integer autoIncrementValue = getAutoIncrementValue();
@@ -69,7 +73,7 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
 
     @Override
     public void updateEntity(Account account) {
-        String query = "UPDATE accounts SET branch_id = (?), customer_associate_id = (?), " +
+        String query = "UPDATE accounts SET branch_id = (?), customer_id = (?), " +
                 "amount = (?), date_created = (?), holds = (?) WHERE id = (?)";
         executeStatement(query, "updateEntity", account);
     }

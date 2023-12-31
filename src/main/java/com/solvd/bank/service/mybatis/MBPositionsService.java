@@ -16,8 +16,8 @@ public class MBPositionsService {
         this.positionDAO = new PositionDAO();
     }
 
-    public ArrayList<Branch> getBranchWithMissingPosition(Position position) {
-        return positionDAO.getBranchWithMissingPosition(position);
+    public ArrayList<Branch> getBranchWithMissingPosition(String positionName) {
+        return positionDAO.getBranchesWithMissingPosition(positionName);
     }
 
     public List<Position> getAllPositions() {

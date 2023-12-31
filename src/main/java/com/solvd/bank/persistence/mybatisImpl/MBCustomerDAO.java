@@ -6,6 +6,12 @@ import com.solvd.bank.persistence.ICustomersDAO;
 import java.util.List;
 
 public class MBCustomerDAO extends MBBaseClassDAO implements ICustomersDAO {
+
+    @Override
+    public void updateCreditScore(Customer customer, double newScore) {
+
+    }
+
     @Override
     public void saveEntity(Customer customer) {
 
