@@ -2,10 +2,14 @@ package com.solvd.bank;
 
 import com.solvd.bank.domain.*;
 import com.solvd.bank.persistence.impl.*;
+import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.DBConfig;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -13,6 +17,8 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
+
+
 
         LOGGER.info("-----Testing CountryDAO-----");
         CountryDAO countriesJdbc = new CountryDAO();

@@ -1,6 +1,7 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.utils.ConnectionPool;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,7 +49,11 @@ public abstract class BaseClassDAO<Entity> {
             LOGGER.error(e.getMessage());
         } finally {
             if (connection != null) {
-                ConnectionPool.releaseConnection(connection);
+                try {
+                    ConnectionPool.releaseConnection(connection);
+                } catch ( SQLException e){
+                    LOGGER.error(e.getMessage());
+                }
             }
         }
         return null;

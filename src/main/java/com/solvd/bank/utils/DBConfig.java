@@ -14,20 +14,14 @@ import java.util.Properties;
 public class DBConfig {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private static final String URL;
-    private static final String USERNAME;
-    private static final String PASSWORD;
     private static String propertiesPath = "/db.properties";
-    private static Properties properties;
+    private static final Properties PROPERTIES;
 
     static {
-        properties = new Properties();
+        PROPERTIES = new Properties();
         try (InputStream inputStream = DBConfig.class.getResourceAsStream(propertiesPath)) {
             if (inputStream != null) {
-                properties.load(inputStream);
-                URL = properties.getProperty("url");
-                USERNAME = properties.getProperty("username");
-                PASSWORD = properties.getProperty("password");
+                PROPERTIES.load(inputStream);
             } else {
                 LOGGER.error("Unable to load properties file. InputStream is null.");
                 throw new RuntimeException("Unable to load properties file.");
@@ -38,13 +32,11 @@ public class DBConfig {
         }
     }
 
-    public static synchronized Connection getConnection() {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(DBConfig.URL, DBConfig.USERNAME, DBConfig.PASSWORD);
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
-        }
-        return connection;
-    }
+    public static final String URL = PROPERTIES.getProperty("url");
+    public static final String USERNAME = PROPERTIES.getProperty("username");;
+    public static final String PASSWORD = PROPERTIES.getProperty("password");;
+
+
+
+
 }
