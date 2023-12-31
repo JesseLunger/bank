@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mappers.UserMapper">
+<mapper namespace="com.solvd.bank.persistence.IAssociateDAO">
 
     <resultMap id="AssociateResultMap" type="Associate" autoMapping="false">
         <result property="id" column="id"/>
@@ -11,14 +11,20 @@
         <result property="dateJoined" column="date_joined"/>
         <result property="email" column="email"/>
         <result property="phoneNumber" column="phone_number"/>
-        <association property="location" column="location_id" javaType="Location" resultMap="LocationResultMap"/>
+        <association property="location" column="location_id" javaType="Location"
+                                select="com.solvd.bank.persistence.ILocationDAO.getEntityById"/>
     </resultMap>
 
-    <select id="getAll" resultType="Associate">
+    <select id="getAllAssociatesByLocationId" parameterType="int" resultMap="AssociateResultMap">
+        SELECT * FROM associates Where location_id = #{locationId};
+    </select>
+
+
+    <select id="getAll" resultMap="AssociateResultMap">
         SELECT * FROM associates;
     </select>
 
-    <select id="getEntityById" resultType="Associate">
+    <select id="getEntityById" resultMap="AssociateResultMap">
         SELECT * FROM associates WHERE id = #{id};
     </select>
 
@@ -38,7 +44,7 @@
         WHERE id = #{id};
     </update>
 
-    <delete id="deleteEntity" parameterType="Associate">
+    <delete id="removeEntityById" parameterType="int">
         DELETE FROM associates WHERE id = #{id};
     </delete>
 

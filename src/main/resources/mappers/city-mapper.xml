@@ -9,9 +9,13 @@
     <resultMap id="cityResultMap" type="City" autoMapping="false">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
-        <association property="country" column="country_id" javaType="com.solvd.bank.domain.Country"
+        <association property="country" column="country_id" javaType="Country"
                      select="com.solvd.bank.persistence.ICountryDAO.getEntityById"/>
     </resultMap>
+
+    <select id="getLocationsByCity" resultMap="com.solvd.bank.persistence.ILocationDAO.LocationResultMap">
+        SELECT * FROM locations WHERE city_id = #{id};
+    </select>
 
     <select id="getAll" resultMap="cityResultMap">
         SELECT * FROM cities;

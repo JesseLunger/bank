@@ -11,6 +11,16 @@
         <result property="salary" column="salary"/>
     </resultMap>
 
+    <select id="getBranchesWithMissingPosition" parameterType="String"
+            resultMap="com.solvd.bank.persistence.IBranchDAO.BranchResultMap">
+        SELECT * FROM branches br
+        WHERE NOT EXISTS (
+        SELECT 1 FROM positions pos
+        LEFT JOIN staff st ON pos.id = st.position_id
+        LEFT JOIN branch_has_employees bhe ON st.associate_id = bhe.staff_id
+        WHERE bhe.branch_id = br.id AND pos.position = #{positionName});
+    </select>
+
     <select id="getAll" resultMap="PositionResultMap">
         SELECT * FROM positions;
     </select>

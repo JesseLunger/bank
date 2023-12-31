@@ -4,11 +4,19 @@
 
 <mapper namespace="com.solvd.bank.persistence.ILocationDAO">
 
-    <resultMap id="LocationResultMap" type="Location" autoMapping="false">
+
+    <resultMap id="LocationResultMap" type="Location" autoMapping="true">
         <result property="id" column="id"/>
         <result property="zipCode" column="zip_code"/>
         <result property="address" column="address"/>
-        <association property="city" column="city_id" javaType="City" resultMap="CityResultMap"/>
+        <association property="city" column="city_id" javaType="City"
+                     select="com.solvd.bank.persistence.ICityDAO.getEntityById"/>
+    </resultMap>
+    <resultMap id="cityResultMap" type="City" autoMapping="false">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <association property="country" column="country_id" javaType="Country"
+                     select="com.solvd.bank.persistence.ICountryDAO.getEntityById"/>
     </resultMap>
 
     <select id="getAll" resultMap="LocationResultMap">

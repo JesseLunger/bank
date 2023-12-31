@@ -4,8 +4,21 @@
 
 <mapper namespace="com.solvd.bank.persistence.IMerchantDAO">
     <resultMap id="MerchantResultMap" type="Merchant" autoMapping="false">
-        <association property="associate" column="associate_id" javaType="Associate" resultMap="AssociateResultMap"/>
+        <association property="associate" column="associate_id" javaType="Associate"
+                     select="com.solvd.bank.persistence.IAssociateDAO.getEntityById"/>
     </resultMap>
+
+    <select id="getCustomersWithTransactions" parameterType="Merchant"
+            resultMap="com.solvd.bank.persistence.ICustomersDAO.CustomerResultMap">
+        SELECT cus.*
+        FROM customers cus
+        LEFT JOIN accounts acc ON cus.associate_id = acc.customer_id
+        LEFT JOIN cards car ON acc.id = car.account_id
+        LEFT JOIN transactions trans ON car.id = trans.card_id
+        LEFT JOIN merchants mer ON trans.merchant_id = mer.associate_id
+        WHERE mer.associate_id = #{associate.id};
+    </select>
+
 
     <select id="getAll" resultMap="MerchantResultMap">
         SELECT * FROM merchants;
@@ -15,10 +28,12 @@
         SELECT * FROM merchants WHERE associate_id = #{associate.id};
     </select>
 
+
     <insert id="saveEntity" parameterType="Merchant">
         INSERT INTO merchants (associate_id)
         VALUES (#{associate.id});
     </insert>
+
 
     <update id="updateEntity" parameterType="Merchant">
         <!--   Do nothing-->

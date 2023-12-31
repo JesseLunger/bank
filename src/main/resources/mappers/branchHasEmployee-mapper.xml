@@ -5,9 +5,17 @@
 <mapper namespace="com.solvd.bank.persistence.IBranchHasEmployeeDAO">
 
     <resultMap id="BranchHasEmployeeResultMap" type="BranchHasEmployee" autoMapping="false">
-        <association property="branch" column="branch_id" javaType="Branch" resultMap="BranchResultMap"/>
-        <association property="staff" column="staff_id" javaType="Staff" resultMap="StaffResultMap"/>
+        <association property="branch" column="branch_id" javaType="Branch"
+                     select="com.solvd.bank.persistence.IBranchDAO.getEntityById"/>
+        <association property="staff" column="staff_id" javaType="Staff"
+                     select="com.solvd.bank.persistence.IStaffDAO.getEntityById"/>
     </resultMap>
+
+    <select id="getAllStaffByBranchId" parameterType="int" resultMap="com.solvd.bank.persistence.IStaffDAO.StaffResultMap">
+        select st.* from branch_has_employees bhe
+        left join staff st on bhe.staff_id = st.associate_id
+        where branch_id = #{branchId};
+    </select>
 
     <select id="getAllStaffByBranch" resultMap="BranchHasEmployeeResultMap">
         SELECT * FROM branch_has_employees WHERE branch_id = #{branch.id};
@@ -27,10 +35,7 @@
     </insert>
 
     <update id="updateEntity" parameterType="BranchHasEmployee">
-        UPDATE branch_has_employees SET
-        branch_id = #{branch.id},
-        staff_id = #{staff.associate.id}
-        WHERE staff_id = #{staff.associate.id};
+        <!-- uses BranchDAO.updateEntity and StaffDAO.updateEntity -->
     </update>
 
     <delete id="removeEntityById" parameterType="int">

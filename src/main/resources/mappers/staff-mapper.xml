@@ -6,8 +6,10 @@
 
     <resultMap id="StaffResultMap" type="Staff" autoMapping="false">
         <result property="dateHired" column="date_hired"/>
-        <association property="position" column="position_id" javaType="Position" resultMap="PositionResultMap"/>
-        <association property="associate" column="associate_id" javaType="Associate" resultMap="AssociateResultMap"/>
+        <association property="position" column="position_id" javaType="Position"
+                     select="com.solvd.bank.persistence.IPositionDAO.getEntityById"/>
+        <association property="associate" column="associate_id" javaType="Associate"
+                    select="com.solvd.bank.persistence.IAssociateDAO.getEntityById"/>
     </resultMap>
 
     <select id="getAll" resultMap="StaffResultMap">
@@ -18,10 +20,11 @@
         SELECT * FROM staff WHERE associate_id = #{associate.id};
     </select>
 
-    <insert id="saveEntity" parameterType="Staff">
-        INSERT INTO staff (date_hired, position_id)
-        VALUES (#{dateHired}, #{position.id});
+    <insert id="saveEntity" parameterType="Staff" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO staff (date_hired, position_id, associate_id)
+        VALUES (#{dateHired}, #{position.id}, #{associate.id});
     </insert>
+
 
     <update id="updateEntity" parameterType="Staff">
         UPDATE staff SET
