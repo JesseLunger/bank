@@ -9,7 +9,8 @@
         <result property="cardNumber" column="card_number"/>
         <result property="expirationDate" column="expiration_date"/>
         <result property="cvv" column="cvv"/>
-        <association property="account" column="account_id" javaType="Account" resultMap="AccountResultMap"/>
+        <association property="account" column="account_id" javaType="Account"
+                     select="com.solvd.bank.persistence.IAccountDAO.getEntityById"/>
     </resultMap>
 
     <select id="getAll" resultMap="CardResultMap">

@@ -8,7 +8,7 @@
         <result property="id" column="id"/>
         <result property="branchName" column="branch_name"/>
         <association property="location" column="location_id" javaType="Location"
-        select="com.solvd.bank.persistence.ILocationDAO.getEntityById"/>
+                     select="com.solvd.bank.persistence.ILocationDAO.getEntityById"/>
     </resultMap>
 
     <select id="getAllBranchesByLocationId" parameterType="int" resultMap="BranchResultMap">

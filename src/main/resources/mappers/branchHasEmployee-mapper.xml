@@ -11,7 +11,8 @@
                      select="com.solvd.bank.persistence.IStaffDAO.getEntityById"/>
     </resultMap>
 
-    <select id="getAllStaffByBranchId" parameterType="int" resultMap="com.solvd.bank.persistence.IStaffDAO.StaffResultMap">
+    <select id="getAllStaffByBranchId" parameterType="int"
+            resultMap="com.solvd.bank.persistence.IStaffDAO.StaffResultMap">
         select st.* from branch_has_employees bhe
         left join staff st on bhe.staff_id = st.associate_id
         where branch_id = #{branchId};
@@ -26,7 +27,7 @@
     </select>
 
     <select id="getEntityById" resultMap="BranchHasEmployeeResultMap">
-        SELECT * FROM branch_has_employees WHERE staff_id = #{id};
+        SELECT * FROM branch_has_employees WHERE staff_id = #{branch.id};
     </select>
 
     <insert id="saveEntity" parameterType="BranchHasEmployee">

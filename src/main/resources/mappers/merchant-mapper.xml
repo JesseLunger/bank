@@ -9,7 +9,7 @@
     </resultMap>
 
     <select id="getCustomersWithTransactions" parameterType="Merchant"
-            resultMap="com.solvd.bank.persistence.ICustomersDAO.CustomerResultMap">
+            resultMap="com.solvd.bank.persistence.ICustomerDAO.CustomerResultMap">
         SELECT cus.*
         FROM customers cus
         LEFT JOIN accounts acc ON cus.associate_id = acc.customer_id

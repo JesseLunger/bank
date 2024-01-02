@@ -9,7 +9,7 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MBCountryDAO implements ICountryDAO{
+public class MBCountryDAO implements ICountryDAO {
 
     private ICountryDAO mapper;
 

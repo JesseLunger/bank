@@ -1,8 +1,7 @@
-package com.solvd.bank.service.normal;
+package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.persistence.ICustomerDAO;
-import com.solvd.bank.persistence.impl.CustomerDAO;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class CustomersService {
     private ICustomerDAO customersDAO;
 
     public CustomersService() {
-        this.customersDAO = new CustomerDAO();
+        this.customersDAO = new MBCustomerDAO();
     }
 
     public List<Customer> getAllCustomers() {

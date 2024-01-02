@@ -9,16 +9,18 @@
         <result property="amount" column="amount"/>
         <result property="dateCreated" column="date_created"/>
         <result property="holds" column="holds"/>
-        <association property="branch" column="branch_id" javaType="Branch" resultMap="BranchResultMap"/>
-        <association property="customer" column="associate_id" javaType="Customer"
-                     select="com.solvd.bank.persistence.ICustomersDAO.getEntityById"/>
+
+        <association property="branch" column="branch_id" javaType="Branch"
+                     select="com.solvd.bank.persistence.IBranchDAO.getEntityById"/>
+        <association property="customer" column="customer_id" javaType="Customer"
+                     select="com.solvd.bank.persistence.ICustomerDAO.getEntityById"/>
     </resultMap>
 
-    <select id="getAll" resultType="Account">
+    <select id="getAll" resultMap="AccountResultMap">
         SELECT * FROM accounts;
     </select>
 
-    <select id="getEntityById" resultType="Account">
+    <select id="getEntityById" resultMap="AccountResultMap">
         SELECT * FROM accounts WHERE id = #{id};
     </select>
 
@@ -37,7 +39,8 @@
         WHERE id = #{id};
     </update>
 
-    <delete id="deleteEntity" parameterType="Account">
+    <delete id="removeEntityById" parameterType="int">
         DELETE FROM accounts WHERE id = #{id};
     </delete>
+
 </mapper>

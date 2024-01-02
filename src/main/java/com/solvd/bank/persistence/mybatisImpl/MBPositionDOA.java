@@ -12,7 +12,7 @@ public class MBPositionDOA implements IPositionDAO {
 
     private IPositionDAO mapper;
 
-    public MBPositionDOA(){
+    public MBPositionDOA() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IPositionDAO.class);
     }
 
@@ -20,6 +20,7 @@ public class MBPositionDOA implements IPositionDAO {
     public ArrayList<Branch> getBranchesWithMissingPosition(String positionName) {
         return mapper.getBranchesWithMissingPosition(positionName);
     }
+
     @Override
     public List<Position> getAll() {
         return mapper.getAll();

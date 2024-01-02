@@ -25,13 +25,13 @@
         SELECT * FROM cities WHERE id = #{id};
     </select>
 
-    <insert id="saveEntity" parameterType="com.solvd.bank.domain.City" useGeneratedKeys="true" keyProperty="id"
+    <insert id="saveEntity" parameterType="City" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO cities (id, name, country_id)
         VALUES (#{id}, #{name}, #{country.id});
     </insert>
 
-    <update id="updateEntity" parameterType="com.solvd.bank.domain.City">
+    <update id="updateEntity" parameterType="City">
         UPDATE cities SET
         name = #{name},
         country_id = #{country.id}

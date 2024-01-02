@@ -6,16 +6,17 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBConfig {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private static String propertiesPath = "/db.properties";
     private static final Properties PROPERTIES;
+    public static final String URL = PROPERTIES.getProperty("url");
+    public static final String USERNAME = PROPERTIES.getProperty("username");
+    public static final String PASSWORD = PROPERTIES.getProperty("password");
+    private static String propertiesPath = "/db.properties";
+    ;
 
     static {
         PROPERTIES = new Properties();
@@ -31,8 +32,5 @@ public class DBConfig {
             throw new RuntimeException("Error loading properties file.", e);
         }
     }
-
-    public static final String URL = PROPERTIES.getProperty("url");
-    public static final String USERNAME = PROPERTIES.getProperty("username");;
-    public static final String PASSWORD = PROPERTIES.getProperty("password");;
+    ;
 }

@@ -9,7 +9,7 @@
         <association property="position" column="position_id" javaType="Position"
                      select="com.solvd.bank.persistence.IPositionDAO.getEntityById"/>
         <association property="associate" column="associate_id" javaType="Associate"
-                    select="com.solvd.bank.persistence.IAssociateDAO.getEntityById"/>
+                     select="com.solvd.bank.persistence.IAssociateDAO.getEntityById"/>
     </resultMap>
 
     <select id="getAll" resultMap="StaffResultMap">

@@ -12,7 +12,7 @@
         <result property="email" column="email"/>
         <result property="phoneNumber" column="phone_number"/>
         <association property="location" column="location_id" javaType="Location"
-                                select="com.solvd.bank.persistence.ILocationDAO.getEntityById"/>
+                     select="com.solvd.bank.persistence.ILocationDAO.getEntityById"/>
     </resultMap>
 
     <select id="getAllAssociatesByLocationId" parameterType="int" resultMap="AssociateResultMap">

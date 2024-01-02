@@ -13,6 +13,10 @@
         SELECT * FROM transfer_statuses;
     </select>
 
+    <select id="getEntityById" resultMap="TransferStatusResultMap">
+        SELECT * FROM transfer_statuses WHERE id = #{id};
+    </select>
+
     <insert id="saveEntity" parameterType="TransferStatus" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO transfer_statuses (status)
         VALUES (#{status})

@@ -30,7 +30,7 @@
         SELECT * FROM countries WHERE id = #{id};
     </select>
 
-    <insert id="saveEntity" parameterType="com.solvd.bank.domain.Country" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="saveEntity" parameterType="Country" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO countries (id, name) VALUES (#{id}, #{name});
     </insert>
 

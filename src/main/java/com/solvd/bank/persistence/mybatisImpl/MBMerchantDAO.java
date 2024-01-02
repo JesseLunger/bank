@@ -5,7 +5,6 @@ import com.solvd.bank.domain.Merchant;
 import com.solvd.bank.persistence.IMerchantDAO;
 import com.solvd.bank.utils.MyBatisSQLFactory;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class MBMerchantDAO implements IMerchantDAO {
 
     private IMerchantDAO mapper;
 
-    public MBMerchantDAO(){
+    public MBMerchantDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IMerchantDAO.class);
     }
 
@@ -21,6 +20,7 @@ public class MBMerchantDAO implements IMerchantDAO {
     public ArrayList<Customer> getCustomersWithTransactions(Merchant merchant) {
         return mapper.getCustomersWithTransactions(merchant);
     }
+
     @Override
     public List<Merchant> getAll() {
         return mapper.getAll();
@@ -38,7 +38,7 @@ public class MBMerchantDAO implements IMerchantDAO {
 
     @Override
     public void updateEntity(Merchant merchant) {
-//        new MBAssociateDAO().updateEntity(merchant.getAssociate());
+        new MBAssociateDAO().updateEntity(merchant.getAssociate());
     }
 
     @Override

@@ -8,9 +8,12 @@
         <result property="id" column="id"/>
         <result property="transferTime" column="transfer_time"/>
         <result property="amount" column="amount"/>
-        <association property="customer" column="customer_id" javaType="Customer" resultMap="CustomerResultMap"/>
-        <association property="receiver" column="receiver_id" javaType="Account" resultMap="AccountResultMap"/>
-        <association property="sender" column="sender_id" javaType="Account" resultMap="AccountResultMap"/>
+        <association property="transferStatus" column="status_id" javaType="TransferStatus"
+                     select="com.solvd.bank.persistence.ITransferStatusDAO.getEntityById"/>
+        <association property="receiver" column="receiver_id" javaType="Account"
+                     select="com.solvd.bank.persistence.IAccountDAO.getEntityById"/>
+        <association property="sender" column="sender_id" javaType="Account"
+                     select="com.solvd.bank.persistence.IAccountDAO.getEntityById"/>
     </resultMap>
 
     <select id="getAll" resultMap="TransferResultMap">
@@ -22,19 +25,20 @@
     </select>
 
     <insert id="saveEntity" parameterType="Transfer" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO transfers (transfer_time, amount, customer_id, receiver_id, sender_id)
-        VALUES (#{transferTime}, #{amount}, #{customer.id}, #{receiver.id}, #{sender.id})
+        INSERT INTO transfers (transfer_time, amount, status_id, receiver_id, sender_id)
+        VALUES (#{transferTime}, #{amount}, #{transferStatus.id}, #{receiver.id}, #{sender.id});
     </insert>
 
     <update id="updateEntity" parameterType="Transfer">
         UPDATE transfers SET
         transfer_time = #{transferTime},
         amount = #{amount},
-        customer_id = #{customer.id},
+        status_id = #{transferStatus.id},
         receiver_id = #{receiver.id},
         sender_id = #{sender.id}
         WHERE id = #{id};
     </update>
+
 
     <delete id="removeEntityById" parameterType="int">
         DELETE FROM transfers WHERE id = #{id};

@@ -8,10 +8,12 @@
         <result property="id" column="id"/>
         <result property="amount" column="amount"/>
         <result property="transactionTime" column="transaction_time"/>
-        <association property="merchant" column="merchant_id" javaType="Merchant" resultMap="MerchantResultMap"/>
-        <association property="card" column="card_id" javaType="Card" resultMap="CardResultMap"/>
-        <association property="status" column="status_id" javaType="TransferStatus"
-                     resultMap="TransferStatusResultMap"/>
+        <!--        <association property="merchant" column="merchant_id" javaType="Merchant"-->
+        <!--                     select="com.solvd.bank.persistence.IMerchantDAO.getEntityById"/>-->
+        <association property="card" column="card_id" javaType="Card"
+                     select="com.solvd.bank.persistence.ICardDAO.getEntityById"/>
+        <association property="transferStatus" column="status_id" javaType="TransferStatus"
+                     select="com.solvd.bank.persistence.ITransferStatusDAO.getEntityById"/>
     </resultMap>
 
     <select id="getAll" resultMap="TransactionResultMap">
@@ -24,17 +26,17 @@
 
     <insert id="saveEntity" parameterType="Transaction" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO transactions (amount, transaction_time, merchant_id, card_id, status_id)
-        VALUES (#{amount}, #{transactionTime}, #{merchant.id}, #{card.id}, #{status.id})
+        VALUES (#{amount}, #{transactionTime}, #{merchant.associate.id}, #{card.id}, #{transferStatus.id})
     </insert>
 
     <update id="updateEntity" parameterType="Transaction">
         UPDATE transactions SET
         amount = #{amount},
         transaction_time = #{transactionTime},
-        merchant_id = #{merchant.id},
+        merchant_id = #{merchant.associate.id},
         card_id = #{card.id},
-        status_id = #{status.id}
-        WHERE id = #{id};
+        status_id = #{transferStatus.id}
+        WHERE id = #{id}
     </update>
 
     <delete id="removeEntityById" parameterType="int">

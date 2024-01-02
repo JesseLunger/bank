@@ -11,7 +11,7 @@ public class MBLocationDAO implements ILocationDAO {
 
     private ILocationDAO mapper;
 
-    public MBLocationDAO(){
+    public MBLocationDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ILocationDAO.class);
     }
 

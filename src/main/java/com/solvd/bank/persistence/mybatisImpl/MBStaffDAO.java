@@ -11,7 +11,7 @@ public class MBStaffDAO implements IStaffDAO {
 
     private IStaffDAO mapper;
 
-    public MBStaffDAO(){
+    public MBStaffDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IStaffDAO.class);
     }
 
@@ -20,6 +20,7 @@ public class MBStaffDAO implements IStaffDAO {
         staff.setPosition(position);
         mapper.updateEntity(staff);
     }
+
     @Override
     public List<Staff> getAll() {
         return mapper.getAll();

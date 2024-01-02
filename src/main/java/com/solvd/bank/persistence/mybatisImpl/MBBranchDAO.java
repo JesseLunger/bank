@@ -11,13 +11,18 @@ public class MBBranchDAO implements IBranchDAO {
 
     private IBranchDAO mapper;
 
-    public MBBranchDAO(){
+    public MBBranchDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchDAO.class);
     }
 
     @Override
     public ArrayList<Branch> getAllBranchesByLocationId(int id) {
-        return mapper.getAllBranchesByLocationId(id);
+        MBBranchHasEmployeeDAO mbBranchHasEmployeeDAO = new MBBranchHasEmployeeDAO();
+        ArrayList<Branch> branches = new ArrayList<>(getAll());
+        for (Branch branch : branches) {
+            branch.setBranchStaff(mbBranchHasEmployeeDAO.getAllStaffByBranchId(branch.getId()));
+        }
+        return branches;
     }
 
     @Override

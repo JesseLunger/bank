@@ -11,7 +11,7 @@ public class MBAssociateDAO implements IAssociateDAO {
 
     private IAssociateDAO mapper;
 
-    public MBAssociateDAO(){
+    public MBAssociateDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IAssociateDAO.class);
     }
 
