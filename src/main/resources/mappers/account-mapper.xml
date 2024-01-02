@@ -1,0 +1,46 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bank.persistence.IAccountDAO">
+
+    <resultMap id="AccountResultMap" type="Account" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="amount" column="amount"/>
+        <result property="dateCreated" column="date_created"/>
+        <result property="holds" column="holds"/>
+
+        <association property="branch" column="branch_id" javaType="Branch"
+                     select="com.solvd.bank.persistence.IBranchDAO.getEntityById"/>
+        <association property="customer" column="customer_id" javaType="Customer"
+                     select="com.solvd.bank.persistence.ICustomerDAO.getEntityById"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="AccountResultMap">
+        SELECT * FROM accounts;
+    </select>
+
+    <select id="getEntityById" resultMap="AccountResultMap">
+        SELECT * FROM accounts WHERE id = #{id};
+    </select>
+
+    <insert id="saveEntity" parameterType="Account" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO accounts (branch_id, customer_id, amount, date_created, holds)
+        VALUES (#{branch.id}, #{customer.associate.id}, #{amount}, #{dateCreated}, #{holds});
+    </insert>
+
+    <update id="updateEntity" parameterType="Account">
+        UPDATE accounts SET
+        branch_id = #{branch.id},
+        customer_id = #{customer.associate.id},
+        amount = #{amount},
+        date_created = #{dateCreated},
+        holds = #{holds}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM accounts WHERE id = #{id};
+    </delete>
+
+</mapper>

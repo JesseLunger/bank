@@ -1,6 +1,5 @@
 package com.solvd.bank.utils;
 
-import com.solvd.bank.domain.Position;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,19 +8,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Vector;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
 
-    private static ConnectionPool instance;
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static final int POOL_SIZE = 50;
+    private static ConnectionPool instance;
     private static Vector<Connection> freeConnections = new Vector<>();
     private static Vector<Connection> usedConnections = new Vector<>();
 
-    private ConnectionPool(){};
-
+    private ConnectionPool() {
+    }
 
     public static ConnectionPool initializePool() {
         if (instance == null) {
@@ -31,8 +28,8 @@ public class ConnectionPool {
         return instance;
     }
 
-    private static void createPool(){
-        for (int i = 0; i < POOL_SIZE; i++){
+    private static void createPool() {
+        for (int i = 0; i < POOL_SIZE; i++) {
             freeConnections.add(createConnection(DBConfig.URL, DBConfig.USERNAME, DBConfig.PASSWORD));
         }
     }
@@ -46,14 +43,14 @@ public class ConnectionPool {
     }
 
     public static synchronized void releaseConnection(Connection connection) throws SQLException {
-        if (usedConnections.remove(connection)){
+        if (usedConnections.remove(connection)) {
             freeConnections.add(connection);
         } else {
             throw new SQLException();
         }
     }
 
-    private static  Connection createConnection(String url, String username, String password) {
+    private static Connection createConnection(String url, String username, String password) {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {

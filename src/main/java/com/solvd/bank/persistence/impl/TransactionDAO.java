@@ -31,7 +31,7 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
         transaction.setCard(new CardDAO().getEntityById(resultSet.getInt("card_id")));
         transaction.setMerchant(new MerchantDAO().getEntityById(resultSet.getInt("merchant_id")));
         transaction.setTransferStatus(new TransferStatusDAO().getEntityById(resultSet.getInt("status_id")));
-        transaction.setTime(resultSet.getTimestamp("transaction_time"));
+        transaction.setTransactionTime(resultSet.getTimestamp("transaction_time"));
         transaction.setAmount(resultSet.getDouble("amount"));
         return transaction;
     }
@@ -67,7 +67,7 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
         preparedStatement.setInt(1, transaction.getCard().getId());
         preparedStatement.setInt(2, transaction.getMerchant().getAssociate().getId());
         preparedStatement.setInt(3, transaction.getTransferStatus().getId());
-        preparedStatement.setTimestamp(4, transaction.getTime());
+        preparedStatement.setTimestamp(4, transaction.getTransactionTime());
         preparedStatement.setDouble(5, transaction.getAmount());
     }
 
@@ -83,7 +83,7 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
         preparedStatement.setInt(1, transaction.getCard().getId());
         preparedStatement.setInt(2, transaction.getMerchant().getAssociate().getId());
         preparedStatement.setInt(3, transaction.getTransferStatus().getId());
-        preparedStatement.setTimestamp(4, transaction.getTime());
+        preparedStatement.setTimestamp(4, transaction.getTransactionTime());
         preparedStatement.setDouble(5, transaction.getAmount());
         preparedStatement.setInt(6, transaction.getId());
     }

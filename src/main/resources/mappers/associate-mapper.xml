@@ -1,0 +1,51 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bank.persistence.IAssociateDAO">
+
+    <resultMap id="AssociateResultMap" type="Associate" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="primaryName" column="primary_name"/>
+        <result property="secondaryName" column="secondary_name"/>
+        <result property="dateJoined" column="date_joined"/>
+        <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <association property="location" column="location_id" javaType="Location"
+                     select="com.solvd.bank.persistence.ILocationDAO.getEntityById"/>
+    </resultMap>
+
+    <select id="getAllAssociatesByLocationId" parameterType="int" resultMap="AssociateResultMap">
+        SELECT * FROM associates Where location_id = #{locationId};
+    </select>
+
+
+    <select id="getAll" resultMap="AssociateResultMap">
+        SELECT * FROM associates;
+    </select>
+
+    <select id="getEntityById" resultMap="AssociateResultMap">
+        SELECT * FROM associates WHERE id = #{id};
+    </select>
+
+    <insert id="saveEntity" parameterType="Associate" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO associates (location_id, primary_name, secondary_name, date_joined, email, phone_number)
+        VALUES (#{location.id}, #{primaryName}, #{secondaryName}, #{dateJoined}, #{email}, #{phoneNumber});
+    </insert>
+
+    <update id="updateEntity" parameterType="Associate">
+        UPDATE associates SET
+        location_id = #{location.id},
+        primary_name = #{primaryName},
+        secondary_name = #{secondaryName},
+        date_joined = #{dateJoined},
+        email = #{email},
+        phone_number = #{phoneNumber}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM associates WHERE id = #{id};
+    </delete>
+
+</mapper>

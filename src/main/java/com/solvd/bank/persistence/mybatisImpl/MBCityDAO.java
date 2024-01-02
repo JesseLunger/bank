@@ -4,7 +4,6 @@ import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ICityDAO;
 import com.solvd.bank.utils.MyBatisSQLFactory;
-import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,34 +18,31 @@ public class MBCityDAO implements ICityDAO {
 
     @Override
     public ArrayList<Location> getLocationsByCity(City city) {
-        // Implement this method
-        return null;
+        return mapper.getLocationsByCity(city);
     }
 
     @Override
     public List<City> getAll() {
-        // Implement this method
-        return null;
+        return mapper.getAll();
     }
 
     @Override
     public City getEntityById(int id) {
-        // Implement this method
-        return null;
+        return mapper.getEntityById(id);
     }
 
     @Override
     public void saveEntity(City city) {
-        // Implement this method
+        mapper.saveEntity(city);
     }
 
     @Override
     public void updateEntity(City city) {
-        // Implement this method
+        mapper.updateEntity(city);
     }
 
     @Override
     public void removeEntityById(int id) {
-        // Implement this method
+        mapper.removeEntityById(id);
     }
 }

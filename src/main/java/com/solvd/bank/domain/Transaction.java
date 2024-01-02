@@ -7,7 +7,7 @@ public class Transaction {
     private Card card;
     private Merchant merchant;
     private TransferStatus transferStatus;
-    private Timestamp time;
+    private Timestamp transactionTime;
     private double amount;
 
     public int getId() {
@@ -42,12 +42,12 @@ public class Transaction {
         this.transferStatus = transferStatus;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getTransactionTime() {
+        return transactionTime;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setTransactionTime(Timestamp transactionTime) {
+        this.transactionTime = transactionTime;
     }
 
     public double getAmount() {
@@ -65,7 +65,7 @@ public class Transaction {
                 ", card=" + card +
                 ", merchant=" + merchant +
                 ", transferStatus=" + transferStatus +
-                ", time=" + time +
+                ", time=" + transactionTime +
                 ", amount=" + amount +
                 '}';
     }

@@ -1,0 +1,62 @@
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties resource="db.properties"/>
+
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="Account" type="com.solvd.bank.domain.Account"/>
+        <typeAlias alias="Associate" type="com.solvd.bank.domain.Associate"/>
+        <typeAlias alias="Branch" type="com.solvd.bank.domain.Branch"/>
+        <typeAlias alias="BranchHasEmployee" type="com.solvd.bank.domain.BranchHasEmployee"/>
+        <typeAlias alias="Card" type="com.solvd.bank.domain.Card"/>
+        <typeAlias alias="City" type="com.solvd.bank.domain.City"/>
+        <typeAlias alias="Country" type="com.solvd.bank.domain.Country"/>
+        <typeAlias alias="Customer" type="com.solvd.bank.domain.Customer"/>
+        <typeAlias alias="Location" type="com.solvd.bank.domain.Location"/>
+        <typeAlias alias="Merchant" type="com.solvd.bank.domain.Merchant"/>
+        <typeAlias alias="Position" type="com.solvd.bank.domain.Position"/>
+        <typeAlias alias="Staff" type="com.solvd.bank.domain.Staff"/>
+        <typeAlias alias="Transaction" type="com.solvd.bank.domain.Transaction"/>
+        <typeAlias alias="Transfer" type="com.solvd.bank.domain.Transfer"/>
+        <typeAlias alias="TransferStatus" type="com.solvd.bank.domain.TransferStatus"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+                <property name="poolMaximumActiveConnections" value="30"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mappers/country-mapper.xml"/>
+        <mapper resource="mappers/city-mapper.xml"/>
+        <mapper resource="mappers/location-mapper.xml"/>
+        <mapper resource="mappers/account-mapper.xml"/>
+        <mapper resource="mappers/associate-mapper.xml"/>
+        <mapper resource="mappers/branch-mapper.xml"/>
+        <mapper resource="mappers/branchHasEmployee-mapper.xml"/>
+        <mapper resource="mappers/card-mapper.xml"/>
+        <mapper resource="mappers/customer-mapper.xml"/>
+        <mapper resource="mappers/merchant-mapper.xml"/>
+        <mapper resource="mappers/position-mapper.xml"/>
+        <mapper resource="mappers/staff-mapper.xml"/>
+        <mapper resource="mappers/transaction-mapper.xml"/>
+        <mapper resource="mappers/transfer-mapper.xml"/>
+        <mapper resource="mappers/transferStatus-mapper.xml"/>
+    </mappers>
+
+</configuration>

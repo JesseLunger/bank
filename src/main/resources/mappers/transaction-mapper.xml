@@ -1,0 +1,45 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bank.persistence.ITransactionDAO">
+
+    <resultMap id="TransactionResultMap" type="Transaction" autoMapping="false">
+        <result property="id" column="id"/>
+        <result property="amount" column="amount"/>
+        <result property="transactionTime" column="transaction_time"/>
+        <association property="merchant" column="merchant_id" javaType="Merchant"
+                     select="com.solvd.bank.persistence.IMerchantDAO.getEntityById"/>
+        <association property="card" column="card_id" javaType="Card"
+                     select="com.solvd.bank.persistence.ICardDAO.getEntityById"/>
+        <association property="transferStatus" column="status_id" javaType="TransferStatus"
+                     select="com.solvd.bank.persistence.ITransferStatusDAO.getEntityById"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="TransactionResultMap">
+        SELECT * FROM transactions;
+    </select>
+
+    <select id="getEntityById" resultMap="TransactionResultMap">
+        SELECT * FROM transactions WHERE id = #{id};
+    </select>
+
+    <insert id="saveEntity" parameterType="Transaction" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO transactions (amount, transaction_time, merchant_id, card_id, status_id)
+        VALUES (#{amount}, #{transactionTime}, #{merchant.associate.id}, #{card.id}, #{transferStatus.id})
+    </insert>
+
+    <update id="updateEntity" parameterType="Transaction">
+        UPDATE transactions SET
+        amount = #{amount},
+        transaction_time = #{transactionTime},
+        merchant_id = #{merchant.associate.id},
+        card_id = #{card.id},
+        status_id = #{transferStatus.id}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM transactions WHERE id = #{id};
+    </delete>
+</mapper>

@@ -4,14 +4,14 @@ import java.util.List;
 
 public interface IBaseDAO<Entity> {
 
-    void saveEntity(Entity entity);
+    List<Entity> getAll();
 
     Entity getEntityById(int id);
+
+    void saveEntity(Entity entity);
 
     void updateEntity(Entity entity);
 
     void removeEntityById(int id);
-
-    List<Entity> getAll();
 
 }

@@ -1,7 +1,7 @@
 package com.solvd.bank.persistence.impl;
 
 import com.solvd.bank.domain.Customer;
-import com.solvd.bank.persistence.ICustomersDAO;
+import com.solvd.bank.persistence.ICustomerDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomersDAO {
+public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomerDAO {
 
     @Override
     public void updateCreditScore(Customer customer, double newScore) {

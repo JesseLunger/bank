@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bank.persistence.IStaffDAO">
+
+    <resultMap id="StaffResultMap" type="Staff" autoMapping="false">
+        <result property="dateHired" column="date_hired"/>
+        <association property="position" column="position_id" javaType="Position"
+                     select="com.solvd.bank.persistence.IPositionDAO.getEntityById"/>
+        <association property="associate" column="associate_id" javaType="Associate"
+                     select="com.solvd.bank.persistence.IAssociateDAO.getEntityById"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="StaffResultMap">
+        SELECT * FROM staff;
+    </select>
+
+    <select id="getEntityById" resultMap="StaffResultMap">
+        SELECT * FROM staff WHERE associate_id = #{associate.id};
+    </select>
+
+    <insert id="saveEntity" parameterType="Staff" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO staff (date_hired, position_id, associate_id)
+        VALUES (#{dateHired}, #{position.id}, #{associate.id});
+    </insert>
+
+
+    <update id="updateEntity" parameterType="Staff">
+        UPDATE staff SET
+        date_hired = #{dateHired},
+        position_id = #{position.id}
+        WHERE associate_id = #{associate.id};
+    </update>
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM staff WHERE associate_id = #{associate.id};
+    </delete>
+</mapper>
