@@ -3,6 +3,7 @@ package com.solvd.bank.service.mybatis;
 import com.solvd.bank.domain.Card;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.persistence.ICardDAO;
+import com.solvd.bank.persistence.mybatisImpl.MBCardDAO;
 
 import java.util.ArrayList;
 import java.util.List;

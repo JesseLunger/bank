@@ -2,6 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Staff;
 import com.solvd.bank.persistence.IStaffDAO;
+import com.solvd.bank.persistence.mybatisImpl.MBStaffDAO;
 
 import java.util.List;
 

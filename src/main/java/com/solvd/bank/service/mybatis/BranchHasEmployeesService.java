@@ -1,9 +1,9 @@
 package com.solvd.bank.service.mybatis;
 
-import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.BranchHasEmployee;
 import com.solvd.bank.domain.Staff;
 import com.solvd.bank.persistence.IBranchHasEmployeeDAO;
+import com.solvd.bank.persistence.mybatisImpl.MBBranchHasEmployeeDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,8 @@ public class BranchHasEmployeesService {
         this.branchHasEmployeeDAO = new MBBranchHasEmployeeDAO();
     }
 
-    public ArrayList<Staff> getAllByBranch(Branch branch) {
-        return null;
+    public ArrayList<Staff> getAllByBranchId(int branchId) {
+        return branchHasEmployeeDAO.getAllStaffByBranchId(branchId);
     }
 
     public List<BranchHasEmployee> getAllBranchHasEmployees() {

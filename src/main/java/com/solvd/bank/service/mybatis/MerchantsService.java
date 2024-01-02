@@ -3,6 +3,7 @@ package com.solvd.bank.service.mybatis;
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.domain.Merchant;
 import com.solvd.bank.persistence.IMerchantDAO;
+import com.solvd.bank.persistence.mybatisImpl.MBMerchantDAO;
 
 import java.util.ArrayList;
 import java.util.List;

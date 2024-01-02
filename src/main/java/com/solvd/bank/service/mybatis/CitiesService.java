@@ -3,6 +3,7 @@ package com.solvd.bank.service.mybatis;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ICityDAO;
+import com.solvd.bank.persistence.mybatisImpl.MBCityDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class CitiesService {
         return cityDAO.getEntityById(id);
     }
 
-    public void SaveCity(City city) {
+    public void saveCity(City city) {
         cityDAO.saveEntity(city);
     }
 

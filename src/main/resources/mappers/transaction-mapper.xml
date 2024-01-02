@@ -8,8 +8,8 @@
         <result property="id" column="id"/>
         <result property="amount" column="amount"/>
         <result property="transactionTime" column="transaction_time"/>
-        <!--        <association property="merchant" column="merchant_id" javaType="Merchant"-->
-        <!--                     select="com.solvd.bank.persistence.IMerchantDAO.getEntityById"/>-->
+        <association property="merchant" column="merchant_id" javaType="Merchant"
+                     select="com.solvd.bank.persistence.IMerchantDAO.getEntityById"/>
         <association property="card" column="card_id" javaType="Card"
                      select="com.solvd.bank.persistence.ICardDAO.getEntityById"/>
         <association property="transferStatus" column="status_id" javaType="TransferStatus"

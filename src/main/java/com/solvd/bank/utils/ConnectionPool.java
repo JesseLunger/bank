@@ -20,9 +20,6 @@ public class ConnectionPool {
     private ConnectionPool() {
     }
 
-    ;
-
-
     public static ConnectionPool initializePool() {
         if (instance == null) {
             instance = new ConnectionPool();

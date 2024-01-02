@@ -2,6 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransferStatusDAO;
+import com.solvd.bank.persistence.mybatisImpl.MBTransferStatusDAO;
 
 import java.util.List;
 

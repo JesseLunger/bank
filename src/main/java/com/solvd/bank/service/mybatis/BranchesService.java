@@ -2,6 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.persistence.IBranchDAO;
+import com.solvd.bank.persistence.mybatisImpl.MBBranchDAO;
 
 import java.util.ArrayList;
 import java.util.List;

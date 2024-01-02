@@ -2,6 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.persistence.ITransactionDAO;
+import com.solvd.bank.persistence.mybatisImpl.MBTransactionDAO;
 
 import java.util.List;
 
