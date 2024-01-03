@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<city>
+    <id>1</id>
+    <country>
+        <id>1</id>
+        <name>ExampleCountry</name>
+    </country>
+    <name>ExampleCity</name>
+</city>

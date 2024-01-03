@@ -1,5 +1,11 @@
 package com.solvd.bank.domain;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "location")
+@XmlType(propOrder = {"id", "city", "zipCode", "address"})
 public class Location {
 
     private int id;
@@ -10,7 +16,7 @@ public class Location {
     public int getId() {
         return id;
     }
-
+    @XmlElement(name = "id")
     public void setId(int id) {
         this.id = id;
     }
@@ -19,6 +25,7 @@ public class Location {
         return city;
     }
 
+    @XmlElement(name = "city")
     public void setCity(City city) {
         this.city = city;
     }
@@ -27,6 +34,7 @@ public class Location {
         return zipCode;
     }
 
+    @XmlElement(name = "zipCode")
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
@@ -35,6 +43,7 @@ public class Location {
         return address;
     }
 
+    @XmlElement(name = "address")
     public void setAddress(String address) {
         this.address = address;
     }

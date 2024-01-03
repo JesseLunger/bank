@@ -1,7 +1,11 @@
 package com.solvd.bank.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 
+@XmlRootElement(name = "branch")
+@XmlType(propOrder = {"id", "location", "branchName", "branchStaff"})
 public class Branch {
     private int id;
     private Location location;
