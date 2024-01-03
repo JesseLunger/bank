@@ -2,8 +2,6 @@ package com.solvd.bank.domain;
 
 import javax.xml.bind.annotation.*;
 
-@XmlRootElement(name = "country")
-@XmlType(propOrder = {"id", "name"})
 public class Country {
 
     private int id;
@@ -13,7 +11,6 @@ public class Country {
         return id;
     }
 
-    @XmlElement(name = "id")
     public void setId(int id) {
         this.id = id;
     }
@@ -22,7 +19,6 @@ public class Country {
         return name;
     }
 
-    @XmlElement(name = "name")
     public void setName(String name) {
         this.name = name;
     }

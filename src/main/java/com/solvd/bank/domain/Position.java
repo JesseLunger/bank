@@ -4,8 +4,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "position")
-@XmlType(propOrder = {"id", "position", "salary", "hourlyWage"})
 public class Position {
 
     private int id;
@@ -17,7 +15,6 @@ public class Position {
         return id;
     }
 
-    @XmlElement(name = "id")
     public void setId(int id) {
         this.id = id;
     }
@@ -26,7 +23,6 @@ public class Position {
         return position;
     }
 
-    @XmlElement(name = "position")
     public void setPosition(String position) {
         this.position = position;
     }
@@ -35,7 +31,6 @@ public class Position {
         return salary;
     }
 
-    @XmlElement(name = "salary")
     public void setSalary(double salary) {
         this.salary = salary;
     }
@@ -44,7 +39,6 @@ public class Position {
         return hourlyWage;
     }
 
-    @XmlElement(name = "hourlyWage")
     public void setHourlyWage(double hourlyWage) {
         this.hourlyWage = hourlyWage;
     }
