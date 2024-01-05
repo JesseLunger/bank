@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MBCardDAO implements ICardDAO {
+public class CardDAO implements ICardDAO {
 
     private ICardDAO mapper;
 
-    public MBCardDAO() {
+    public CardDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICardDAO.class);
     }
 
     @Override
     public ArrayList<Transaction> getAllTransactionsByCard(Card card) {
-        return new MBTransactionDAO().getAll().stream()
+        return new TransactionDAO().getAll().stream()
                 .filter(transaction -> transaction.getCard().getId() == card.getId())
                 .collect(Collectors.toCollection(ArrayList::new));
     }

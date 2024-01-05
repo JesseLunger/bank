@@ -3,7 +3,7 @@ package com.solvd.bank.service.mybatis;
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.Position;
 import com.solvd.bank.persistence.IPositionDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBPositionDOA;
+import com.solvd.bank.persistence.mybatisImpl.PositionDOA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class PositionsService {
     private IPositionDAO positionDAO;
 
     public PositionsService() {
-        this.positionDAO = new MBPositionDOA();
+        this.positionDAO = new PositionDOA();
     }
 
     public ArrayList<Branch> getBranchWithMissingPosition(String positionName) {

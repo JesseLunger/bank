@@ -6,11 +6,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 
 import java.util.List;
 
-public class MBAccountDAO implements IAccountDAO {
+public class AccountDAO implements IAccountDAO {
 
     private IAccountDAO mapper;
 
-    public MBAccountDAO() {
+    public AccountDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IAccountDAO.class);
     }
 

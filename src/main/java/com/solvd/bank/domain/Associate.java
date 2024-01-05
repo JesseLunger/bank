@@ -1,8 +1,11 @@
 package com.solvd.bank.domain;
 
+import com.solvd.bank.utils.xmlutils.TimeStampAdapter;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Timestamp;
 
 @XmlRootElement(name = "associate")
@@ -37,8 +40,7 @@ public class Associate {
     public String getPrimaryName() {
         return primaryName;
     }
-
-
+    
     @XmlElement(name = "primaryName")
     public void setPrimaryName(String primaryName) {
         this.primaryName = primaryName;
@@ -58,6 +60,7 @@ public class Associate {
     }
 
     @XmlElement(name = "dateJoined")
+    @XmlJavaTypeAdapter(TimeStampAdapter.class)
     public void setDateJoined(Timestamp dateJoined) {
         this.dateJoined = dateJoined;
     }

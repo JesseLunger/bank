@@ -8,11 +8,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MBMerchantDAO implements IMerchantDAO {
+public class MerchantDAO implements IMerchantDAO {
 
     private IMerchantDAO mapper;
 
-    public MBMerchantDAO() {
+    public MerchantDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IMerchantDAO.class);
     }
 
@@ -38,7 +38,7 @@ public class MBMerchantDAO implements IMerchantDAO {
 
     @Override
     public void updateEntity(Merchant merchant) {
-        new MBAssociateDAO().updateEntity(merchant.getAssociate());
+        new AssociateDAO().updateEntity(merchant.getAssociate());
     }
 
     @Override

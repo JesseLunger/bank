@@ -7,11 +7,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 
 import java.util.List;
 
-public class MBStaffDAO implements IStaffDAO {
+public class StaffDAO implements IStaffDAO {
 
     private IStaffDAO mapper;
 
-    public MBStaffDAO() {
+    public StaffDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IStaffDAO.class);
     }
 

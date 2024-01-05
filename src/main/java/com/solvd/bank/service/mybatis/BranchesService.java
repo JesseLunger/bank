@@ -2,7 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.persistence.IBranchDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBBranchDAO;
+import com.solvd.bank.persistence.mybatisImpl.BranchDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class BranchesService {
     private IBranchDAO branchDAO;
 
     public BranchesService() {
-        branchDAO = new MBBranchDAO();
+        branchDAO = new BranchDAO();
     }
 
     public ArrayList<Branch> getAllByLocationId(int id) {

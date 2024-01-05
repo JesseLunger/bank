@@ -8,11 +8,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MBPositionDOA implements IPositionDAO {
+public class PositionDOA implements IPositionDAO {
 
     private IPositionDAO mapper;
 
-    public MBPositionDOA() {
+    public PositionDOA() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IPositionDAO.class);
     }
 

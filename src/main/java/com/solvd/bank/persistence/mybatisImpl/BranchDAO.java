@@ -7,20 +7,20 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MBBranchDAO implements IBranchDAO {
+public class BranchDAO implements IBranchDAO {
 
     private IBranchDAO mapper;
 
-    public MBBranchDAO() {
+    public BranchDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchDAO.class);
     }
 
     @Override
     public ArrayList<Branch> getAllBranchesByLocationId(int id) {
-        MBBranchHasEmployeeDAO mbBranchHasEmployeeDAO = new MBBranchHasEmployeeDAO();
+        BranchHasEmployeeDAO branchHasEmployeeDAO = new BranchHasEmployeeDAO();
         ArrayList<Branch> branches = new ArrayList<>(getAll());
         for (Branch branch : branches) {
-            branch.setBranchStaff(mbBranchHasEmployeeDAO.getAllStaffByBranchId(branch.getId()));
+            branch.setBranchStaff(branchHasEmployeeDAO.getAllStaffByBranchId(branch.getId()));
         }
         return branches;
     }

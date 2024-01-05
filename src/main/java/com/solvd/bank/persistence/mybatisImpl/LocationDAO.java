@@ -7,11 +7,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 
 import java.util.List;
 
-public class MBLocationDAO implements ILocationDAO {
+public class LocationDAO implements ILocationDAO {
 
     private ILocationDAO mapper;
 
-    public MBLocationDAO() {
+    public LocationDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ILocationDAO.class);
     }
 

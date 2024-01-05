@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MBTransferStatusDAO implements ITransferStatusDAO {
+public class TransferStatusDAO implements ITransferStatusDAO {
 
     private ITransferStatusDAO mapper;
 
-    public MBTransferStatusDAO() {
+    public TransferStatusDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransferStatusDAO.class);
     }
 
     @Override
     public ArrayList<Transaction> getTransactionsByStatusId(int id) {
-        return new MBTransactionDAO().getAll().stream()
+        return new TransactionDAO().getAll().stream()
                 .filter(transaction -> transaction.getTransferStatus().getId() == id)
                 .collect(Collectors.toCollection(ArrayList::new));
     }

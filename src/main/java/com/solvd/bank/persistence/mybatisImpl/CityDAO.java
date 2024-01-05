@@ -8,11 +8,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MBCityDAO implements ICityDAO {
+public class CityDAO implements ICityDAO {
 
     private ICityDAO mapper;
 
-    public MBCityDAO() {
+    public CityDAO() {
         this.mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICityDAO.class);
     }
 

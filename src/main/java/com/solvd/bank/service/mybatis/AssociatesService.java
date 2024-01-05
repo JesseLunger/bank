@@ -2,7 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.persistence.IAssociateDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBAssociateDAO;
+import com.solvd.bank.persistence.mybatisImpl.AssociateDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class AssociatesService {
     private IAssociateDAO associateDAO;
 
     public AssociatesService() {
-        associateDAO = new MBAssociateDAO();
+        associateDAO = new AssociateDAO();
     }
 
     public ArrayList<Associate> getAllByLocationId(int id) {

@@ -2,7 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Account;
 import com.solvd.bank.persistence.IAccountDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBAccountDAO;
+import com.solvd.bank.persistence.mybatisImpl.AccountDAO;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class AccountsService {
     private IAccountDAO accountDAO;
 
     public AccountsService() {
-        this.accountDAO = new MBAccountDAO();
+        this.accountDAO = new AccountDAO();
     }
 
     public void addAmount(Account account, double amountToAdd) {

@@ -3,7 +3,7 @@ package com.solvd.bank.service.mybatis;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ICityDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBCityDAO;
+import com.solvd.bank.persistence.mybatisImpl.CityDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class CitiesService {
     private ICityDAO cityDAO;
 
     public CitiesService() {
-        cityDAO = new MBCityDAO();
+        cityDAO = new CityDAO();
     }
 
     public ArrayList<Location> getLocationsByCity(City city) {

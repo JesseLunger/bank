@@ -13,21 +13,21 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
-        MBCountryDAO countriesDAO = new MBCountryDAO();
-        MBCityDAO citiesDAO = new MBCityDAO();
-        MBLocationDAO locationDAO = new MBLocationDAO();
-        MBBranchDAO branchDAO = new MBBranchDAO();
-        MBAssociateDAO associateDAO = new MBAssociateDAO();
-        MBPositionDOA positionDOA = new MBPositionDOA();
-        MBStaffDAO staffDAO = new MBStaffDAO();
-        MBBranchHasEmployeeDAO branchHasEmployeeDAO = new MBBranchHasEmployeeDAO();
-        MBMerchantDAO merchantDAO = new MBMerchantDAO();
-        MBCustomerDAO customerDAO = new MBCustomerDAO();
-        MBAccountDAO accountDAO = new MBAccountDAO();
-        MBTransferStatusDAO transferStatusDAO = new MBTransferStatusDAO();
-        MBTransferDAO transferDAO = new MBTransferDAO();
-        MBCardDAO cardDAO = new MBCardDAO();
-        MBTransactionDAO transactionDAO = new MBTransactionDAO();
+        CountryDAO countriesDAO = new CountryDAO();
+        CityDAO citiesDAO = new CityDAO();
+        LocationDAO locationDAO = new LocationDAO();
+        BranchDAO branchDAO = new BranchDAO();
+        AssociateDAO associateDAO = new AssociateDAO();
+        PositionDOA positionDOA = new PositionDOA();
+        StaffDAO staffDAO = new StaffDAO();
+        BranchHasEmployeeDAO branchHasEmployeeDAO = new BranchHasEmployeeDAO();
+        MerchantDAO merchantDAO = new MerchantDAO();
+        CustomerDAO customerDAO = new CustomerDAO();
+        AccountDAO accountDAO = new AccountDAO();
+        TransferStatusDAO transferStatusDAO = new TransferStatusDAO();
+        TransferDAO transferDAO = new TransferDAO();
+        CardDAO cardDAO = new CardDAO();
+        TransactionDAO transactionDAO = new TransactionDAO();
 
         LOGGER.info("-----Testing CountryDAO-----");
         Country testCountry = new Country();

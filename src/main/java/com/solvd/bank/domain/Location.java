@@ -16,6 +16,7 @@ public class Location {
     public int getId() {
         return id;
     }
+
     @XmlElement(name = "id")
     public void setId(int id) {
         this.id = id;

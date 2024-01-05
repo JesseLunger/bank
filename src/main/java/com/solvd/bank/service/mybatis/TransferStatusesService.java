@@ -2,7 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransferStatusDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBTransferStatusDAO;
+import com.solvd.bank.persistence.mybatisImpl.TransferStatusDAO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class TransferStatusesService {
     private ITransferStatusDAO transferStatusDAO;
 
     public TransferStatusesService() {
-        this.transferStatusDAO = new MBTransferStatusDAO();
+        this.transferStatusDAO = new TransferStatusDAO();
     }
 
     public List<TransferStatus> getAllTransferStatuses() {

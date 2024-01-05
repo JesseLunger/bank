@@ -7,11 +7,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MBAssociateDAO implements IAssociateDAO {
+public class AssociateDAO implements IAssociateDAO {
 
     private IAssociateDAO mapper;
 
-    public MBAssociateDAO() {
+    public AssociateDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IAssociateDAO.class);
     }
 

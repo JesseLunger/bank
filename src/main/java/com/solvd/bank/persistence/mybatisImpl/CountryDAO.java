@@ -9,11 +9,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MBCountryDAO implements ICountryDAO {
+public class CountryDAO implements ICountryDAO {
 
     private ICountryDAO mapper;
 
-    public MBCountryDAO() {
+    public CountryDAO() {
         this.mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICountryDAO.class);
     }
 

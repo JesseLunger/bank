@@ -3,7 +3,7 @@ package com.solvd.bank.service.mybatis;
 import com.solvd.bank.domain.BranchHasEmployee;
 import com.solvd.bank.domain.Staff;
 import com.solvd.bank.persistence.IBranchHasEmployeeDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBBranchHasEmployeeDAO;
+import com.solvd.bank.persistence.mybatisImpl.BranchHasEmployeeDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class BranchHasEmployeesService {
     private IBranchHasEmployeeDAO branchHasEmployeeDAO;
 
     public BranchHasEmployeesService() {
-        this.branchHasEmployeeDAO = new MBBranchHasEmployeeDAO();
+        this.branchHasEmployeeDAO = new BranchHasEmployeeDAO();
     }
 
     public ArrayList<Staff> getAllByBranchId(int branchId) {

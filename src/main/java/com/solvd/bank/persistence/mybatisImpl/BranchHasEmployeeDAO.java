@@ -8,11 +8,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MBBranchHasEmployeeDAO implements IBranchHasEmployeeDAO {
+public class BranchHasEmployeeDAO implements IBranchHasEmployeeDAO {
 
     private IBranchHasEmployeeDAO mapper;
 
-    public MBBranchHasEmployeeDAO() {
+    public BranchHasEmployeeDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchHasEmployeeDAO.class);
     }
 
@@ -38,8 +38,8 @@ public class MBBranchHasEmployeeDAO implements IBranchHasEmployeeDAO {
 
     @Override
     public void updateEntity(BranchHasEmployee branchHasEmployee) {
-        new MBStaffDAO().updateEntity(branchHasEmployee.getStaff());
-        new MBBranchDAO().updateEntity(branchHasEmployee.getBranch());
+        new StaffDAO().updateEntity(branchHasEmployee.getStaff());
+        new BranchDAO().updateEntity(branchHasEmployee.getBranch());
     }
 
     @Override

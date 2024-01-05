@@ -2,7 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Staff;
 import com.solvd.bank.persistence.IStaffDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBStaffDAO;
+import com.solvd.bank.persistence.mybatisImpl.StaffDAO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class StaffService {
     private IStaffDAO staffDAO;
 
     public StaffService() {
-        this.staffDAO = new MBStaffDAO();
+        this.staffDAO = new StaffDAO();
     }
 
     public List<Staff> getAllStaff() {

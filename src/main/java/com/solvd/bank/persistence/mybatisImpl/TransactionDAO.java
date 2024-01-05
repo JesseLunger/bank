@@ -7,11 +7,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 
 import java.util.List;
 
-public class MBTransactionDAO implements ITransactionDAO {
+public class TransactionDAO implements ITransactionDAO {
 
     private ITransactionDAO mapper;
 
-    public MBTransactionDAO() {
+    public TransactionDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransactionDAO.class);
     }
 

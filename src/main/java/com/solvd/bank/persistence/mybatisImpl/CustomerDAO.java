@@ -6,11 +6,11 @@ import com.solvd.bank.utils.MyBatisSQLFactory;
 
 import java.util.List;
 
-public class MBCustomerDAO implements ICustomerDAO {
+public class CustomerDAO implements ICustomerDAO {
 
     private ICustomerDAO mapper;
 
-    public MBCustomerDAO() {
+    public CustomerDAO() {
         mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICustomerDAO.class);
     }
 

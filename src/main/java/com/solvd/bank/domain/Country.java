@@ -1,6 +1,8 @@
 package com.solvd.bank.domain;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "country")
 @XmlType(propOrder = {"id", "name"})

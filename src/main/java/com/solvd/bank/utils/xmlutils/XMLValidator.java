@@ -19,11 +19,11 @@ public class XMLValidator<T> {
 
     private Class<T> targetType;
 
-    public XMLValidator(Class<T> targetType){
+    public XMLValidator(Class<T> targetType) {
         this.targetType = targetType;
     }
 
-    public void validate() {
+    public boolean validate() {
         File xsdFile = new File(System.getProperty("user.dir")
                 + "/src/main/resources/xsdschemas/"
                 + targetType.getSimpleName()
@@ -38,9 +38,10 @@ public class XMLValidator<T> {
             Schema schema = schemaFactory.newSchema(xsdFile);
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(xmlFile));
-            LOGGER.info(targetType.getSimpleName() + " successfully validated");
+            return true;
         } catch (SAXException | IOException e) {
             LOGGER.error(e.getMessage());
+            return false;
         }
     }
 }

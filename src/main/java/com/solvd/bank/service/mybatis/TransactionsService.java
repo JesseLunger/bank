@@ -2,7 +2,7 @@ package com.solvd.bank.service.mybatis;
 
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.persistence.ITransactionDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBTransactionDAO;
+import com.solvd.bank.persistence.mybatisImpl.TransactionDAO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class TransactionsService {
     private ITransactionDAO transactionDAO;
 
     public TransactionsService() {
-        this.transactionDAO = new MBTransactionDAO();
+        this.transactionDAO = new TransactionDAO();
     }
 
     public List<Transaction> getAllTransactions() {

@@ -3,7 +3,7 @@ package com.solvd.bank.service.mybatis;
 import com.solvd.bank.domain.Card;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.persistence.ICardDAO;
-import com.solvd.bank.persistence.mybatisImpl.MBCardDAO;
+import com.solvd.bank.persistence.mybatisImpl.CardDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class CardsService {
     private ICardDAO cardDAO;
 
     public CardsService() {
-        this.cardDAO = new MBCardDAO();
+        this.cardDAO = new CardDAO();
     }
 
     public ArrayList<Transaction> getAllTransActionsByCard(Card card) {

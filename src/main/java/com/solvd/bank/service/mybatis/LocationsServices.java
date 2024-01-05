@@ -3,17 +3,16 @@ package com.solvd.bank.service.mybatis;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ILocationDAO;
+import com.solvd.bank.persistence.mybatisImpl.LocationDAO;
 
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
-import com.solvd.bank.persistence.mybatisImpl.MBLocationDAO;
 
 public class LocationsServices {
 
     private ILocationDAO locationDAO;
 
     public LocationsServices() {
-        locationDAO = new com.solvd.bank.persistence.mybatisImpl.MBLocationDAO();
+        locationDAO = new LocationDAO();
     }
 
     public void updateCity(Location location, City city) {
