@@ -30,7 +30,7 @@ public class DBConfig {
         }
     }
     public static final String URL = PROPERTIES.getProperty("url");
-    ;
+
     public static final String USERNAME = PROPERTIES.getProperty("username");
     public static final String PASSWORD = PROPERTIES.getProperty("password");
 }

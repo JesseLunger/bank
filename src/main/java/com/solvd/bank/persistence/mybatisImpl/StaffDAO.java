@@ -3,7 +3,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Position;
 import com.solvd.bank.domain.Staff;
 import com.solvd.bank.persistence.IStaffDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class StaffDAO implements IStaffDAO {
     private IStaffDAO mapper;
 
     public StaffDAO() {
-        mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IStaffDAO.class);
+        mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IStaffDAO.class);
     }
 
     @Override

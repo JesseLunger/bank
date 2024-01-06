@@ -3,7 +3,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.domain.Merchant;
 import com.solvd.bank.persistence.IMerchantDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class MerchantDAO implements IMerchantDAO {
     private IMerchantDAO mapper;
 
     public MerchantDAO() {
-        mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IMerchantDAO.class);
+        mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IMerchantDAO.class);
     }
 
     @Override

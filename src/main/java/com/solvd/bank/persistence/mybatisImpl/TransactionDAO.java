@@ -3,7 +3,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransactionDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class TransactionDAO implements ITransactionDAO {
     private ITransactionDAO mapper;
 
     public TransactionDAO() {
-        mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransactionDAO.class);
+        mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransactionDAO.class);
     }
 
     @Override

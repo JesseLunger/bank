@@ -2,7 +2,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.persistence.IBranchDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class BranchDAO implements IBranchDAO {
     private IBranchDAO mapper;
 
     public BranchDAO() {
-        mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchDAO.class);
+        mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchDAO.class);
     }
 
     @Override

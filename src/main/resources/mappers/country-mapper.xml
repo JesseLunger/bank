@@ -4,14 +4,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="com.solvd.bank.persistence.ICountryDAO">
 
     <resultMap id="CountryResultMap" type="Country" autoMapping="false">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
     </resultMap>
-
 
     <select id="getAllLocationsByCountry" resultMap="com.solvd.bank.persistence.ILocationDAO.LocationResultMap">
         SELECT loc.*
@@ -20,7 +18,6 @@
         LEFT JOIN countries cnt ON cnt.id = cit.country_id
         WHERE cnt.id = #{id};
     </select>
-
 
     <select id="getAll" resultMap="CountryResultMap">
         SELECT * FROM countries;

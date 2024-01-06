@@ -4,7 +4,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Country;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ICountryDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class CountryDAO implements ICountryDAO {
     private ICountryDAO mapper;
 
     public CountryDAO() {
-        this.mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICountryDAO.class);
+        this.mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICountryDAO.class);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.Position;
 import com.solvd.bank.persistence.IPositionDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class PositionDOA implements IPositionDAO {
     private IPositionDAO mapper;
 
     public PositionDOA() {
-        mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(IPositionDAO.class);
+        mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IPositionDAO.class);
     }
 
     @Override

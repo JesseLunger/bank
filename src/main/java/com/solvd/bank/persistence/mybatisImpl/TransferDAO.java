@@ -2,7 +2,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Transfer;
 import com.solvd.bank.persistence.ITransferDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class TransferDAO implements ITransferDAO {
     private ITransferDAO mapper;
 
     public TransferDAO() {
-        mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransferDAO.class);
+        mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransferDAO.class);
     }
 
     @Override

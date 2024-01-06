@@ -353,7 +353,7 @@ public class Main {
         cardDAO.removeEntityById(testCard.getId());
         testCard = cardDAO.getEntityById(testCard.getId());
         LOGGER.info("Testing CardDAO.(deleteById, removedDeclinedTransfer): "
-                + ((testTransfer == null) ? "passed" : "failed"));
+                + ((testCard == null) ? "passed" : "failed"));
         Card getCard = cardDAO.getAll().get(0);
         LOGGER.info("Testing CardDAO.getAll: "
                 + ((getCard != null) ? "passed" : "failed"));

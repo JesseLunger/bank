@@ -3,7 +3,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ILocationDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class LocationDAO implements ILocationDAO {
     private ILocationDAO mapper;
 
     public LocationDAO() {
-        mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ILocationDAO.class);
+        mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ILocationDAO.class);
     }
 
     @Override

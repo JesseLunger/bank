@@ -2,7 +2,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.persistence.ICustomerDAO;
-import com.solvd.bank.utils.MyBatisSQLFactory;
+import com.solvd.bank.utils.MySQLFactory;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class CustomerDAO implements ICustomerDAO {
     private ICustomerDAO mapper;
 
     public CustomerDAO() {
-        mapper = MyBatisSQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICustomerDAO.class);
+        mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICustomerDAO.class);
     }
 
     @Override
