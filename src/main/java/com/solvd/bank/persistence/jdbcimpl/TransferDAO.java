@@ -32,7 +32,7 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
         transfer.setSender(new AccountDAO().getEntityById(resultSet.getInt("sender_id")));
         transfer.setReceiver(new AccountDAO().getEntityById(resultSet.getInt("receiver_id")));
         transfer.setTransferStatus(new TransferStatusDAO().getEntityById(resultSet.getInt("status_id")));
-        transfer.setTime(resultSet.getTimestamp("transfer_time"));
+        transfer.setTransferTime(resultSet.getTimestamp("transfer_time"));
         transfer.setAmount(resultSet.getDouble("amount"));
         return transfer;
     }
@@ -69,7 +69,7 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
         preparedStatement.setInt(1, transfer.getSender().getId());
         preparedStatement.setInt(2, transfer.getReceiver().getId());
         preparedStatement.setInt(3, transfer.getTransferStatus().getId());
-        preparedStatement.setTimestamp(4, transfer.getTime());
+        preparedStatement.setTimestamp(4, transfer.getTransferTime());
         preparedStatement.setDouble(5, transfer.getAmount());
     }
 
@@ -85,7 +85,7 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
         preparedStatement.setInt(1, transfer.getSender().getId());
         preparedStatement.setInt(2, transfer.getReceiver().getId());
         preparedStatement.setInt(3, transfer.getTransferStatus().getId());
-        preparedStatement.setTimestamp(4, transfer.getTime());
+        preparedStatement.setTimestamp(4, transfer.getTransferTime());
         preparedStatement.setDouble(5, transfer.getAmount());
         preparedStatement.setInt(6, transfer.getId());
     }

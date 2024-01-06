@@ -320,7 +320,7 @@ public class Main {
         testTransfer.setSender(accountDAO.getEntityById(1));
         testTransfer.setReceiver(accountDAO.getEntityById(2));
         testTransfer.setTransferStatus(transferStatusDAO.getEntityById(3));
-        testTransfer.setTime(new Timestamp(System.currentTimeMillis()));
+        testTransfer.setTransferTime(new Timestamp(System.currentTimeMillis()));
         testTransfer.setAmount(500.0);
         transferDAO.saveEntity(testTransfer);
         double newAmount_transfer = 800.0;

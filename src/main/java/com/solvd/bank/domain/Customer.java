@@ -1,5 +1,11 @@
 package com.solvd.bank.domain;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "customer")
+@XmlType(propOrder = {"associate", "creditScore"})
 public class Customer {
     private Associate associate;
     private double creditScore;
@@ -8,6 +14,7 @@ public class Customer {
         return associate;
     }
 
+    @XmlElement(name = "associate")
     public void setAssociate(Associate associate) {
         this.associate = associate;
     }
@@ -16,6 +23,7 @@ public class Customer {
         return creditScore;
     }
 
+    @XmlElement(name = "creditScore")
     public void setCreditScore(double creditScore) {
         this.creditScore = creditScore;
     }

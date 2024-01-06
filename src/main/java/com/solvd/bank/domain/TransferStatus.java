@@ -1,5 +1,11 @@
 package com.solvd.bank.domain;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "transferStatus")
+@XmlType(propOrder = {"id", "status"})
 public class TransferStatus {
     private int id;
     private String status;
@@ -8,6 +14,7 @@ public class TransferStatus {
         return id;
     }
 
+    @XmlElement(name = "id")
     public void setId(int id) {
         this.id = id;
     }
@@ -16,6 +23,7 @@ public class TransferStatus {
         return status;
     }
 
+    @XmlElement(name = "status")
     public void setStatus(String transferStatus) {
         this.status = transferStatus;
     }
