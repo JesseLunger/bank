@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Main {
+
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
@@ -98,7 +99,6 @@ public class Main {
         getLocation.setCity(getCity);
         locationDAO.updateCity(getLocation, getCity);
 
-
         LOGGER.info("-----Testing BranchDAO-----");
         Branch testBranch = new Branch();
         testBranch.setLocation(getLocation);
@@ -118,7 +118,6 @@ public class Main {
                 + ((getBranch != null) ? "passed" : "failed"));
         LOGGER.info("Testing BranchDAO.getAllBranchesByLocationId: "
                 + (!branchDAO.getAllBranchesByLocationId(getLocation.getId()).isEmpty() ? "passed" : "failed"));
-
 
         LOGGER.info("-----Testing AssociateDAO-----");
         Associate testAssociate = new Associate();
@@ -167,7 +166,6 @@ public class Main {
         LOGGER.info("Testing AssociateDAO.getBranchesWithMissingPositions(empty): "
                 + (branchesWithoutTellers.isEmpty() ? "passed" : "failed"));
 
-
         LOGGER.info("-----Testing StaffDAO-----");
         Staff testStaff = new Staff();
         testAssociate = new Associate();
@@ -197,7 +195,6 @@ public class Main {
         Staff getStaff = staffDAO.getAll().get(0);
         LOGGER.info("Testing StaffDAO.getAll: " +
                 ((getStaff != null) ? "passed" : "failed"));
-
 
         LOGGER.info("-----Testing BranchHasEmployeeDAO-----");
         testBranch = new Branch();

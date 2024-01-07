@@ -17,7 +17,6 @@ public class JAXBMain {
 
         Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-
         Country country = new Country();
         country.setId(1);
         country.setName("ExampleCountry");
@@ -41,7 +40,6 @@ public class JAXBMain {
         LOGGER.info(myUnmarshalledCity);
         LOGGER.info(jaxbUnmarshalledCity);
 
-
         Location location = new Location();
         location.setId(1);
         location.setCity(city);
@@ -54,7 +52,6 @@ public class JAXBMain {
         Location jaxbUnmarshalledLocation = locationJAXBMarshaller.unmarshall();
         LOGGER.info(myUnmarshalledLocation);
         LOGGER.info(jaxbUnmarshalledLocation);
-
 
         Associate associate = new Associate();
         associate.setId(1);
@@ -71,7 +68,6 @@ public class JAXBMain {
         Associate jaxbUnmarshalledAssociate = associateJAXBMarshaller.unmarshall();
         LOGGER.info(myUnmarshalledAssociate);
         LOGGER.info(jaxbUnmarshalledAssociate);
-
 
         Position position = new Position();
         position.setId(1);
@@ -148,6 +144,7 @@ public class JAXBMain {
         transfer.setAmount(400);
         transfer.setTransferStatus(transferStatus);
         JAXBMarshaller<Transfer> transferJAXBMarshaller = new JAXBMarshaller<>(transfer);
+        transferJAXBMarshaller.marshall();
         LOGGER.info(transferJAXBMarshaller.unmarshall());
 
         Card card = new Card();

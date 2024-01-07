@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Timestamp;
 
 @XmlRootElement(name = "transfer")
-@XmlType(propOrder = {"id", "sender", "receiver", "transferStatus", "amount"})
+@XmlType(propOrder = {"id", "sender", "receiver", "transferStatus", "transferTime", "amount"})
 public class Transfer {
 
     private int id;
