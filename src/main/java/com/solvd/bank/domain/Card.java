@@ -1,5 +1,7 @@
 package com.solvd.bank.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.solvd.bank.utils.xmlutils.TimeStampAdapter;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -10,11 +12,18 @@ import java.sql.Timestamp;
 
 @XmlRootElement(name = "card")
 @XmlType(propOrder = {"id", "account", "cardNumber", "expirationDate", "cvv"})
+@JsonRootName("card")
 public class Card {
+
+    @JsonProperty("id")
     private int id;
+    @JsonProperty("account")
     private Account account;
+    @JsonProperty("cardNumber")
     private String cardNumber;
+    @JsonProperty("expirationDate")
     private Timestamp expirationDate;
+    @JsonProperty("cvv")
     private String cvv;
 
     public int getId() {

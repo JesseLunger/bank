@@ -1,16 +1,25 @@
 package com.solvd.bank.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "position")
 @XmlType(propOrder = {"id", "position", "salary", "hourlyWage"})
+@JsonRootName("position")
 public class Position {
 
+    @JsonProperty("id")
     private int id;
+    @JsonProperty("position")
     private String position;
+    @JsonProperty("salary")
     private double salary;
+    @JsonProperty("hourlyWage")
     private double hourlyWage;
 
     public int getId() {

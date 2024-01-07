@@ -1,13 +1,20 @@
 package com.solvd.bank.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "customer")
 @XmlType(propOrder = {"associate", "creditScore"})
+@JsonRootName("customer")
 public class Customer {
+
+    @JsonProperty("associate")
     private Associate associate;
+    @JsonProperty("creditScore")
     private double creditScore;
 
     public Associate getAssociate() {
