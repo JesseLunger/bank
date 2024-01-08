@@ -17,12 +17,16 @@ public class Card {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("account")
     private Account account;
+
     @JsonProperty("cardNumber")
     private String cardNumber;
+
     @JsonProperty("expirationDate")
     private Timestamp expirationDate;
+
     @JsonProperty("cvv")
     private String cvv;
 

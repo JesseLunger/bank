@@ -14,6 +14,7 @@ public class TransferStatus {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("status")
     private String status;
 

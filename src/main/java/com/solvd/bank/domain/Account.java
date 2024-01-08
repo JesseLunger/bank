@@ -17,14 +17,19 @@ public class Account {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("branch")
     private Branch branch;
+
     @JsonProperty("customer")
     private Customer customer;
+
     @JsonProperty("amount")
     private double amount;
+
     @JsonProperty("dateCreated")
     private Timestamp dateCreated;
+
     @JsonProperty("holds")
     private boolean holds;
 

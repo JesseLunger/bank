@@ -14,6 +14,7 @@ public class Customer {
 
     @JsonProperty("associate")
     private Associate associate;
+
     @JsonProperty("creditScore")
     private double creditScore;
 

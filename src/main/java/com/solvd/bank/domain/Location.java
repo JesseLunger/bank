@@ -15,10 +15,13 @@ public class Location {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("city")
     private City city;
+
     @JsonProperty("zipCode")
     private String zipCode;
+
     @JsonProperty("address")
     private String address;
 

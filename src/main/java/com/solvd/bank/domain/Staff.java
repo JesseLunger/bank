@@ -18,8 +18,10 @@ public class Staff {
 
     @JsonProperty("associate")
     private Associate associate;
+
     @JsonProperty("position")
     private Position position;
+
     @JsonProperty("dateHired")
     private Timestamp dateHired;
 

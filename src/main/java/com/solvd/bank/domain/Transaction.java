@@ -18,14 +18,19 @@ public class Transaction {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("card")
     private Card card;
+
     @JsonProperty("merchant")
     private Merchant merchant;
+
     @JsonProperty("transferStatus")
     private TransferStatus transferStatus;
+
     @JsonProperty("transactionTime")
     private Timestamp transactionTime;
+
     @JsonProperty("amount")
     private double amount;
 

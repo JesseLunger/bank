@@ -17,16 +17,22 @@ public class Associate {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("location")
     private Location location;
+
     @JsonProperty("primaryName")
     private String primaryName;
+
     @JsonProperty("secondaryName")
     private String secondaryName;
+
     @JsonProperty("dateJoined")
     private Timestamp dateJoined;
+
     @JsonProperty("email")
     private String email;
+
     @JsonProperty("phoneNumber")
     private String phoneNumber;
 

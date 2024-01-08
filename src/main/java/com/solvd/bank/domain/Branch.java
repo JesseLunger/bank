@@ -16,10 +16,14 @@ public class Branch {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("location")
     private Location location;
+
     @JsonProperty("branchName")
     private String branchName;
+
+
     @JsonProperty("branchStaff")
     private ArrayList<Staff> branchStaff;
 

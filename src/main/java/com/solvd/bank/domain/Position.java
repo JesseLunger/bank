@@ -15,10 +15,13 @@ public class Position {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("position")
     private String position;
+
     @JsonProperty("salary")
     private double salary;
+
     @JsonProperty("hourlyWage")
     private double hourlyWage;
 

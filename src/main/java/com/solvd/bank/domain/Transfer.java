@@ -17,14 +17,19 @@ public class Transfer {
 
     @JsonProperty("id")
     private int id;
+
     @JsonProperty("sender")
     private Account sender;
+
     @JsonProperty("receiver")
     private Account receiver;
+
     @JsonProperty("transferStatus")
     private TransferStatus transferStatus;
+
     @JsonProperty("transferTime")
     private Timestamp transferTime;
+
     @JsonProperty("amount")
     private double amount;
 

@@ -14,6 +14,7 @@ public class BranchHasEmployee {
 
     @JsonProperty("branch")
     private Branch branch;
+
     @JsonProperty("staff")
     private Staff staff;
 
