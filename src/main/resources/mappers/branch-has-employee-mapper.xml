@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.bank.persistence.IBranchHasEmployeeDAO">
+
+    <resultMap id="BranchHasEmployeeResultMap" type="BranchHasEmployee" autoMapping="false">
+        <association property="branch" column="branch_id" javaType="Branch"
+                     select="com.solvd.bank.persistence.IBranchDAO.getEntityById"/>
+        <association property="staff" column="staff_id" javaType="Staff"
+                     select="com.solvd.bank.persistence.IStaffDAO.getEntityById"/>
+    </resultMap>
+
+    <select id="getAllStaffByBranchId" parameterType="int"
+            resultMap="com.solvd.bank.persistence.IStaffDAO.StaffResultMap">
+        select st.* from branch_has_employees bhe
+        left join staff st on bhe.staff_id = st.associate_id
+        where branch_id = #{branchId};
+    </select>
+
+    <select id="getAllStaffByBranch" resultMap="BranchHasEmployeeResultMap">
+        SELECT * FROM branch_has_employees WHERE branch_id = #{branch.id};
+    </select>
+
+    <select id="getAll" resultMap="BranchHasEmployeeResultMap">
+        SELECT * FROM branch_has_employees;
+    </select>
+
+    <select id="getEntityById" resultMap="BranchHasEmployeeResultMap">
+        SELECT * FROM branch_has_employees WHERE staff_id = #{branch.id};
+    </select>
+
+    <insert id="saveEntity" parameterType="BranchHasEmployee">
+        INSERT INTO branch_has_employees (branch_id, staff_id)
+        VALUES (#{branch.id}, #{staff.associate.id});
+    </insert>
+
+
+    <delete id="removeEntityById" parameterType="int">
+        DELETE FROM branch_has_employees WHERE staff_id = #{id};
+    </delete>
+
+</mapper>

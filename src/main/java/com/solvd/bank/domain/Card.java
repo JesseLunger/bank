@@ -1,7 +1,15 @@
 package com.solvd.bank.domain;
 
+import com.solvd.bank.utils.xmlutils.TimeStampAdapter;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Timestamp;
 
+@XmlRootElement(name = "card")
+@XmlType(propOrder = {"id", "account", "cardNumber", "expirationDate", "cvv"})
 public class Card {
     private int id;
     private Account account;
@@ -13,6 +21,7 @@ public class Card {
         return id;
     }
 
+    @XmlElement(name = "id")
     public void setId(int id) {
         this.id = id;
     }
@@ -21,6 +30,7 @@ public class Card {
         return account;
     }
 
+    @XmlElement(name = "account")
     public void setAccount(Account account) {
         this.account = account;
     }
@@ -29,6 +39,7 @@ public class Card {
         return cardNumber;
     }
 
+    @XmlElement(name = "cardNumber")
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
@@ -37,6 +48,8 @@ public class Card {
         return expirationDate;
     }
 
+    @XmlElement(name = "expirationDate")
+    @XmlJavaTypeAdapter(TimeStampAdapter.class)
     public void setExpirationDate(Timestamp expirationDate) {
         this.expirationDate = expirationDate;
     }
@@ -45,6 +58,7 @@ public class Card {
         return cvv;
     }
 
+    @XmlElement(name = "cvv")
     public void setCvv(String cvv) {
         this.cvv = cvv;
     }

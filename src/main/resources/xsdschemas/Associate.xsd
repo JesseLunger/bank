@@ -6,11 +6,6 @@
 
     <xs:element name="associate" type="Associate"/>
 
-    <xs:complexType name="TimeStamp">
-        <xs:sequence>
-            <xs:element name="nanos" type="xs:integer"/>
-        </xs:sequence>
-    </xs:complexType>
 
     <xs:complexType name="Associate">
         <xs:sequence>
@@ -18,7 +13,7 @@
             <xs:element name="location" type="Location"/>
             <xs:element name="primaryName" type="xs:string"/>
             <xs:element name="secondaryName" type="xs:string"/>
-            <xs:element name="dateJoined" type="TimeStamp"/>
+            <xs:element name="dateJoined" type="xs:long"/>
             <xs:element name="email" type="xs:string"/>
             <xs:element name="phoneNumber" type="xs:string"/>
         </xs:sequence>

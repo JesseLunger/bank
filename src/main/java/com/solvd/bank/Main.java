@@ -10,24 +10,25 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Main {
+
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
-        MBCountryDAO countriesDAO = new MBCountryDAO();
-        MBCityDAO citiesDAO = new MBCityDAO();
-        MBLocationDAO locationDAO = new MBLocationDAO();
-        MBBranchDAO branchDAO = new MBBranchDAO();
-        MBAssociateDAO associateDAO = new MBAssociateDAO();
-        MBPositionDOA positionDOA = new MBPositionDOA();
-        MBStaffDAO staffDAO = new MBStaffDAO();
-        MBBranchHasEmployeeDAO branchHasEmployeeDAO = new MBBranchHasEmployeeDAO();
-        MBMerchantDAO merchantDAO = new MBMerchantDAO();
-        MBCustomerDAO customerDAO = new MBCustomerDAO();
-        MBAccountDAO accountDAO = new MBAccountDAO();
-        MBTransferStatusDAO transferStatusDAO = new MBTransferStatusDAO();
-        MBTransferDAO transferDAO = new MBTransferDAO();
-        MBCardDAO cardDAO = new MBCardDAO();
-        MBTransactionDAO transactionDAO = new MBTransactionDAO();
+        CountryDAO countriesDAO = new CountryDAO();
+        CityDAO citiesDAO = new CityDAO();
+        LocationDAO locationDAO = new LocationDAO();
+        BranchDAO branchDAO = new BranchDAO();
+        AssociateDAO associateDAO = new AssociateDAO();
+        PositionDOA positionDOA = new PositionDOA();
+        StaffDAO staffDAO = new StaffDAO();
+        BranchHasEmployeeDAO branchHasEmployeeDAO = new BranchHasEmployeeDAO();
+        MerchantDAO merchantDAO = new MerchantDAO();
+        CustomerDAO customerDAO = new CustomerDAO();
+        AccountDAO accountDAO = new AccountDAO();
+        TransferStatusDAO transferStatusDAO = new TransferStatusDAO();
+        TransferDAO transferDAO = new TransferDAO();
+        CardDAO cardDAO = new CardDAO();
+        TransactionDAO transactionDAO = new TransactionDAO();
 
         LOGGER.info("-----Testing CountryDAO-----");
         Country testCountry = new Country();
@@ -98,7 +99,6 @@ public class Main {
         getLocation.setCity(getCity);
         locationDAO.updateCity(getLocation, getCity);
 
-
         LOGGER.info("-----Testing BranchDAO-----");
         Branch testBranch = new Branch();
         testBranch.setLocation(getLocation);
@@ -118,7 +118,6 @@ public class Main {
                 + ((getBranch != null) ? "passed" : "failed"));
         LOGGER.info("Testing BranchDAO.getAllBranchesByLocationId: "
                 + (!branchDAO.getAllBranchesByLocationId(getLocation.getId()).isEmpty() ? "passed" : "failed"));
-
 
         LOGGER.info("-----Testing AssociateDAO-----");
         Associate testAssociate = new Associate();
@@ -167,7 +166,6 @@ public class Main {
         LOGGER.info("Testing AssociateDAO.getBranchesWithMissingPositions(empty): "
                 + (branchesWithoutTellers.isEmpty() ? "passed" : "failed"));
 
-
         LOGGER.info("-----Testing StaffDAO-----");
         Staff testStaff = new Staff();
         testAssociate = new Associate();
@@ -197,7 +195,6 @@ public class Main {
         Staff getStaff = staffDAO.getAll().get(0);
         LOGGER.info("Testing StaffDAO.getAll: " +
                 ((getStaff != null) ? "passed" : "failed"));
-
 
         LOGGER.info("-----Testing BranchHasEmployeeDAO-----");
         testBranch = new Branch();
@@ -320,7 +317,7 @@ public class Main {
         testTransfer.setSender(accountDAO.getEntityById(1));
         testTransfer.setReceiver(accountDAO.getEntityById(2));
         testTransfer.setTransferStatus(transferStatusDAO.getEntityById(3));
-        testTransfer.setTime(new Timestamp(System.currentTimeMillis()));
+        testTransfer.setTransferTime(new Timestamp(System.currentTimeMillis()));
         testTransfer.setAmount(500.0);
         transferDAO.saveEntity(testTransfer);
         double newAmount_transfer = 800.0;
@@ -353,7 +350,7 @@ public class Main {
         cardDAO.removeEntityById(testCard.getId());
         testCard = cardDAO.getEntityById(testCard.getId());
         LOGGER.info("Testing CardDAO.(deleteById, removedDeclinedTransfer): "
-                + ((testTransfer == null) ? "passed" : "failed"));
+                + ((testCard == null) ? "passed" : "failed"));
         Card getCard = cardDAO.getAll().get(0);
         LOGGER.info("Testing CardDAO.getAll: "
                 + ((getCard != null) ? "passed" : "failed"));

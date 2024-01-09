@@ -1,5 +1,11 @@
 package com.solvd.bank.domain;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "branchHasEmployee")
+@XmlType(propOrder = {"branch", "staff"})
 public class BranchHasEmployee {
 
     private Branch branch;
@@ -9,6 +15,7 @@ public class BranchHasEmployee {
         return branch;
     }
 
+    @XmlElement(name = "branch")
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
@@ -17,6 +24,7 @@ public class BranchHasEmployee {
         return staff;
     }
 
+    @XmlElement(name = "staff")
     public void setStaff(Staff staff) {
         this.staff = staff;
     }

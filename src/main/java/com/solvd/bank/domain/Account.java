@@ -1,7 +1,15 @@
 package com.solvd.bank.domain;
 
+import com.solvd.bank.utils.xmlutils.TimeStampAdapter;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Timestamp;
 
+@XmlRootElement(name = "account")
+@XmlType(propOrder = {"id", "branch", "customer", "amount", "dateCreated", "holds"})
 public class Account {
 
     private int id;
@@ -15,6 +23,7 @@ public class Account {
         return id;
     }
 
+    @XmlElement(name = "id")
     public void setId(int id) {
         this.id = id;
     }
@@ -23,6 +32,7 @@ public class Account {
         return branch;
     }
 
+    @XmlElement(name = "branch")
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
@@ -31,6 +41,7 @@ public class Account {
         return customer;
     }
 
+    @XmlElement(name = "customer")
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -39,6 +50,7 @@ public class Account {
         return amount;
     }
 
+    @XmlElement(name = "amount")
     public void setAmount(double amount) {
         this.amount = amount;
     }
@@ -47,6 +59,8 @@ public class Account {
         return dateCreated;
     }
 
+    @XmlElement(name = "dateCreated")
+    @XmlJavaTypeAdapter(TimeStampAdapter.class)
     public void setDateCreated(Timestamp dateCreated) {
         this.dateCreated = dateCreated;
     }
@@ -55,6 +69,7 @@ public class Account {
         return holds;
     }
 
+    @XmlElement(name = "holds")
     public void setHolds(boolean holds) {
         this.holds = holds;
     }

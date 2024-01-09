@@ -48,7 +48,7 @@
         <mapper resource="mappers/account-mapper.xml"/>
         <mapper resource="mappers/associate-mapper.xml"/>
         <mapper resource="mappers/branch-mapper.xml"/>
-        <mapper resource="mappers/branchHasEmployee-mapper.xml"/>
+        <mapper resource="mappers/branch-has-employee-mapper.xml"/>
         <mapper resource="mappers/card-mapper.xml"/>
         <mapper resource="mappers/customer-mapper.xml"/>
         <mapper resource="mappers/merchant-mapper.xml"/>
@@ -56,7 +56,7 @@
         <mapper resource="mappers/staff-mapper.xml"/>
         <mapper resource="mappers/transaction-mapper.xml"/>
         <mapper resource="mappers/transfer-mapper.xml"/>
-        <mapper resource="mappers/transferStatus-mapper.xml"/>
+        <mapper resource="mappers/transfer-status-mapper.xml"/>
     </mappers>
 
 </configuration>

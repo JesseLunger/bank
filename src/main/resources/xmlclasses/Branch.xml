@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<branch>
+    <id>1</id>
+    <branchName>ExampleBranch</branchName>
+    <branchStaff>
+        <staff>
+            <associate>
+                <id>1</id>
+                <location>
+                    <id>1</id>
+                    <city>
+                        <id>1</id>
+                        <country>
+                            <id>1</id>
+                            <name>ExampleCountry</name>
+                        </country>
+                        <name>ExampleCity</name>
+                    </city>
+                    <zipCode>1234</zipCode>
+                    <address>ExampleAddress</address>
+                </location>
+                <primaryName>Example</primaryName>
+                <secondaryName>Associate</secondaryName>
+                <dateJoined>1704588739414</dateJoined>
+                <email>example@examplemail.com</email>
+                <phoneNumber>543-342-2342</phoneNumber>
+            </associate>
+            <position>
+                <id>1</id>
+                <position>ExamplePosition</position>
+                <salary>70000.0</salary>
+                <hourlyWage>0.0</hourlyWage>
+            </position>
+            <dateHired>1704588739479</dateHired>
+        </staff>
+    </branchStaff>
+</branch>
