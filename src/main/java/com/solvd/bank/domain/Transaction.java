@@ -1,5 +1,6 @@
 package com.solvd.bank.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -28,6 +29,7 @@ public class Transaction {
     @JsonProperty("transferStatus")
     private TransferStatus transferStatus;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm a z", timezone = "America/Los_Angeles")
     @JsonProperty("transactionTime")
     private Timestamp transactionTime;
 

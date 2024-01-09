@@ -23,7 +23,6 @@ public class Branch {
     @JsonProperty("branchName")
     private String branchName;
 
-
     @JsonProperty("branchStaff")
     private ArrayList<Staff> branchStaff;
 

@@ -1,5 +1,6 @@
 package com.solvd.bank.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.solvd.bank.utils.xmlutils.TimeStampAdapter;
@@ -24,6 +25,7 @@ public class Card {
     @JsonProperty("cardNumber")
     private String cardNumber;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy", timezone = "America/Los_Angeles")
     @JsonProperty("expirationDate")
     private Timestamp expirationDate;
 

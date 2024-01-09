@@ -115,8 +115,7 @@ public class DomParser<T> {
         } else if (Double.class.equals(paramType) || double.class.equals(paramType)) {
             return Double.parseDouble(value);
         } else if (Timestamp.class.equals(paramType)) {
-            long millis = Long.parseLong(value);
-            return new Timestamp(millis);
+            return new TimeStampAdapter().unmarshal(value);
         } else {
             return null;
         }

@@ -13,9 +13,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class JAXBMain {
-    public static void main(String[] args) {
 
-        Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+    private static Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+    public static void main(String[] args) {
 
         Country country = new Country();
         country.setId(1);
@@ -62,7 +63,7 @@ public class JAXBMain {
         associate.setDateJoined(new Timestamp(System.currentTimeMillis()));
         associate.setPhoneNumber("543-342-2342");
         JAXBMarshaller<Associate> associateJAXBMarshaller = new JAXBMarshaller<>(associate);
-        associateJAXBMarshaller.marshall();
+
         LOGGER.info("Validating associate.xml: " + (new XMLValidator<>(Associate.class).validate()? "passed": "failed"));
         Associate myUnmarshalledAssociate = new DomParser<Associate>(Associate.class).parse();
         Associate jaxbUnmarshalledAssociate = associateJAXBMarshaller.unmarshall();
