@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TransfersService {
 
-    private ITransferDAO transferDAO;
+    private final ITransferDAO transferDAO;
 
     public TransfersService() {
         this.transferDAO = new TransferDAO();

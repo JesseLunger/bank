@@ -5,6 +5,6 @@ import com.solvd.bank.domain.TransferStatus;
 
 public interface ITransactionDAO extends IBaseDAO<Transaction> {
 
-    public void updateStatus(Transaction transaction, TransferStatus transferStatus);
+    void updateStatus(Transaction transaction, TransferStatus transferStatus);
 
 }

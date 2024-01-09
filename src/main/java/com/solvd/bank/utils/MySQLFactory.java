@@ -14,10 +14,7 @@ import java.sql.Connection;
 public class MySQLFactory {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private static SqlSessionFactory sqlSessionFactory;
-
-    private MySQLFactory() {
-    }
+    private static final SqlSessionFactory sqlSessionFactory;
 
     static {
         try {
@@ -29,6 +26,9 @@ public class MySQLFactory {
         }
     }
 
+    private MySQLFactory() {
+    }
+
     public static SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;
     }
@@ -36,7 +36,7 @@ public class MySQLFactory {
     public static Connection getJDBCConnection() {
         try {
             return ConnectionPool.getConnection();
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             LOGGER.error(e.getMessage());
             return null;
         }

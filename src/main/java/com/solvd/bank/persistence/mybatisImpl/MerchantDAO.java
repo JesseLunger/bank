@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MerchantDAO implements IMerchantDAO {
 
-    private IMerchantDAO mapper;
+    private final IMerchantDAO mapper;
 
     public MerchantDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IMerchantDAO.class);
@@ -45,5 +45,4 @@ public class MerchantDAO implements IMerchantDAO {
     public void removeEntityById(int id) {
         mapper.removeEntityById(id);
     }
-
 }

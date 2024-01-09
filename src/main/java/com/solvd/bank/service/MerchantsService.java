@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MerchantsService {
 
-    private IMerchantDAO merchantDAO;
+    private final IMerchantDAO merchantDAO;
 
     public MerchantsService() {
         this.merchantDAO = new MerchantDAO();

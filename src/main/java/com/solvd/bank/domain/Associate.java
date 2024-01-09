@@ -59,7 +59,7 @@ public class Associate {
     public String getPrimaryName() {
         return primaryName;
     }
-    
+
     @XmlElement(name = "primaryName")
     public void setPrimaryName(String primaryName) {
         this.primaryName = primaryName;

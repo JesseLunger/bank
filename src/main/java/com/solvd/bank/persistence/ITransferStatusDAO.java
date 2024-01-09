@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface ITransferStatusDAO extends IBaseDAO<TransferStatus> {
 
-    public ArrayList<Transaction> getTransactionsByStatusId(int id);
+    ArrayList<Transaction> getTransactionsByStatusId(int id);
 
 }

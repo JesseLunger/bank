@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class CardDAO implements ICardDAO {
 
-    private ICardDAO mapper;
+    private final ICardDAO mapper;
 
     public CardDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICardDAO.class);

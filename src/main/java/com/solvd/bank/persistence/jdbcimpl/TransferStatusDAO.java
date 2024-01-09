@@ -22,7 +22,6 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-
     @Override
     public List<TransferStatus> getAll() {
         String query = "SELECT * FROM transfer_statuses;";

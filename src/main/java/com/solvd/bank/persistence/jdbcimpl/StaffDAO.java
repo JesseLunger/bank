@@ -16,9 +16,9 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
 
     @Override
     public void updatePosition(Staff staff, Position position) {
-        String query =  "UPDATE locations " +
-                        "SET position_id = (?) " +
-                        "WHERE associate_id = (?)";
+        String query = "UPDATE locations " +
+                "SET position_id = (?) " +
+                "WHERE associate_id = (?)";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, position.getId());
@@ -48,8 +48,8 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
 
     @Override
     public Staff getEntityById(int id) {
-        String query =  "SELECT * FROM staff " +
-                        "WHERE associate_id = (?);";
+        String query = "SELECT * FROM staff " +
+                "WHERE associate_id = (?);";
         ArrayList<Staff> staff = executeStatement(query, "getEntityById", id);
         if (staff == null || staff.isEmpty()) {
             return null;
@@ -64,8 +64,8 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
 
     @Override
     public void saveEntity(Staff staff) {
-        String query =  "INSERT INTO staff (associate_id, position_id, date_hired) " +
-                        "VALUES ((?), (?), (?))";
+        String query = "INSERT INTO staff (associate_id, position_id, date_hired) " +
+                "VALUES ((?), (?), (?))";
         executeStatement(query, "saveEntity", staff);
     }
 

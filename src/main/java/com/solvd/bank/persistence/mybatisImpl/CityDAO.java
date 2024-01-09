@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CityDAO implements ICityDAO {
 
-    private ICityDAO mapper;
+    private final ICityDAO mapper;
 
     public CityDAO() {
         this.mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICityDAO.class);

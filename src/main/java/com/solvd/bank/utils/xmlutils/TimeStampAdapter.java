@@ -1,12 +1,13 @@
 package com.solvd.bank.utils.xmlutils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.lang.invoke.MethodHandles;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class TimeStampAdapter extends XmlAdapter<String, Timestamp> {
 
@@ -17,7 +18,7 @@ public class TimeStampAdapter extends XmlAdapter<String, Timestamp> {
     public Timestamp unmarshal(String value) {
         try {
             return new Timestamp(new SimpleDateFormat(FORMAT_STRING).parse(value).getTime());
-        } catch (ParseException e){
+        } catch (ParseException e) {
             LOGGER.error(e.getMessage());
             return null;
         }

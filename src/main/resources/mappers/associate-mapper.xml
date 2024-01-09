@@ -19,7 +19,6 @@
         SELECT * FROM associates Where location_id = #{locationId};
     </select>
 
-
     <select id="getAll" resultMap="AssociateResultMap">
         SELECT * FROM associates;
     </select>

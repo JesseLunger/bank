@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class TransferStatusDAO implements ITransferStatusDAO {
 
-    private ITransferStatusDAO mapper;
+    private final ITransferStatusDAO mapper;
 
     public TransferStatusDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransferStatusDAO.class);

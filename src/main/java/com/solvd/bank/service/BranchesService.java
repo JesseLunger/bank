@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BranchesService {
 
-    private IBranchDAO branchDAO;
+    private final IBranchDAO branchDAO;
 
     public BranchesService() {
         branchDAO = new BranchDAO();

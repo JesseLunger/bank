@@ -36,4 +36,5 @@
     <delete id="removeEntityById" parameterType="int">
         DELETE FROM staff WHERE associate_id = #{associate.id};
     </delete>
+
 </mapper>

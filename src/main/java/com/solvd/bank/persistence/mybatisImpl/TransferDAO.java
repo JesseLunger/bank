@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TransferDAO implements ITransferDAO {
 
-    private ITransferDAO mapper;
+    private final ITransferDAO mapper;
 
     public TransferDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransferDAO.class);

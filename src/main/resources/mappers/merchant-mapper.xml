@@ -19,7 +19,6 @@
         WHERE mer.associate_id = #{associate.id};
     </select>
 
-
     <select id="getAll" resultMap="MerchantResultMap">
         SELECT * FROM merchants;
     </select>
@@ -28,12 +27,10 @@
         SELECT * FROM merchants WHERE associate_id = #{associate.id};
     </select>
 
-
     <insert id="saveEntity" parameterType="Merchant">
         INSERT INTO merchants (associate_id)
         VALUES (#{associate.id});
     </insert>
-
 
     <update id="updateEntity" parameterType="Merchant">
         <!--   Do nothing-->

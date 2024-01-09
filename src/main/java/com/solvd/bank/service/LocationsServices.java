@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LocationsServices {
 
-    private ILocationDAO locationDAO;
+    private final ILocationDAO locationDAO;
 
     public LocationsServices() {
         locationDAO = new LocationDAO();

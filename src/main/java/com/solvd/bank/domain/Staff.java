@@ -3,7 +3,6 @@ package com.solvd.bank.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.solvd.bank.utils.xmlutils.TimeStampAdapter;
 
 import javax.xml.bind.annotation.XmlElement;

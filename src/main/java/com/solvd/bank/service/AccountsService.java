@@ -7,7 +7,7 @@ import com.solvd.bank.persistence.mybatisImpl.AccountDAO;
 import java.util.List;
 
 public class AccountsService {
-    private IAccountDAO accountDAO = new AccountDAO();
+    private final IAccountDAO accountDAO = new AccountDAO();
 
     public void addAmount(Account account, double amountToAdd) {
         accountDAO.addAmount(account, amountToAdd);

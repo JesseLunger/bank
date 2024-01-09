@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BranchDAO implements IBranchDAO {
 
-    private IBranchDAO mapper;
+    private final IBranchDAO mapper;
 
     public BranchDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchDAO.class);
@@ -49,5 +49,4 @@ public class BranchDAO implements IBranchDAO {
     public void removeEntityById(int id) {
         mapper.removeEntityById(id);
     }
-
 }

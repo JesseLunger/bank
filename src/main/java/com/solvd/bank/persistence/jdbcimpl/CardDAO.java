@@ -17,8 +17,8 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
     public ArrayList<Transaction> getAllTransactionsByCard(Card card) {
         ArrayList<Transaction> transactions = new ArrayList<>();
         TransactionDAO transactionDAO = new TransactionDAO();
-        String query =  "SELECT * FROM transactions " +
-                        "WHERE card_id = (?);";
+        String query = "SELECT * FROM transactions " +
+                "WHERE card_id = (?);";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, card.getId());
@@ -52,8 +52,8 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
 
     @Override
     public Card getEntityById(int id) {
-        String query =  "SELECT * FROM cards " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM cards " +
+                "WHERE id = (?);";
         ArrayList<Card> cards = executeStatement(query, "getEntityById", id);
         if (cards == null || cards.isEmpty()) {
             return null;
@@ -68,8 +68,8 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
 
     @Override
     public void saveEntity(Card card) {
-        String query =  "INSERT INTO cards (account_id, card_number, expiration_date, cvv) " +
-                        "VALUES ((?), (?), (?), (?))";
+        String query = "INSERT INTO cards (account_id, card_number, expiration_date, cvv) " +
+                "VALUES ((?), (?), (?), (?))";
         executeStatement(query, "saveEntity", card);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -87,8 +87,8 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
 
     @Override
     public void updateEntity(Card card) {
-        String query =  "UPDATE cards SET account_id = (?), card_number = (?), expiration_date = (?), cvv = (?) " +
-                        "WHERE id = (?);";
+        String query = "UPDATE cards SET account_id = (?), card_number = (?), expiration_date = (?), cvv = (?) " +
+                "WHERE id = (?);";
         executeStatement(query, "updateEntity", card);
     }
 
@@ -103,8 +103,8 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM cards " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM cards " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

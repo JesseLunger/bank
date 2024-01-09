@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CustomerDAO implements ICustomerDAO {
 
-    private ICustomerDAO mapper;
+    private final ICustomerDAO mapper;
 
     public CustomerDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICustomerDAO.class);

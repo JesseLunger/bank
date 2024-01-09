@@ -1,9 +1,9 @@
 package com.solvd.bank;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.solvd.bank.domain.*;
+import com.solvd.bank.domain.Associate;
+import com.solvd.bank.domain.City;
+import com.solvd.bank.domain.Country;
+import com.solvd.bank.domain.Location;
 import com.solvd.bank.utils.jacksonutils.JacksonUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,9 +13,9 @@ import java.sql.Timestamp;
 
 public class JacksonMain {
 
-    private  static Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         String filePath = System.getProperty("user.dir") + "/src/main/resources/jsonclasses/";
 
@@ -47,9 +47,9 @@ public class JacksonMain {
         associate.setPrimaryName("example");
         associate.setSecondaryName("person");
         associate.setEmail("exampleMail.com");
-        associate.setDateJoined( new Timestamp(System.currentTimeMillis()));
+        associate.setDateJoined(new Timestamp(System.currentTimeMillis()));
         JacksonUtil.writeJson(filePath, associate);
         Associate newAssociate = JacksonUtil.readJson(filePath, associate);
-        assert(associate.getDateJoined().equals(newAssociate.getDateJoined()));
+        assert (associate.getDateJoined().equals(newAssociate.getDateJoined()));
     }
 }

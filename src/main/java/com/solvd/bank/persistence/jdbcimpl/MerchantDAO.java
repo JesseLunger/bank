@@ -17,12 +17,12 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
     @Override
     public ArrayList<Customer> getCustomersWithTransactions(Merchant merchant) {
         ArrayList<Customer> customers = new ArrayList<>();
-        String query =  "SELECT cus.* FROM customers cus " +
-                        "LEFT JOIN accounts acc ON cus.associate_id = acc.customer_id " +
-                        "LEFT JOIN cards car ON acc.id = car.account_id " +
-                        "LEFT JOIN transactions trans ON car.id = trans.card_id " +
-                        "LEFT JOIN merchants mer ON trans.merchant_id = mer.associate_id " +
-                        "WHERE mer.associate_id = (?);";
+        String query = "SELECT cus.* FROM customers cus " +
+                "LEFT JOIN accounts acc ON cus.associate_id = acc.customer_id " +
+                "LEFT JOIN cards car ON acc.id = car.account_id " +
+                "LEFT JOIN transactions trans ON car.id = trans.card_id " +
+                "LEFT JOIN merchants mer ON trans.merchant_id = mer.associate_id " +
+                "WHERE mer.associate_id = (?);";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -54,8 +54,8 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
 
     @Override
     public Merchant getEntityById(int id) {
-        String query =  "SELECT * FROM merchants " +
-                        "WHERE associate_id = (?);";
+        String query = "SELECT * FROM merchants " +
+                "WHERE associate_id = (?);";
         ArrayList<Merchant> merchants = executeStatement(query, "getEntityById", id);
         if (merchants == null || merchants.isEmpty()) {
             return null;
@@ -70,8 +70,8 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
 
     @Override
     public void saveEntity(Merchant merchant) {
-        String query =  "INSERT INTO merchants (associate_id) " +
-                        "VALUES ((?))";
+        String query = "INSERT INTO merchants (associate_id) " +
+                "VALUES ((?))";
         executeStatement(query, "saveEntity", merchant);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -96,8 +96,8 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM merchants " +
-                        "WHERE associate_id = (?);";
+        String query = "DELETE FROM merchants " +
+                "WHERE associate_id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 
