@@ -32,4 +32,5 @@
     <delete id="removeEntityById" parameterType="int">
         DELETE FROM customers WHERE associate_id = #{associate.id};
     </delete>
+
 </mapper>

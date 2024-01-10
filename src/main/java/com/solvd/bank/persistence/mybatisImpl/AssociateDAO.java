@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AssociateDAO implements IAssociateDAO {
 
-    private IAssociateDAO mapper;
+    private final IAssociateDAO mapper;
 
     public AssociateDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IAssociateDAO.class);

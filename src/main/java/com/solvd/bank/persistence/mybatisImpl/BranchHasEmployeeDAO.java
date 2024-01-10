@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BranchHasEmployeeDAO implements IBranchHasEmployeeDAO {
 
-    private IBranchHasEmployeeDAO mapper;
+    private final IBranchHasEmployeeDAO mapper;
 
     public BranchHasEmployeeDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchHasEmployeeDAO.class);

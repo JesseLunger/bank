@@ -45,4 +45,5 @@
     <delete id="removeEntityById" parameterType="int">
         DELETE FROM positions WHERE id = #{id};
     </delete>
+
 </mapper>

@@ -16,8 +16,7 @@ import java.lang.invoke.MethodHandles;
 public class XMLValidator<T> {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
-    private Class<T> targetType;
+    private final Class<T> targetType;
 
     public XMLValidator(Class<T> targetType) {
         this.targetType = targetType;

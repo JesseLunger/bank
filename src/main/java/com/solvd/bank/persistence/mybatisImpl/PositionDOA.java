@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PositionDOA implements IPositionDAO {
 
-    private IPositionDAO mapper;
+    private final IPositionDAO mapper;
 
     public PositionDOA() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IPositionDAO.class);
@@ -45,5 +45,4 @@ public class PositionDOA implements IPositionDAO {
     public void removeEntityById(int id) {
         mapper.removeEntityById(id);
     }
-
 }

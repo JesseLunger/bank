@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CountryDAO implements ICountryDAO {
 
-    private ICountryDAO mapper;
+    private final ICountryDAO mapper;
 
     public CountryDAO() {
         this.mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICountryDAO.class);
@@ -46,6 +46,4 @@ public class CountryDAO implements ICountryDAO {
     public void removeEntityById(int id) {
         mapper.removeEntityById(id);
     }
-
-
 }

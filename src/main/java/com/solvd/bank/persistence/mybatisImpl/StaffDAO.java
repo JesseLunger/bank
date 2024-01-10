@@ -9,7 +9,7 @@ import java.util.List;
 
 public class StaffDAO implements IStaffDAO {
 
-    private IStaffDAO mapper;
+    private final IStaffDAO mapper;
 
     public StaffDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IStaffDAO.class);
@@ -45,6 +45,4 @@ public class StaffDAO implements IStaffDAO {
     public void removeEntityById(int id) {
         mapper.removeEntityById(id);
     }
-
-
 }

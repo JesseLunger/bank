@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AccountDAO implements IAccountDAO {
 
-    private IAccountDAO mapper;
+    private final IAccountDAO mapper;
 
     public AccountDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IAccountDAO.class);

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TransactionDAO implements ITransactionDAO {
 
-    private ITransactionDAO mapper;
+    private final ITransactionDAO mapper;
 
     public TransactionDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransactionDAO.class);

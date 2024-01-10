@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PositionsService {
 
-    private IPositionDAO positionDAO;
+    private final IPositionDAO positionDAO;
 
     public PositionsService() {
         this.positionDAO = new PositionDOA();

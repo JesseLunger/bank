@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TransactionsService {
 
-    private ITransactionDAO transactionDAO;
+    private final ITransactionDAO transactionDAO;
 
     public TransactionsService() {
         this.transactionDAO = new TransactionDAO();

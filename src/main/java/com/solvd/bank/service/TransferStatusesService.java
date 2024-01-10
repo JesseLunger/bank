@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TransferStatusesService {
 
-    private ITransferStatusDAO transferStatusDAO;
+    private final ITransferStatusDAO transferStatusDAO;
 
     public TransferStatusesService() {
         this.transferStatusDAO = new TransferStatusDAO();

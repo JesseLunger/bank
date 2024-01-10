@@ -35,7 +35,6 @@
         VALUES (#{branch.id}, #{staff.associate.id});
     </insert>
 
-
     <delete id="removeEntityById" parameterType="int">
         DELETE FROM branch_has_employees WHERE staff_id = #{id};
     </delete>

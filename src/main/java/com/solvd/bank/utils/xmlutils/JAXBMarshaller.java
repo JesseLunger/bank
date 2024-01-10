@@ -13,9 +13,8 @@ import java.lang.invoke.MethodHandles;
 public class JAXBMarshaller<T> {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private T classToConvert;
-
-    private File xmlFile;
+    private final T classToConvert;
+    private final File xmlFile;
 
     public JAXBMarshaller(T classToConvert) {
         this.classToConvert = classToConvert;
@@ -31,7 +30,6 @@ public class JAXBMarshaller<T> {
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(classToConvert, xmlFile);
-
         } catch (JAXBException e) {
             LOGGER.error(e.getMessage());
         }
@@ -43,7 +41,6 @@ public class JAXBMarshaller<T> {
             JAXBContext context = JAXBContext.newInstance(targetType);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             Object unmarshalledObject = unmarshaller.unmarshal(xmlFile);
-
             if (targetType.isInstance(unmarshalledObject)) {
                 return targetType.cast(unmarshalledObject);
             }
@@ -52,5 +49,4 @@ public class JAXBMarshaller<T> {
         }
         return null;
     }
-
 }

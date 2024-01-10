@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LocationDAO implements ILocationDAO {
 
-    private ILocationDAO mapper;
+    private final ILocationDAO mapper;
 
     public LocationDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ILocationDAO.class);
@@ -45,6 +45,4 @@ public class LocationDAO implements ILocationDAO {
     public void removeEntityById(int id) {
         mapper.removeEntityById(id);
     }
-
-
 }

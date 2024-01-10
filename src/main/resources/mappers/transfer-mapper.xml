@@ -43,4 +43,5 @@
     <delete id="removeEntityById" parameterType="int">
         DELETE FROM transfers WHERE id = #{id};
     </delete>
+
 </mapper>

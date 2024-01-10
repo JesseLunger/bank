@@ -23,8 +23,8 @@ import java.util.HashMap;
 public class DomParser<T> {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private Class<T> targetType;
-    private StringBuilder parsedFile;
+    private final Class<T> targetType;
+    private final StringBuilder parsedFile;
 
     public DomParser(Class<T> targetType) {
         this.targetType = targetType;
@@ -87,7 +87,6 @@ public class DomParser<T> {
                             setter.invoke(classInstance, convertToParameterType(setter.getParameterTypes()[0], node.getTextContent()));
                         }
                     }
-
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     LOGGER.error(e.getMessage());
                 }
@@ -95,7 +94,6 @@ public class DomParser<T> {
         }
         return classInstance;
     }
-
 
     private void printNodeInfo(Node node, int indentation) {
         parsedFile.append("  ".repeat(Math.max(0, indentation)));
@@ -115,8 +113,7 @@ public class DomParser<T> {
         } else if (Double.class.equals(paramType) || double.class.equals(paramType)) {
             return Double.parseDouble(value);
         } else if (Timestamp.class.equals(paramType)) {
-            long millis = Long.parseLong(value);
-            return new Timestamp(millis);
+            return new TimeStampAdapter().unmarshal(value);
         } else {
             return null;
         }

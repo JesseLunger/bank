@@ -52,8 +52,8 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
 
     @Override
     public City getEntityById(int id) {
-        String query =  "SELECT * FROM cities " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM cities " +
+                "WHERE id = (?);";
         ArrayList<City> cities = executeStatement(query, "getEntityById", id);
         if (cities == null || cities.isEmpty()) {
             return null;
@@ -68,8 +68,8 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
 
     @Override
     public void saveEntity(City city) {
-        String query =  "INSERT INTO cities (name, country_id) " +
-                        "VALUES ((?), (?))";
+        String query = "INSERT INTO cities (name, country_id) " +
+                "VALUES ((?), (?))";
         executeStatement(query, "saveEntity", city);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -85,9 +85,9 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
 
     @Override
     public void updateEntity(City city) {
-        String query =  "UPDATE cities SET name = (?), " +
-                        "country_id = (?) " +
-                        "WHERE id = (?);";
+        String query = "UPDATE cities SET name = (?), " +
+                "country_id = (?) " +
+                "WHERE id = (?);";
         executeStatement(query, "updateEntity", city);
     }
 
@@ -100,8 +100,8 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM cities " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM cities " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
 
     }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CitiesService {
-    private ICityDAO cityDAO;
+    private final ICityDAO cityDAO;
 
     public CitiesService() {
         cityDAO = new CityDAO();

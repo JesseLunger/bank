@@ -39,8 +39,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
 
     @Override
     public Transfer getEntityById(int id) {
-        String query =  "SELECT * FROM transfers " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM transfers " +
+                "WHERE id = (?);";
         ArrayList<Transfer> transfers = executeStatement(query, "getEntityById", id);
         if (transfers == null || transfers.isEmpty()) {
             return null;
@@ -55,8 +55,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
 
     @Override
     public void saveEntity(Transfer transfer) {
-        String query =  "INSERT INTO transfers (sender_id, receiver_id, status_id, transfer_time, amount) " +
-                        "VALUES ((?), (?), (?), (?), (?))";
+        String query = "INSERT INTO transfers (sender_id, receiver_id, status_id, transfer_time, amount) " +
+                "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", transfer);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -75,8 +75,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
 
     @Override
     public void updateEntity(Transfer transfer) {
-        String query =  "UPDATE transfers SET sender_id = (?), receiver_id = (?), " +
-                        "status_id = (?), transfer_time = (?), amount = (?) WHERE id = (?);";
+        String query = "UPDATE transfers SET sender_id = (?), receiver_id = (?), " +
+                "status_id = (?), transfer_time = (?), amount = (?) WHERE id = (?);";
         executeStatement(query, "updateEntity", transfer);
     }
 
@@ -92,8 +92,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM transfers " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM transfers " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

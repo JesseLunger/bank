@@ -8,7 +8,7 @@ import java.util.List;
 
 public class StaffService {
 
-    private IStaffDAO staffDAO;
+    private final IStaffDAO staffDAO;
 
     public StaffService() {
         this.staffDAO = new StaffDAO();
