@@ -13,12 +13,12 @@
                         <location>
                             <id>1</id>
                             <city>
-<id>1</id>
-<country>
-    <id>1</id>
-    <name>ExampleCountry</name>
-</country>
-<name>ExampleCity</name>
+                                <id>1</id>
+                                <country>
+                                    <id>1</id>
+                                    <name>ExampleCountry</name>
+                                </country>
+                                <name>ExampleCity</name>
                             </city>
                             <zipCode>1234</zipCode>
                             <address>ExampleAddress</address>

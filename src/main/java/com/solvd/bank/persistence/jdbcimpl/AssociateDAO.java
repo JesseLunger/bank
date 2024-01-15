@@ -2,7 +2,6 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.Location;
-import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -56,8 +55,8 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
 
     @Override
     public Associate getEntityById(int id) {
-        String query =  "SELECT * FROM associates " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM associates " +
+                "WHERE id = (?);";
         ArrayList<Associate> associates = executeStatement(query, "getEntityById", id);
         if (associates == null || associates.isEmpty()) {
             return null;

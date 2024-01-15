@@ -1,7 +1,6 @@
 package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Transfer;
-import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransferDAO;
 import com.solvd.bank.utils.enums.StatusNames;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
@@ -26,7 +25,7 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
              PreparedStatement preparedStatement2 = connection.prepareStatement(query2);) {
             preparedStatement1.setString(1, StatusNames.DECLINED.getSTATUS());
             ResultSet resultSet = preparedStatement1.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 int declined_status_id = resultSet.getInt("id");
                 preparedStatement2.setInt(1, declined_status_id);
                 preparedStatement2.executeUpdate();

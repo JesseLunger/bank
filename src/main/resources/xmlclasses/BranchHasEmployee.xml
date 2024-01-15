@@ -12,8 +12,8 @@
                         <city>
                             <id>1</id>
                             <country>
-<id>1</id>
-<name>ExampleCountry</name>
+                                <id>1</id>
+                                <name>ExampleCountry</name>
                             </country>
                             <name>ExampleCity</name>
                         </city>

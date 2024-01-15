@@ -3,7 +3,6 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.Position;
 import com.solvd.bank.domain.Staff;
-import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;

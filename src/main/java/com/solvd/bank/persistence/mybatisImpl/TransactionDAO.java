@@ -1,7 +1,6 @@
 package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Transaction;
-import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransactionDAO;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 

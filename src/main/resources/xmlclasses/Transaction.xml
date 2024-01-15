@@ -13,17 +13,17 @@
                         <associate>
                             <id>1</id>
                             <location>
-<id>1</id>
-<city>
-    <id>1</id>
-    <country>
-        <id>1</id>
-        <name>ExampleCountry</name>
-    </country>
-    <name>ExampleCity</name>
-</city>
-<zipCode>1234</zipCode>
-<address>ExampleAddress</address>
+                                <id>1</id>
+                                <city>
+                                    <id>1</id>
+                                    <country>
+                                        <id>1</id>
+                                        <name>ExampleCountry</name>
+                                    </country>
+                                    <name>ExampleCity</name>
+                                </city>
+                                <zipCode>1234</zipCode>
+                                <address>ExampleAddress</address>
                             </location>
                             <primaryName>Example</primaryName>
                             <secondaryName>Associate</secondaryName>
@@ -49,8 +49,8 @@
                         <city>
                             <id>1</id>
                             <country>
-<id>1</id>
-<name>ExampleCountry</name>
+                                <id>1</id>
+                                <name>ExampleCountry</name>
                             </country>
                             <name>ExampleCity</name>
                         </city>

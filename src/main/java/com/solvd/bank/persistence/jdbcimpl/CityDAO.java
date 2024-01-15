@@ -3,7 +3,6 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Country;
 import com.solvd.bank.domain.Location;
-import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;

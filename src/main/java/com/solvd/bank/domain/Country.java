@@ -6,7 +6,9 @@ import com.solvd.bank.utils.patternsutil.ExampleListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.lang.invoke.MethodHandles;
 
 @XmlRootElement(name = "country")
@@ -22,30 +24,8 @@ public class Country implements ExampleListener {
     @JsonProperty("name")
     private String name;
 
-    public static Builder builder(){
+    public static Builder builder() {
         return new Builder(new Country());
-    }
-
-    public static class Builder{
-        private Country country;
-
-        public Builder(Country country){
-            this.country = country;
-        }
-
-        public Builder setId(int id){
-            this.country.setId(id);
-            return this;
-        }
-
-        public Builder setName(String name){
-            this.country.setName(name);
-            return this;
-        }
-
-        public Country build(){
-            return country;
-        }
     }
 
     @Override
@@ -77,5 +57,27 @@ public class Country implements ExampleListener {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static class Builder {
+        private Country country;
+
+        public Builder(Country country) {
+            this.country = country;
+        }
+
+        public Builder setId(int id) {
+            this.country.setId(id);
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.country.setName(name);
+            return this;
+        }
+
+        public Country build() {
+            return country;
+        }
     }
 }

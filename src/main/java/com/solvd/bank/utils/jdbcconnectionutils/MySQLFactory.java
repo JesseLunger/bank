@@ -11,7 +11,7 @@ import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 
-public class MySQLFactory{
+public class MySQLFactory {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static final SqlSessionFactory sqlSessionFactory;
@@ -36,7 +36,7 @@ public class MySQLFactory{
         return sqlSessionFactory;
     }
 
-    public static Connection getConnection() throws InterruptedException{
-            return ConnectionPool.getConnection();
+    public static Connection getConnection() throws InterruptedException {
+        return ConnectionPool.getConnection();
     }
 }

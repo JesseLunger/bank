@@ -5,11 +5,7 @@ import com.solvd.bank.domain.Country;
 import com.solvd.bank.service.CountriesService;
 import com.solvd.bank.utils.patternsutil.CountryController;
 import com.solvd.bank.utils.patternsutil.CountryView;
-import com.solvd.bank.utils.patternsutil.ExampleListener;
 import com.solvd.bank.utils.patternsutil.ExampleListeners;
-import com.solvd.bank.utils.xmlutils.DomParser;
-import com.solvd.bank.utils.xmlutils.JAXBMarshaller;
-import com.solvd.bank.utils.xmlutils.XMLValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

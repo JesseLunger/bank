@@ -2,7 +2,6 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Card;
 import com.solvd.bank.domain.Transaction;
-import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;

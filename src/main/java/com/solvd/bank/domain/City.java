@@ -14,23 +14,20 @@ import java.lang.invoke.MethodHandles;
 @JsonRootName("city")
 @XmlRootElement(name = "city")
 @XmlType(propOrder = {"id", "country", "name"})
-public class City  implements ExampleListener {
+public class City implements ExampleListener {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+    @JsonProperty("id")
+    private int id;
+    @JsonProperty("country")
+    private Country country;
+    @JsonProperty("name")
+    private String name;
 
     @Override
     public void onEvent(String message) {
         LOGGER.info(this.getName() + " has received message: " + message);
     }
-
-    @JsonProperty("id")
-    private int id;
-
-    @JsonProperty("country")
-    private Country country;
-
-    @JsonProperty("name")
-    private String name;
 
     public int getId() {
         return id;

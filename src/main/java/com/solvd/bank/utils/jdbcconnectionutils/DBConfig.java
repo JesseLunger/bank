@@ -12,6 +12,9 @@ public class DBConfig {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static final Properties PROPERTIES;
+    public static final String URL = PROPERTIES.getProperty("url");
+    public static final String USERNAME = PROPERTIES.getProperty("username");
+    public static final String PASSWORD = PROPERTIES.getProperty("password");
     private static final String propertiesPath = "/db.properties";
 
     static {
@@ -28,8 +31,4 @@ public class DBConfig {
             throw new RuntimeException("Error loading properties file.", e);
         }
     }
-
-    public static final String URL = PROPERTIES.getProperty("url");
-    public static final String USERNAME = PROPERTIES.getProperty("username");
-    public static final String PASSWORD = PROPERTIES.getProperty("password");
 }
