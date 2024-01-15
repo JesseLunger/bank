@@ -2,7 +2,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.persistence.IAssociateDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;

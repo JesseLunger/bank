@@ -16,6 +16,11 @@
                      select="com.solvd.bank.persistence.IAccountDAO.getEntityById"/>
     </resultMap>
 
+    <delete id="removeDeclinedTransfers">
+        DELETE FROM transfers
+        WHERE status_id = (SELECT id FROM transfer_statuses WHERE status = "declined");
+    </delete>
+
     <select id="getAll" resultMap="TransferResultMap">
         SELECT * FROM transfers;
     </select>
@@ -38,7 +43,6 @@
         sender_id = #{sender.id}
         WHERE id = #{id};
     </update>
-
 
     <delete id="removeEntityById" parameterType="int">
         DELETE FROM transfers WHERE id = #{id};

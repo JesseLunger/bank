@@ -1,9 +1,8 @@
 package com.solvd.bank.persistence.mybatisImpl;
 
-import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ILocationDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.List;
 
@@ -16,9 +15,8 @@ public class LocationDAO implements ILocationDAO {
     }
 
     @Override
-    public void updateCity(Location location, City city) {
-        location.setCity(city);
-        updateEntity(location);
+    public void updateCity(Location location) {
+        mapper.updateCity(location);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransferStatusDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,7 @@ public class TransferStatusDAO implements ITransferStatusDAO {
 
     @Override
     public ArrayList<Transaction> getTransactionsByStatusId(int id) {
-        return new TransactionDAO().getAll().stream()
-                .filter(transaction -> transaction.getTransferStatus().getId() == id)
-                .collect(Collectors.toCollection(ArrayList::new));
+        return mapper.getTransactionsByStatusId(id);
     }
 
     @Override

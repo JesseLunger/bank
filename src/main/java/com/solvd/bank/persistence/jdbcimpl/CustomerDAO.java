@@ -2,7 +2,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.persistence.ICustomerDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomerDAO 
         String query = "UPDATE customers " +
                 "SET credit_score = (?) " +
                 "WHERE associate_id = (?)";
-        try (Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = MySQLFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, newScore);
             preparedStatement.setInt(2, customer.getAssociate().getId());

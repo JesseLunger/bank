@@ -10,6 +10,12 @@
                      select="com.solvd.bank.persistence.IAssociateDAO.getEntityById"/>
     </resultMap>
 
+    <update id="updateCreditScore" parameterType="double">
+        UPDATE customers
+        SET credit_score = #{newCreditScore}
+        WHERE id = #{id};
+    </update>
+
     <select id="getAll" resultMap="CustomerResultMap">
         SELECT * FROM customers;
     </select>

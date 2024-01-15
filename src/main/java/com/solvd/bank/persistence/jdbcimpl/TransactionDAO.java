@@ -3,7 +3,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransactionDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,21 +16,18 @@ import java.util.List;
 public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransactionDAO {
 
     @Override
-    public void updateStatus(Transaction transaction, TransferStatus transferStatus) {
+    public void updateStatus(Transaction transaction) {
         String query = "UPDATE transactions " +
                 "SET status_id = (?) " +
                 "WHERE id = (?)";
-        try (Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = MySQLFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setDouble(1, transferStatus.getId());
+            preparedStatement.setDouble(1, transaction.getTransferStatus().getId());
             preparedStatement.setInt(2, transaction.getId());
             preparedStatement.executeUpdate();
-            transaction.setTransferStatus(transferStatus);
         } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
-        transaction.setTransferStatus(transferStatus);
-        updateEntity(transaction);
     }
 
     @Override

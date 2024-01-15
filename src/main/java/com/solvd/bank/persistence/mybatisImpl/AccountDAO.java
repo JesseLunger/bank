@@ -2,7 +2,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Account;
 import com.solvd.bank.persistence.IAccountDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.List;
 
@@ -16,8 +16,7 @@ public class AccountDAO implements IAccountDAO {
 
     @Override
     public void addAmount(Account account, double amount) {
-        account.setAmount(account.getAmount() + amount);
-        updateEntity(account);
+        mapper.addAmount(account, amount);
     }
 
     @Override

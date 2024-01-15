@@ -3,7 +3,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransactionDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.List;
 
@@ -16,9 +16,8 @@ public class TransactionDAO implements ITransactionDAO {
     }
 
     @Override
-    public void updateStatus(Transaction transaction, TransferStatus transferStatus) {
-        transaction.setTransferStatus(transferStatus);
-        mapper.updateEntity(transaction);
+    public void updateStatus(Transaction transaction) {
+        mapper.updateStatus(transaction);
     }
 
     @Override

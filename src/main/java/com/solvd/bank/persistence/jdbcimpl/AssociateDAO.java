@@ -2,7 +2,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.Location;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
         ArrayList<Associate> associates = new ArrayList<>();
         String query = "SELECT * FROM associates " +
                 "Where location_id = (?);";
-        try (Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = MySQLFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -27,7 +28,7 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
                     associates.add(associateDAO.createEntity(resultSet));
                 }
             }
-        } catch (InterruptedException | SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             LOGGER.error(e.getMessage());
         }
         return associates;
@@ -55,8 +56,8 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
 
     @Override
     public Associate getEntityById(int id) {
-        String query = "SELECT * FROM associates " +
-                "WHERE id = (?);";
+        String query =  "SELECT * FROM associates " +
+                        "WHERE id = (?);";
         ArrayList<Associate> associates = executeStatement(query, "getEntityById", id);
         if (associates == null || associates.isEmpty()) {
             return null;

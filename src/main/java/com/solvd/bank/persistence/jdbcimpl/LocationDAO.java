@@ -3,7 +3,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ILocationDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,16 +16,15 @@ import java.util.List;
 public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO {
 
     @Override
-    public void updateCity(Location location, City city) {
+    public void updateCity(Location location) {
         String query = "UPDATE locations " +
                 "SET city_id = (?) " +
                 "WHERE id = (?)";
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setDouble(1, city.getId());
+        try (Connection connection = MySQLFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+            preparedStatement.setInt(1, location.getCity().getId());
             preparedStatement.setInt(2, location.getId());
             preparedStatement.executeUpdate();
-            location.setCity(city);
         } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }

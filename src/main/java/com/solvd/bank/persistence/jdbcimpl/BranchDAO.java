@@ -2,7 +2,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.Staff;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
         ArrayList<Branch> branches = new ArrayList<>();
         String query = "SELECT * FROM branches " +
                 "WHERE location_id = (?)";
-        try (Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = MySQLFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -27,7 +28,7 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
                     branches.add(branchDAO.createEntity(resultSet));
                 }
             }
-        } catch (InterruptedException | SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             LOGGER.error(e.getMessage());
         }
         return branches;

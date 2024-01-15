@@ -1,7 +1,7 @@
 package com.solvd.bank.persistence.jdbcimpl;
 
-import com.solvd.bank.utils.ConnectionPool;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,7 +31,7 @@ public abstract class BaseClassDAO<Entity> {
     protected ArrayList<Entity> executeStatement(String query, String method, Entity entity, int id) {
         Connection connection = null;
         try {
-            connection = MySQLFactory.getJDBCConnection();
+            connection = MySQLFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             switch (routeToPrepareFunc(preparedStatement, method, entity, id)) {
                 case "update":
@@ -45,7 +45,7 @@ public abstract class BaseClassDAO<Entity> {
                     return getResultsFromResultSet(preparedStatement.executeQuery());
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             LOGGER.error(e.getMessage());
         } finally {
             if (connection != null) {

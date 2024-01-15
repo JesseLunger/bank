@@ -4,7 +4,11 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransferStatusDAO;
+import com.solvd.bank.utils.enums.StatusNames;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
+import com.sun.source.tree.WhileLoopTree;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +20,20 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
 
     @Override
     public ArrayList<Transaction> getTransactionsByStatusId(int id) {
-        ArrayList<Transaction> transactions = new ArrayList<>(new TransactionDAO().getAll());
-        return transactions.stream()
-                .filter(transaction -> "accepted".equals(transaction.getTransferStatus().getStatus()))
-                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        String query = "SELECT * FROM transactions " +
+                "WHERE status_id = (?);";
+        try (Connection connection = MySQLFactory.getConnection();
+             PreparedStatement preparedStatement1 = connection.prepareStatement(query);) {
+            preparedStatement1.setInt(1, id);
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            while (resultSet.next()){
+                transactions.add(new TransactionDAO().createEntity(resultSet));
+            }
+        } catch (InterruptedException | SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return transactions;
     }
 
     @Override

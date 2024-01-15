@@ -3,7 +3,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.domain.Merchant;
 import com.solvd.bank.persistence.IMerchantDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public class MerchantDAO extends BaseClassDAO<Merchant> implements IMerchantDAO 
                 "LEFT JOIN transactions trans ON car.id = trans.card_id " +
                 "LEFT JOIN merchants mer ON trans.merchant_id = mer.associate_id " +
                 "WHERE mer.associate_id = (?);";
-        try (Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = MySQLFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, merchant.getAssociate().getId());

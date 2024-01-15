@@ -1,9 +1,12 @@
 package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Transfer;
+import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransferDAO;
 import com.solvd.bank.utils.enums.StatusNames;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +16,23 @@ import java.util.List;
 public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO {
 
     @Override
-    public void removeDeclinedTransfers(Transfer transfer) {
-        if (transfer.getTransferStatus().getStatus().equals(StatusNames.DECLINED.getSTATUS())) {
-            removeEntityById(transfer.getId());
+    public void removeDeclinedTransfers() {
+        String query1 = "SELECT id FROM transfer_statuses " +
+                "WHERE status = (?)";
+        String query2 = "DELETE FROM transfers " +
+                "WHERE status_id = (?)";
+        try (Connection connection = MySQLFactory.getConnection();
+             PreparedStatement preparedStatement1 = connection.prepareStatement(query1);
+             PreparedStatement preparedStatement2 = connection.prepareStatement(query2);) {
+            preparedStatement1.setString(1, StatusNames.DECLINED.getSTATUS());
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            if (resultSet.next()){
+                int declined_status_id = resultSet.getInt("id");
+                preparedStatement2.setInt(1, declined_status_id);
+                preparedStatement2.executeUpdate();
+            }
+        } catch (InterruptedException | SQLException e) {
+            LOGGER.error(e.getMessage());
         }
     }
 

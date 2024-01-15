@@ -2,7 +2,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.persistence.ICustomerDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.List;
 
@@ -16,8 +16,7 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public void updateCreditScore(Customer customer, double newScore) {
-        customer.setCreditScore(newScore);
-        updateEntity(customer);
+        mapper.updateCreditScore(customer, newScore);
     }
 
     @Override

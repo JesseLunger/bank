@@ -16,6 +16,12 @@
                      select="com.solvd.bank.persistence.ITransferStatusDAO.getEntityById"/>
     </resultMap>
 
+    <update id="updateStatus" parameterType="Transaction">
+        UPDATE transactions SET
+        status_id = #{transferStatus.id}
+        WHERE id = #{id}
+    </update>
+
     <select id="getAll" resultMap="TransactionResultMap">
         SELECT * FROM transactions;
     </select>

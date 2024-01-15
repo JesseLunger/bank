@@ -13,6 +13,14 @@
                      select="com.solvd.bank.persistence.ICityDAO.getEntityById"/>
     </resultMap>
 
+    <update id="updateCity" parameterType="Location">
+        UPDATE locations SET
+        city_id = #{city.id},
+        zip_code = #{zipCode},
+        address = #{address}
+        WHERE id = #{id};
+    </update>
+
     <select id="getAll" resultMap="LocationResultMap">
         SELECT * FROM locations;
     </select>

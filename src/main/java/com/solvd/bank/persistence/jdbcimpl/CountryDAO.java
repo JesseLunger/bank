@@ -4,7 +4,8 @@ import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Country;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ICountryDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
         ArrayList<Location> locations = new ArrayList<>();
         String query = "SELECT * FROM cities " +
                 "WHERE country_id = (?);";
-        try (Connection connection = ConnectionPool.getConnection();
+        try (Connection connection = MySQLFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, country.getId());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

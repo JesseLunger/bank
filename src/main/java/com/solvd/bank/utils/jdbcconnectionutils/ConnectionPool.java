@@ -1,4 +1,4 @@
-package com.solvd.bank.utils;
+package com.solvd.bank.utils.jdbcconnectionutils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,14 +12,14 @@ import java.util.Vector;
 public class ConnectionPool {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private static final int POOL_SIZE = 50;
+    private static final int DEFAULT_POOL_SIZE = 50;
     private static ConnectionPool instance;
     private static final Vector<Connection> freeConnections = new Vector<>();
     private static final Vector<Connection> usedConnections = new Vector<>();
 
     private ConnectionPool() {
     }
-
+    
     public static ConnectionPool initializePool() {
         if (instance == null) {
             instance = new ConnectionPool();
@@ -29,7 +29,7 @@ public class ConnectionPool {
     }
 
     private static void createPool() {
-        for (int i = 0; i < POOL_SIZE; i++) {
+        for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
             freeConnections.add(createConnection(DBConfig.URL, DBConfig.USERNAME, DBConfig.PASSWORD));
         }
     }

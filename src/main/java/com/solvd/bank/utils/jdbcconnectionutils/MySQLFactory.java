@@ -1,4 +1,4 @@
-package com.solvd.bank.utils;
+package com.solvd.bank.utils.jdbcconnectionutils;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,10 +11,12 @@ import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 
-public class MySQLFactory {
+public class MySQLFactory{
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static final SqlSessionFactory sqlSessionFactory;
+
+    private static String useCase;
 
     static {
         try {
@@ -26,19 +28,15 @@ public class MySQLFactory {
         }
     }
 
-    private MySQLFactory() {
+    private MySQLFactory(String useCase) {
+
     }
 
     public static SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;
     }
 
-    public static Connection getJDBCConnection() {
-        try {
+    public static Connection getConnection() throws InterruptedException{
             return ConnectionPool.getConnection();
-        } catch (InterruptedException e) {
-            LOGGER.error(e.getMessage());
-            return null;
-        }
     }
 }

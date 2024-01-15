@@ -2,7 +2,7 @@ package com.solvd.bank;
 
 import com.solvd.bank.domain.*;
 import com.solvd.bank.persistence.*;
-import com.solvd.bank.persistence.mybatisImpl.*;
+import com.solvd.bank.persistence.jdbcimpl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,8 +10,8 @@ import java.lang.invoke.MethodHandles;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class MybatisMain {
 
+public class JDBCMain {
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
@@ -20,7 +20,7 @@ public class MybatisMain {
         ILocationDAO locationDAO = new LocationDAO();
         IBranchDAO branchDAO = new BranchDAO();
         IAssociateDAO associateDAO = new AssociateDAO();
-        IPositionDAO positionDOA = new PositionDOA();
+        IPositionDAO positionDOA = new PositionDAO();
         IStaffDAO staffDAO = new StaffDAO();
         IBranchHasEmployeeDAO branchHasEmployeeDAO = new BranchHasEmployeeDAO();
         IMerchantDAO merchantDAO = new MerchantDAO();
@@ -310,6 +310,7 @@ public class MybatisMain {
         TransferStatus getTransferStatus = transferStatusDAO.getAll().get(0);
         LOGGER.info("Testing AccountDAO.getAll: "
                 + ((getTransferStatus != null) ? "passed" : "failed"));
+
         LOGGER.info("Testing TransferStatusDAO.getTransactionsByStatusId: "
                 + (!transferStatusDAO.getTransactionsByStatusId(getTransferStatus.getId()).isEmpty() ? "passed" : "fail"));
 
@@ -383,4 +384,3 @@ public class MybatisMain {
         associateDAO.removeEntityById(testAssociate.getId());
     }
 }
-

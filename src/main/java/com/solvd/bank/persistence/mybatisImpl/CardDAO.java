@@ -3,7 +3,7 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Card;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.persistence.ICardDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,7 @@ public class CardDAO implements ICardDAO {
 
     @Override
     public ArrayList<Transaction> getAllTransactionsByCard(Card card) {
-        return new TransactionDAO().getAll().stream()
-                .filter(transaction -> transaction.getCard().getId() == card.getId())
-                .collect(Collectors.toCollection(ArrayList::new));
+        return mapper.getAllTransactionsByCard(card);
     }
 
     @Override

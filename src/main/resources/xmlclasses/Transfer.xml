@@ -13,19 +13,19 @@
                         <location>
                             <id>1</id>
                             <city>
-                                <id>1</id>
-                                <country>
-                                    <id>1</id>
-                                    <name>ExampleCountry</name>
-                                </country>
-                                <name>ExampleCity</name>
+<id>1</id>
+<country>
+    <id>1</id>
+    <name>ExampleCountry</name>
+</country>
+<name>ExampleCity</name>
                             </city>
                             <zipCode>1234</zipCode>
                             <address>ExampleAddress</address>
                         </location>
                         <primaryName>Example</primaryName>
                         <secondaryName>Associate</secondaryName>
-                        <dateJoined>01-09-2024 10:25 AM PST</dateJoined>
+                        <dateJoined>01-14-2024 13:32 PM PST</dateJoined>
                         <email>example@examplemail.com</email>
                         <phoneNumber>543-342-2342</phoneNumber>
                     </associate>
@@ -35,7 +35,7 @@
                         <salary>70000.0</salary>
                         <hourlyWage>0.0</hourlyWage>
                     </position>
-                    <dateHired>01-09-2024 10:25 AM PST</dateHired>
+                    <dateHired>01-14-2024 13:32 PM PST</dateHired>
                 </staff>
             </branchStaff>
         </branch>
@@ -57,14 +57,14 @@
                 </location>
                 <primaryName>Example</primaryName>
                 <secondaryName>Associate</secondaryName>
-                <dateJoined>01-09-2024 10:25 AM PST</dateJoined>
+                <dateJoined>01-14-2024 13:32 PM PST</dateJoined>
                 <email>example@examplemail.com</email>
                 <phoneNumber>543-342-2342</phoneNumber>
             </associate>
             <creditScore>9000.0</creditScore>
         </customer>
         <amount>800.3</amount>
-        <dateCreated>01-09-2024 10:25 AM PST</dateCreated>
+        <dateCreated>01-14-2024 13:32 PM PST</dateCreated>
         <holds>false</holds>
     </sender>
     <receiver>
@@ -79,19 +79,19 @@
                         <location>
                             <id>1</id>
                             <city>
-                                <id>1</id>
-                                <country>
-                                    <id>1</id>
-                                    <name>ExampleCountry</name>
-                                </country>
-                                <name>ExampleCity</name>
+<id>1</id>
+<country>
+    <id>1</id>
+    <name>ExampleCountry</name>
+</country>
+<name>ExampleCity</name>
                             </city>
                             <zipCode>1234</zipCode>
                             <address>ExampleAddress</address>
                         </location>
                         <primaryName>Example</primaryName>
                         <secondaryName>Associate</secondaryName>
-                        <dateJoined>01-09-2024 10:25 AM PST</dateJoined>
+                        <dateJoined>01-14-2024 13:32 PM PST</dateJoined>
                         <email>example@examplemail.com</email>
                         <phoneNumber>543-342-2342</phoneNumber>
                     </associate>
@@ -101,7 +101,7 @@
                         <salary>70000.0</salary>
                         <hourlyWage>0.0</hourlyWage>
                     </position>
-                    <dateHired>01-09-2024 10:25 AM PST</dateHired>
+                    <dateHired>01-14-2024 13:32 PM PST</dateHired>
                 </staff>
             </branchStaff>
         </branch>
@@ -123,20 +123,20 @@
                 </location>
                 <primaryName>Example</primaryName>
                 <secondaryName>Associate</secondaryName>
-                <dateJoined>01-09-2024 10:25 AM PST</dateJoined>
+                <dateJoined>01-14-2024 13:32 PM PST</dateJoined>
                 <email>example@examplemail.com</email>
                 <phoneNumber>543-342-2342</phoneNumber>
             </associate>
             <creditScore>9000.0</creditScore>
         </customer>
         <amount>800.3</amount>
-        <dateCreated>01-09-2024 10:25 AM PST</dateCreated>
+        <dateCreated>01-14-2024 13:32 PM PST</dateCreated>
         <holds>false</holds>
     </receiver>
     <transferStatus>
         <id>1</id>
         <status>accepted</status>
     </transferStatus>
-    <transferTime>01-09-2024 10:25 AM PST</transferTime>
+    <transferTime>01-14-2024 13:32 PM PST</transferTime>
     <amount>400.0</amount>
 </transfer>
