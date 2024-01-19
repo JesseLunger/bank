@@ -3,6 +3,7 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Transfer;
 import com.solvd.bank.persistence.ITransferDAO;
 import com.solvd.bank.utils.enums.StatusNames;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -20,10 +21,10 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
                 "WHERE status = (?)";
         String query2 = "DELETE FROM transfers " +
                 "WHERE status_id = (?)";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement1 = connection.prepareStatement(query1);
              PreparedStatement preparedStatement2 = connection.prepareStatement(query2);) {
-            preparedStatement1.setString(1, StatusNames.DECLINED.getSTATUS());
+            preparedStatement1.setString(1, StatusNames.DECLINED.getStatus());
             ResultSet resultSet = preparedStatement1.executeQuery();
             if (resultSet.next()) {
                 int declined_status_id = resultSet.getInt("id");

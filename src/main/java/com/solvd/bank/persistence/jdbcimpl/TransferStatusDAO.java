@@ -4,6 +4,7 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransferStatusDAO;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -20,7 +21,7 @@ public class TransferStatusDAO extends BaseClassDAO<TransferStatus> implements I
         ArrayList<Transaction> transactions = new ArrayList<>();
         String query = "SELECT * FROM transactions " +
                 "WHERE status_id = (?);";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement1 = connection.prepareStatement(query);) {
             preparedStatement1.setInt(1, id);
             ResultSet resultSet = preparedStatement1.executeQuery();

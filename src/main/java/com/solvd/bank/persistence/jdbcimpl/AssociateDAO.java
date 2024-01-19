@@ -2,6 +2,7 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.Location;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
         ArrayList<Associate> associates = new ArrayList<>();
         String query = "SELECT * FROM associates " +
                 "Where location_id = (?);";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

@@ -1,8 +1,8 @@
-package com.solvd.bank;
+package com.solvd.bank.utils.tests;
 
 import com.solvd.bank.domain.*;
 import com.solvd.bank.persistence.*;
-import com.solvd.bank.persistence.mybatisImpl.*;
+import com.solvd.bank.persistence.jdbcimpl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,26 +10,67 @@ import java.lang.invoke.MethodHandles;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class MybatisMain {
 
+public class JDBCAndMybatisTest {
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-    public static void main(String[] args) {
-        ICountryDAO countriesDAO = new CountryDAO();
-        ICityDAO citiesDAO = new CityDAO();
-        ILocationDAO locationDAO = new LocationDAO();
-        IBranchDAO branchDAO = new BranchDAO();
-        IAssociateDAO associateDAO = new AssociateDAO();
-        IPositionDAO positionDOA = new PositionDOA();
-        IStaffDAO staffDAO = new StaffDAO();
-        IBranchHasEmployeeDAO branchHasEmployeeDAO = new BranchHasEmployeeDAO();
-        IMerchantDAO merchantDAO = new MerchantDAO();
-        ICustomerDAO customerDAO = new CustomerDAO();
-        IAccountDAO accountDAO = new AccountDAO();
-        ITransferStatusDAO transferStatusDAO = new TransferStatusDAO();
-        ITransferDAO transferDAO = new TransferDAO();
-        ICardDAO cardDAO = new CardDAO();
-        ITransactionDAO transactionDAO = new TransactionDAO();
+    public static void test(String implementation) {
+        ICountryDAO countriesDAO;
+        ICityDAO citiesDAO;
+        ILocationDAO locationDAO;
+        IBranchDAO branchDAO;
+        IAssociateDAO associateDAO;
+        IPositionDAO positionDOA;
+        IStaffDAO staffDAO;
+        IBranchHasEmployeeDAO branchHasEmployeeDAO;
+        IMerchantDAO merchantDAO;
+        ICustomerDAO customerDAO;
+        IAccountDAO accountDAO;
+        ITransferStatusDAO transferStatusDAO;
+        ITransferDAO transferDAO;
+        ICardDAO cardDAO;
+        ITransactionDAO transactionDAO;
+
+        switch (implementation) {
+            case "mybatis":
+                countriesDAO = new com.solvd.bank.persistence.mybatisImpl.CountryDAO();
+                citiesDAO = new com.solvd.bank.persistence.mybatisImpl.CityDAO();
+                locationDAO = new com.solvd.bank.persistence.mybatisImpl.LocationDAO();
+                branchDAO = new com.solvd.bank.persistence.mybatisImpl.BranchDAO();
+                associateDAO = new com.solvd.bank.persistence.mybatisImpl.AssociateDAO();
+                positionDOA = new com.solvd.bank.persistence.mybatisImpl.PositionDOA();
+                staffDAO = new com.solvd.bank.persistence.mybatisImpl.StaffDAO();
+                branchHasEmployeeDAO = new com.solvd.bank.persistence.mybatisImpl.BranchHasEmployeeDAO();
+                merchantDAO = new com.solvd.bank.persistence.mybatisImpl.MerchantDAO();
+                customerDAO = new com.solvd.bank.persistence.mybatisImpl.CustomerDAO();
+                accountDAO = new com.solvd.bank.persistence.mybatisImpl.AccountDAO();
+                transferStatusDAO = new com.solvd.bank.persistence.mybatisImpl.TransferStatusDAO();
+                transferDAO = new com.solvd.bank.persistence.mybatisImpl.TransferDAO();
+                cardDAO = new com.solvd.bank.persistence.mybatisImpl.CardDAO();
+                transactionDAO = new com.solvd.bank.persistence.mybatisImpl.TransactionDAO();
+                break;
+
+            case "jdbc":
+                countriesDAO = new com.solvd.bank.persistence.jdbcimpl.CountryDAO();
+                citiesDAO = new com.solvd.bank.persistence.jdbcimpl.CityDAO();
+                locationDAO = new com.solvd.bank.persistence.jdbcimpl.LocationDAO();
+                branchDAO = new com.solvd.bank.persistence.jdbcimpl.BranchDAO();
+                associateDAO = new com.solvd.bank.persistence.jdbcimpl.AssociateDAO();
+                positionDOA = new com.solvd.bank.persistence.jdbcimpl.PositionDAO();
+                staffDAO = new com.solvd.bank.persistence.jdbcimpl.StaffDAO();
+                branchHasEmployeeDAO = new com.solvd.bank.persistence.jdbcimpl.BranchHasEmployeeDAO();
+                merchantDAO = new com.solvd.bank.persistence.jdbcimpl.MerchantDAO();
+                customerDAO = new com.solvd.bank.persistence.jdbcimpl.CustomerDAO();
+                accountDAO = new com.solvd.bank.persistence.jdbcimpl.AccountDAO();
+                transferStatusDAO = new com.solvd.bank.persistence.jdbcimpl.TransferStatusDAO();
+                transferDAO = new com.solvd.bank.persistence.jdbcimpl.TransferDAO();
+                cardDAO = new com.solvd.bank.persistence.jdbcimpl.CardDAO();
+                transactionDAO = new com.solvd.bank.persistence.jdbcimpl.TransactionDAO();
+                break;
+            default:
+                return;
+        }
+
 
         LOGGER.info("-----Testing CountryDAO-----");
         Country testCountry = new Country();
@@ -310,6 +351,7 @@ public class MybatisMain {
         TransferStatus getTransferStatus = transferStatusDAO.getAll().get(0);
         LOGGER.info("Testing AccountDAO.getAll: "
                 + ((getTransferStatus != null) ? "passed" : "failed"));
+
         LOGGER.info("Testing TransferStatusDAO.getTransactionsByStatusId: "
                 + (!transferStatusDAO.getTransactionsByStatusId(getTransferStatus.getId()).isEmpty() ? "passed" : "fail"));
 
@@ -383,4 +425,3 @@ public class MybatisMain {
         associateDAO.removeEntityById(testAssociate.getId());
     }
 }
-

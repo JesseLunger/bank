@@ -3,6 +3,7 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.Position;
 import com.solvd.bank.domain.Staff;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -19,7 +20,7 @@ public class StaffDAO extends BaseClassDAO<Staff> implements com.solvd.bank.pers
         String query = "UPDATE locations " +
                 "SET position_id = (?) " +
                 "WHERE associate_id = (?)";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, position.getId());
             preparedStatement.setInt(2, staff.getAssociate().getId());

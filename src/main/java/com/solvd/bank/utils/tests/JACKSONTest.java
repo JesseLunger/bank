@@ -1,4 +1,4 @@
-package com.solvd.bank;
+package com.solvd.bank.utils.tests;
 
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.City;
@@ -11,18 +11,18 @@ import org.apache.logging.log4j.Logger;
 import java.lang.invoke.MethodHandles;
 import java.sql.Timestamp;
 
-public class JacksonMain {
+public class JACKSONTest {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-    public static void main(String[] args) {
+    public static void test() {
 
         String filePath = System.getProperty("user.dir") + "/src/main/resources/jsonclasses/";
 
         Country country = new Country();
         country.setId(1);
         country.setName("ExampleCountry");
-        String countryJson = JacksonUtil.writeJson(filePath, country);
+        JacksonUtil.writeJson(filePath, country);
         Country newCountry = JacksonUtil.readJson(filePath, country);
         assert (country.getName().equals(newCountry.getName()));
 
@@ -30,7 +30,7 @@ public class JacksonMain {
         city.setId(1);
         city.setName("ExampleCity");
         city.setCountry(country);
-        String cityJson = JacksonUtil.writeJson(filePath, city);
+        JacksonUtil.writeJson(filePath, city);
         City newCity = JacksonUtil.readJson(filePath, city);
         assert (city.getName().equals(newCity.getName()));
 

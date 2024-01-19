@@ -2,6 +2,7 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Card;
 import com.solvd.bank.domain.Transaction;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -19,7 +20,7 @@ public class CardDAO extends BaseClassDAO<Card> implements com.solvd.bank.persis
         TransactionDAO transactionDAO = new TransactionDAO();
         String query = "SELECT * FROM transactions " +
                 "WHERE card_id = (?);";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, card.getId());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

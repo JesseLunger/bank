@@ -16,8 +16,6 @@ public class MySQLFactory {
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static final SqlSessionFactory sqlSessionFactory;
 
-    private static String useCase;
-
     static {
         try {
             Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
@@ -28,15 +26,8 @@ public class MySQLFactory {
         }
     }
 
-    private MySQLFactory(String useCase) {
-
-    }
-
     public static SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;
     }
 
-    public static Connection getConnection() throws InterruptedException {
-        return ConnectionPool.getConnection();
-    }
 }

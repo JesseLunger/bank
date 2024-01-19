@@ -3,6 +3,7 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Country;
 import com.solvd.bank.domain.Location;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class CityDAO extends BaseClassDAO<City> implements com.solvd.bank.persis
     public ArrayList<Location> getLocationsByCity(City city) {
         ArrayList<Location> locations = new ArrayList<>();
         String query = "SELECT * FROM locations WHERE city_id = (?);";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, city.getId());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

@@ -31,7 +31,7 @@ public abstract class BaseClassDAO<Entity> {
     protected ArrayList<Entity> executeStatement(String query, String method, Entity entity, int id) {
         Connection connection = null;
         try {
-            connection = MySQLFactory.getConnection();
+            connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             switch (routeToPrepareFunc(preparedStatement, method, entity, id)) {
                 case "update":

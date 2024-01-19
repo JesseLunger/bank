@@ -12,8 +12,8 @@
                         <city>
                             <id>1</id>
                             <country>
-                                <id>1</id>
-                                <name>ExampleCountry</name>
+<id>1</id>
+<name>ExampleCountry</name>
                             </country>
                             <name>ExampleCity</name>
                         </city>
@@ -22,7 +22,7 @@
                     </location>
                     <primaryName>Example</primaryName>
                     <secondaryName>Associate</secondaryName>
-                    <dateJoined>01-14-2024 13:32 PM PST</dateJoined>
+                    <dateJoined>01-19-2024 14:12 PM PST</dateJoined>
                     <email>example@examplemail.com</email>
                     <phoneNumber>543-342-2342</phoneNumber>
                 </associate>
@@ -32,7 +32,7 @@
                     <salary>70000.0</salary>
                     <hourlyWage>0.0</hourlyWage>
                 </position>
-                <dateHired>01-14-2024 13:32 PM PST</dateHired>
+                <dateHired>01-19-2024 14:12 PM PST</dateHired>
             </staff>
         </branchStaff>
     </branch>
@@ -54,7 +54,7 @@
             </location>
             <primaryName>Example</primaryName>
             <secondaryName>Associate</secondaryName>
-            <dateJoined>01-14-2024 13:32 PM PST</dateJoined>
+            <dateJoined>01-19-2024 14:12 PM PST</dateJoined>
             <email>example@examplemail.com</email>
             <phoneNumber>543-342-2342</phoneNumber>
         </associate>
@@ -64,6 +64,6 @@
             <salary>70000.0</salary>
             <hourlyWage>0.0</hourlyWage>
         </position>
-        <dateHired>01-14-2024 13:32 PM PST</dateHired>
+        <dateHired>01-19-2024 14:12 PM PST</dateHired>
     </staff>
 </branchHasEmployee>

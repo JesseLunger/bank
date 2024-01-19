@@ -1,4 +1,4 @@
-package com.solvd.bank;
+package com.solvd.bank.utils.tests;
 
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Country;
@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.invoke.MethodHandles;
 
-public class PatternImplMain {
+public class PatternImpl {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 

@@ -1,4 +1,4 @@
-package com.solvd.bank;
+package com.solvd.bank.utils.tests;
 
 import com.solvd.bank.domain.*;
 import com.solvd.bank.utils.enums.StatusNames;
@@ -12,11 +12,11 @@ import java.lang.invoke.MethodHandles;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class JAXBMain {
+public class JAXBTest {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-    public static void main(String[] args) {
+    public static void test() {
 
         Country country = new Country();
         country.setId(1);
@@ -131,7 +131,7 @@ public class JAXBMain {
         LOGGER.info(accountJAXBMarshaller.unmarshall());
 
         TransferStatus transferStatus = new TransferStatus();
-        transferStatus.setStatus(StatusNames.ACCEPTED.getSTATUS());
+        transferStatus.setStatus(StatusNames.ACCEPTED.getStatus());
         transferStatus.setId(1);
         JAXBMarshaller<TransferStatus> transferStatusJAXBMarshaller = new JAXBMarshaller<>(transferStatus);
         transferStatusJAXBMarshaller.marshall();

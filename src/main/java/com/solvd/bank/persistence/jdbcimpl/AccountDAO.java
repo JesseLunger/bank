@@ -1,6 +1,7 @@
 package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Account;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -17,7 +18,7 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
         String query = "UPDATE accounts " +
                 "SET amount = (?) " +
                 "WHERE id = (?)";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             double newAmount = amountToAdd + account.getAmount();
             preparedStatement.setDouble(1, newAmount);

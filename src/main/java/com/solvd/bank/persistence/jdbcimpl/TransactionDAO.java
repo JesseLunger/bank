@@ -2,6 +2,7 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Transaction;
 import com.solvd.bank.persistence.ITransactionDAO;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
         String query = "UPDATE transactions " +
                 "SET status_id = (?) " +
                 "WHERE id = (?)";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, transaction.getTransferStatus().getId());
             preparedStatement.setInt(2, transaction.getId());

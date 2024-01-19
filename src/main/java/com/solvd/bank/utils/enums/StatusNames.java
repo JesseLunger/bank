@@ -5,13 +5,13 @@ public enum StatusNames {
     PENDING("pending"),
     DECLINED("declined");
 
-    private final String STATUS;
+    private final String status;
 
-    StatusNames(String STATUS) {
-        this.STATUS = STATUS;
+    StatusNames(String status) {
+        this.status = status;
     }
 
-    public String getSTATUS() {
-        return STATUS;
+    public String getStatus() {
+        return status;
     }
 }

@@ -3,6 +3,7 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.Position;
 import com.solvd.bank.persistence.IPositionDAO;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
 import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
                 "LEFT JOIN staff st ON pos.id = st.position_id " +
                 "LEFT JOIN branch_has_employees bhe ON st.associate_id = bhe.staff_id " +
                 "WHERE bhe.branch_id = br.id AND pos.position = (?));";
-        try (Connection connection = MySQLFactory.getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, positionName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
