@@ -2,7 +2,7 @@
   "id" : 1,
   "country" : {
     "id" : 1,
-    "name" : "ExampleCountry"
+    "name" : "United States"
   },
-  "name" : "ExampleCity"
+  "name" : "SQLville"
 }

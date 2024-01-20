@@ -1,14 +1,15 @@
 package com.solvd.bank;
 
+import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Country;
 import com.solvd.bank.service.CountriesService;
+import com.solvd.bank.utils.jacksonutils.JacksonUtil;
 import com.solvd.bank.utils.patternsutil.CountryController;
 import com.solvd.bank.utils.patternsutil.CountryView;
 import com.solvd.bank.utils.patternsutil.ExampleListeners;
-import com.solvd.bank.utils.tests.JACKSONTest;
 import com.solvd.bank.utils.tests.JAXBTest;
-import com.solvd.bank.utils.tests.JDBCAndMybatisTest;
+import com.solvd.bank.utils.xmlutils.JAXBUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,10 +20,16 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
-        JDBCAndMybatisTest.test("jdbc");
-        JDBCAndMybatisTest.test("mybatis");
-        JACKSONTest.test();
-        JAXBTest.test();
+
+        String filePath = System.getProperty("user.dir") + "/src/main/resources/jsonclasses/";
+
+        Country jdbcCountry = new com.solvd.bank.persistence.jdbcimpl.CountryDAO().getEntityById(1);
+        City mybatisCity = new com.solvd.bank.persistence.mybatisImpl.CityDAO().getEntityById(1);
+        Associate mybatisAssociate = new com.solvd.bank.persistence.mybatisImpl.AssociateDAO().getEntityById(1);
+
+        JAXBUtil.marshall(filePath, jdbcCountry);
+        JacksonUtil.writeJson(filePath, mybatisCity);
+        JacksonUtil.writeJson(filePath, mybatisAssociate);
 
         //Example of Builder implementation
         Country country = Country.builder()
@@ -52,6 +59,5 @@ public class Main {
         countryController.setCountryName("changedName");
         countryController.updateCountryView();
         LOGGER.info(country);
-
     }
 }

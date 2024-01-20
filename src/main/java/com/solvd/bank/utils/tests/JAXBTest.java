@@ -3,7 +3,7 @@ package com.solvd.bank.utils.tests;
 import com.solvd.bank.domain.*;
 import com.solvd.bank.utils.enums.StatusNames;
 import com.solvd.bank.utils.xmlutils.DomParser;
-import com.solvd.bank.utils.xmlutils.JAXBMarshaller;
+import com.solvd.bank.utils.xmlutils.JAXBUtil;
 import com.solvd.bank.utils.xmlutils.XMLValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,14 +18,15 @@ public class JAXBTest {
 
     public static void test() {
 
+        String filePath = System.getProperty("user.dir") + "/src/main/resources/jsonclasses/";
+
         Country country = new Country();
         country.setId(1);
         country.setName("ExampleCountry");
-        JAXBMarshaller<Country> countryJaxbMarshaller = new JAXBMarshaller<>(country);
-        countryJaxbMarshaller.marshall();
+        JAXBUtil.marshall(filePath, country);
         LOGGER.info("Validating Country.xml: " + (new XMLValidator<>(Country.class).validate() ? "passed" : "failed"));
         Country myUnmarshalledCountry = new DomParser<>(Country.class).parse();
-        Country jaxbUnmarshalledCountry = countryJaxbMarshaller.unmarshall();
+        Country jaxbUnmarshalledCountry = JAXBUtil.unmarshall(filePath, country);
         LOGGER.info(myUnmarshalledCountry);
         LOGGER.info(jaxbUnmarshalledCountry);
 
@@ -33,11 +34,10 @@ public class JAXBTest {
         city.setId(1);
         city.setName("ExampleCity");
         city.setCountry(country);
-        JAXBMarshaller<City> cityJAXBMarshaller = new JAXBMarshaller<>(city);
-        cityJAXBMarshaller.marshall();
+        JAXBUtil.marshall(filePath, city);
         LOGGER.info("Validating City.xml: " + (new XMLValidator<>(City.class).validate() ? "passed" : "failed"));
         City myUnmarshalledCity = new DomParser<>(City.class).parse();
-        City jaxbUnmarshalledCity = cityJAXBMarshaller.unmarshall();
+        City jaxbUnmarshalledCity = JAXBUtil.unmarshall(filePath, city);
         LOGGER.info(myUnmarshalledCity);
         LOGGER.info(jaxbUnmarshalledCity);
 
@@ -46,11 +46,10 @@ public class JAXBTest {
         location.setCity(city);
         location.setZipCode("1234");
         location.setAddress("ExampleAddress");
-        JAXBMarshaller<Location> locationJAXBMarshaller = new JAXBMarshaller<>(location);
-        locationJAXBMarshaller.marshall();
+        JAXBUtil.marshall(filePath, location);
         LOGGER.info("Validating Location.xml: " + (new XMLValidator<>(Location.class).validate() ? "passed" : "failed"));
         Location myUnmarshalledLocation = new DomParser<Location>(Location.class).parse();
-        Location jaxbUnmarshalledLocation = locationJAXBMarshaller.unmarshall();
+        Location jaxbUnmarshalledLocation = JAXBUtil.unmarshall(filePath, location);
         LOGGER.info(myUnmarshalledLocation);
         LOGGER.info(jaxbUnmarshalledLocation);
 
@@ -62,11 +61,11 @@ public class JAXBTest {
         associate.setEmail("example@examplemail.com");
         associate.setDateJoined(new Timestamp(System.currentTimeMillis()));
         associate.setPhoneNumber("543-342-2342");
-        JAXBMarshaller<Associate> associateJAXBMarshaller = new JAXBMarshaller<>(associate);
 
+        JAXBUtil.marshall(filePath, associate);
         LOGGER.info("Validating associate.xml: " + (new XMLValidator<>(Associate.class).validate() ? "passed" : "failed"));
         Associate myUnmarshalledAssociate = new DomParser<Associate>(Associate.class).parse();
-        Associate jaxbUnmarshalledAssociate = associateJAXBMarshaller.unmarshall();
+        Associate jaxbUnmarshalledAssociate = JAXBUtil.unmarshall(filePath, associate);
         LOGGER.info(myUnmarshalledAssociate);
         LOGGER.info(jaxbUnmarshalledAssociate);
 
@@ -74,11 +73,10 @@ public class JAXBTest {
         position.setId(1);
         position.setSalary(70000);
         position.setPosition("ExamplePosition");
-        JAXBMarshaller<Position> positionJAXBMarshaller = new JAXBMarshaller<>(position);
-        positionJAXBMarshaller.marshall();
+        JAXBUtil.marshall(filePath, position);
         LOGGER.info("Validating position.xml: " + (new XMLValidator<>(Position.class).validate() ? "passed" : "failed"));
         Position myUnmarshalledPosition = new DomParser<>(Position.class).parse();
-        Position jaxbUnmarshalledPosition = positionJAXBMarshaller.unmarshall();
+        Position jaxbUnmarshalledPosition = JAXBUtil.unmarshall(filePath, position);
         LOGGER.info(myUnmarshalledPosition);
         LOGGER.info(jaxbUnmarshalledPosition);
 
@@ -86,38 +84,33 @@ public class JAXBTest {
         staff.setPosition(position);
         staff.setDateHired(new Timestamp(System.currentTimeMillis()));
         staff.setAssociate(associate);
-        JAXBMarshaller<Staff> staffJAXBMarshaller = new JAXBMarshaller<>(staff);
-        staffJAXBMarshaller.marshall();
-        LOGGER.info(staffJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, staff);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, staff));
 
         Branch branch = new Branch();
         branch.setId(1);
         branch.setBranchName("ExampleBranch");
         branch.setBranchStaff(new ArrayList<Staff>());
         branch.getBranchStaff().add(staff);
-        JAXBMarshaller<Branch> branchJAXBMarshaller = new JAXBMarshaller<>(branch);
-        branchJAXBMarshaller.marshall();
-        LOGGER.info(branchJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, branch);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, branch));
 
         BranchHasEmployee branchHasEmployee = new BranchHasEmployee();
         branchHasEmployee.setBranch(branch);
         branchHasEmployee.setStaff(staff);
-        JAXBMarshaller<BranchHasEmployee> branchHasEmployeeJAXBMarshaller = new JAXBMarshaller<>(branchHasEmployee);
-        branchHasEmployeeJAXBMarshaller.marshall();
-        LOGGER.info(branchHasEmployeeJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, branchHasEmployee);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, branchHasEmployee));
 
         Merchant merchant = new Merchant();
         merchant.setAssociate(associate);
-        JAXBMarshaller<Merchant> merchantJAXBMarshaller = new JAXBMarshaller<>(merchant);
-        merchantJAXBMarshaller.marshall();
-        LOGGER.info(merchantJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, merchant);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, merchant));
 
         Customer customer = new Customer();
         customer.setCreditScore(9000.00);
         customer.setAssociate(associate);
-        JAXBMarshaller<Customer> customerJAXBMarshaller = new JAXBMarshaller<>(customer);
-        customerJAXBMarshaller.marshall();
-        LOGGER.info(customerJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, customer);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, customer));
 
         Account account = new Account();
         account.setAmount(800.30);
@@ -126,16 +119,14 @@ public class JAXBTest {
         account.setHolds(false);
         account.setCustomer(customer);
         account.setDateCreated(new Timestamp(System.currentTimeMillis()));
-        JAXBMarshaller<Account> accountJAXBMarshaller = new JAXBMarshaller<>(account);
-        accountJAXBMarshaller.marshall();
-        LOGGER.info(accountJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, account);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, account));
 
         TransferStatus transferStatus = new TransferStatus();
         transferStatus.setStatus(StatusNames.ACCEPTED.getStatus());
         transferStatus.setId(1);
-        JAXBMarshaller<TransferStatus> transferStatusJAXBMarshaller = new JAXBMarshaller<>(transferStatus);
-        transferStatusJAXBMarshaller.marshall();
-        LOGGER.info(transferStatusJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, transferStatus);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, transferStatus));
 
         Transfer transfer = new Transfer();
         transfer.setTransferTime(new Timestamp(System.currentTimeMillis()));
@@ -144,9 +135,8 @@ public class JAXBTest {
         transfer.setReceiver(account);
         transfer.setAmount(400);
         transfer.setTransferStatus(transferStatus);
-        JAXBMarshaller<Transfer> transferJAXBMarshaller = new JAXBMarshaller<>(transfer);
-        transferJAXBMarshaller.marshall();
-        LOGGER.info(transferJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, transfer);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, transfer));
 
         Card card = new Card();
         card.setCardNumber(":1232123");
@@ -154,9 +144,8 @@ public class JAXBTest {
         card.setCvv("123");
         card.setId(1);
         card.setExpirationDate(new Timestamp(System.currentTimeMillis()));
-        JAXBMarshaller<Card> cardJAXBMarshaller = new JAXBMarshaller<>(card);
-        cardJAXBMarshaller.marshall();
-        LOGGER.info(cardJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, card);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, card));
 
         Transaction transaction = new Transaction();
         transaction.setCard(card);
@@ -165,8 +154,7 @@ public class JAXBTest {
         transaction.setMerchant(merchant);
         transaction.setTransferStatus(transferStatus);
         transaction.setAmount(123.21);
-        JAXBMarshaller<Transaction> transactionJAXBMarshaller = new JAXBMarshaller<>(transaction);
-        transactionJAXBMarshaller.marshall();
-        LOGGER.info(transactionJAXBMarshaller.unmarshall());
+        JAXBUtil.marshall(filePath, transaction);
+        LOGGER.info(JAXBUtil.unmarshall(filePath, transaction));
     }
 }
