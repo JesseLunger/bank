@@ -4,7 +4,8 @@ import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Country;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ICountryDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,8 +19,8 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
     @Override
     public ArrayList<Location> getAllLocationsByCountry(Country country) {
         ArrayList<Location> locations = new ArrayList<>();
-        String query =  "SELECT * FROM cities " +
-                        "WHERE country_id = (?);";
+        String query = "SELECT * FROM cities " +
+                "WHERE country_id = (?);";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, country.getId());
@@ -52,8 +53,8 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
 
     @Override
     public Country getEntityById(int id) {
-        String query =  "SELECT * FROM countries " +
-                        "WHERE id = ?";
+        String query = "SELECT * FROM countries " +
+                "WHERE id = ?";
         ArrayList<Country> countries = executeStatement(query, "getEntityById", id);
         if (countries == null || countries.isEmpty()) {
             return null;
@@ -68,8 +69,8 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
 
     @Override
     public void saveEntity(Country country) {
-        String query =  "INSERT INTO countries (name) " +
-                        "VALUES (?)";
+        String query = "INSERT INTO countries (name) " +
+                "VALUES (?)";
         executeStatement(query, "saveEntity", country);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -84,8 +85,8 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
 
     @Override
     public void updateEntity(Country country) {
-        String query =  "UPDATE countries SET name = ? " +
-                        "WHERE id = ?";
+        String query = "UPDATE countries SET name = ? " +
+                "WHERE id = ?";
         executeStatement(query, "updateEntity", country);
     }
 
@@ -97,8 +98,8 @@ public class CountryDAO extends BaseClassDAO<Country> implements ICountryDAO {
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM countries " +
-                        "WHERE id = ?";
+        String query = "DELETE FROM countries " +
+                "WHERE id = ?";
         executeStatement(query, "removeEntityById", id);
     }
 

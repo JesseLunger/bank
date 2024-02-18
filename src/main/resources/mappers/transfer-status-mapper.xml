@@ -9,6 +9,12 @@
         <result property="status" column="status"/>
     </resultMap>
 
+    <select id="getTransactionsByStatusId" parameterType="int"
+            resultMap="com.solvd.bank.persistence.ITransactionDAO.TransactionResultMap">
+        SELECT * FROM transactions
+        WHERE status_id = #{statusId};
+    </select>
+
     <select id="getAll" resultMap="TransferStatusResultMap">
         SELECT * FROM transfer_statuses;
     </select>

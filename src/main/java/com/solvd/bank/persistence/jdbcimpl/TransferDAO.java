@@ -3,7 +3,10 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Transfer;
 import com.solvd.bank.persistence.ITransferDAO;
 import com.solvd.bank.utils.enums.StatusNames;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +16,23 @@ import java.util.List;
 public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO {
 
     @Override
-    public void removeDeclinedTransfers(Transfer transfer) {
-        if (transfer.getTransferStatus().getStatus().equals(StatusNames.DECLINED.getSTATUS())) {
-            removeEntityById(transfer.getId());
+    public void removeDeclinedTransfers() {
+        String query1 = "SELECT id FROM transfer_statuses " +
+                "WHERE status = (?)";
+        String query2 = "DELETE FROM transfers " +
+                "WHERE status_id = (?)";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement1 = connection.prepareStatement(query1);
+             PreparedStatement preparedStatement2 = connection.prepareStatement(query2);) {
+            preparedStatement1.setString(1, StatusNames.DECLINED.getStatus());
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            if (resultSet.next()) {
+                int declined_status_id = resultSet.getInt("id");
+                preparedStatement2.setInt(1, declined_status_id);
+                preparedStatement2.executeUpdate();
+            }
+        } catch (InterruptedException | SQLException e) {
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -39,8 +56,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
 
     @Override
     public Transfer getEntityById(int id) {
-        String query =  "SELECT * FROM transfers " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM transfers " +
+                "WHERE id = (?);";
         ArrayList<Transfer> transfers = executeStatement(query, "getEntityById", id);
         if (transfers == null || transfers.isEmpty()) {
             return null;
@@ -55,8 +72,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
 
     @Override
     public void saveEntity(Transfer transfer) {
-        String query =  "INSERT INTO transfers (sender_id, receiver_id, status_id, transfer_time, amount) " +
-                        "VALUES ((?), (?), (?), (?), (?))";
+        String query = "INSERT INTO transfers (sender_id, receiver_id, status_id, transfer_time, amount) " +
+                "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", transfer);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -75,8 +92,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
 
     @Override
     public void updateEntity(Transfer transfer) {
-        String query =  "UPDATE transfers SET sender_id = (?), receiver_id = (?), " +
-                        "status_id = (?), transfer_time = (?), amount = (?) WHERE id = (?);";
+        String query = "UPDATE transfers SET sender_id = (?), receiver_id = (?), " +
+                "status_id = (?), transfer_time = (?), amount = (?) WHERE id = (?);";
         executeStatement(query, "updateEntity", transfer);
     }
 
@@ -92,8 +109,8 @@ public class TransferDAO extends BaseClassDAO<Transfer> implements ITransferDAO 
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM transfers " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM transfers " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

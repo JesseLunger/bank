@@ -1,5 +1,8 @@
 package com.solvd.bank.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -8,10 +11,19 @@ import java.util.ArrayList;
 
 @XmlRootElement(name = "branch")
 @XmlType(propOrder = {"id", "location", "branchName", "branchStaff"})
+@JsonRootName("branch")
 public class Branch {
+
+    @JsonProperty("id")
     private int id;
+
+    @JsonProperty("location")
     private Location location;
+
+    @JsonProperty("branchName")
     private String branchName;
+
+    @JsonProperty("branchStaff")
     private ArrayList<Staff> branchStaff;
 
     public int getId() {

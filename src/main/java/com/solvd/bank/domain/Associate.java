@@ -1,5 +1,8 @@
 package com.solvd.bank.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.solvd.bank.utils.xmlutils.TimeStampAdapter;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -10,13 +13,29 @@ import java.sql.Timestamp;
 
 @XmlRootElement(name = "associate")
 @XmlType(propOrder = {"id", "location", "primaryName", "secondaryName", "dateJoined", "email", "phoneNumber"})
+@JsonRootName("associate")
 public class Associate {
+
+    @JsonProperty("id")
     private int id;
+
+    @JsonProperty("location")
     private Location location;
+
+    @JsonProperty("primaryName")
     private String primaryName;
+
+    @JsonProperty("secondaryName")
     private String secondaryName;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm a z", timezone = "America/Los_Angeles")
+    @JsonProperty("dateJoined")
     private Timestamp dateJoined;
+
+    @JsonProperty("email")
     private String email;
+
+    @JsonProperty("phoneNumber")
     private String phoneNumber;
 
     public int getId() {
@@ -40,7 +59,7 @@ public class Associate {
     public String getPrimaryName() {
         return primaryName;
     }
-    
+
     @XmlElement(name = "primaryName")
     public void setPrimaryName(String primaryName) {
         this.primaryName = primaryName;

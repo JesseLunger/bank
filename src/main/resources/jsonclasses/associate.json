@@ -1,0 +1,21 @@
+{
+  "id" : 1,
+  "location" : {
+    "id" : 1,
+    "city" : {
+      "id" : 1,
+      "country" : {
+        "id" : 1,
+        "name" : "United States"
+      },
+      "name" : "SQLville"
+    },
+    "zipCode" : "1111",
+    "address" : "1 first st"
+  },
+  "primaryName" : "guy",
+  "secondaryName" : "1",
+  "dateJoined" : "01-19-2024 14:12 PM PST",
+  "email" : "guy1@guymail.buddyguy",
+  "phoneNumber" : "1"
+}

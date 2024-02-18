@@ -3,14 +3,14 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.BranchHasEmployee;
 import com.solvd.bank.domain.Staff;
 import com.solvd.bank.persistence.IBranchHasEmployeeDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BranchHasEmployeeDAO implements IBranchHasEmployeeDAO {
 
-    private IBranchHasEmployeeDAO mapper;
+    private final IBranchHasEmployeeDAO mapper;
 
     public BranchHasEmployeeDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchHasEmployeeDAO.class);

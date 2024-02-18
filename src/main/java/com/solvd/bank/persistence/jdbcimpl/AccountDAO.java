@@ -1,7 +1,8 @@
 package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Account;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,17 +15,17 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
 
     @Override
     public void addAmount(Account account, double amountToAdd) {
-        String query =  "UPDATE accounts " +
-                        "SET amount = (?) " +
-                        "WHERE id = (?)";
+        String query = "UPDATE accounts " +
+                "SET amount = (?) " +
+                "WHERE id = (?)";
         try (Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            double newAmount = amountToAdd +  account.getAmount();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            double newAmount = amountToAdd + account.getAmount();
             preparedStatement.setDouble(1, newAmount);
             preparedStatement.setInt(2, account.getId());
             preparedStatement.executeUpdate();
             account.setAmount(newAmount);
-        } catch (InterruptedException | SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             LOGGER.error(e.getMessage());
         }
     }
@@ -49,8 +50,8 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
 
     @Override
     public Account getEntityById(int id) {
-        String query =  "SELECT * FROM accounts " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM accounts " +
+                "WHERE id = (?);";
         ArrayList<Account> accounts = executeStatement(query, "getEntityById", id);
         if (accounts == null || accounts.isEmpty()) {
             return null;
@@ -65,8 +66,8 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
 
     @Override
     public void saveEntity(Account account) {
-        String query =  "INSERT INTO accounts (branch_id, customer_id, amount, date_created, holds) " +
-                        "VALUES ((?), (?), (?), (?), (?))";
+        String query = "INSERT INTO accounts (branch_id, customer_id, amount, date_created, holds) " +
+                "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", account);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -81,15 +82,13 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
         preparedStatement.setDouble(3, account.getAmount());
         preparedStatement.setTimestamp(4, account.getDateCreated());
         preparedStatement.setBoolean(5, account.isHolds());
-
-
     }
 
     @Override
     public void updateEntity(Account account) {
-        String query =  "UPDATE accounts SET branch_id = (?), customer_id = (?), " +
-                        "amount = (?), date_created = (?), holds = (?) " +
-                        "WHERE id = (?);";
+        String query = "UPDATE accounts SET branch_id = (?), customer_id = (?), " +
+                "amount = (?), date_created = (?), holds = (?) " +
+                "WHERE id = (?);";
         executeStatement(query, "updateEntity", account);
     }
 
@@ -105,8 +104,8 @@ public class AccountDAO extends BaseClassDAO<Account> implements com.solvd.bank.
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM accounts " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM accounts " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

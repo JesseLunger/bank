@@ -2,7 +2,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.BranchHasEmployee;
 import com.solvd.bank.domain.Staff;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,12 +18,11 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
     public ArrayList<Staff> getAllStaffByBranchId(int id) {
         ArrayList<Staff> staff = new ArrayList<>();
         StaffDAO staffDAO = new StaffDAO();
-        String query =  "SELECT st.* FROM branch_has_employees bhe " +
-                        "LEFT JOIN staff st ON bhe.staff_id = st.associate_id " +
-                        "WHERE branch_id = (?);";
+        String query = "SELECT st.* FROM branch_has_employees bhe " +
+                "LEFT JOIN staff st ON bhe.staff_id = st.associate_id " +
+                "WHERE branch_id = (?);";
         try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);) {
-
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -51,8 +51,8 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
 
     @Override
     public BranchHasEmployee getEntityById(int id) {
-        String query =  "SELECT * FROM branch_has_employees " +
-                        "WHERE staff_id = (?);";
+        String query = "SELECT * FROM branch_has_employees " +
+                "WHERE staff_id = (?);";
         ArrayList<BranchHasEmployee> branchHasEmployees = executeStatement(query, "getEntityById", id);
         if (branchHasEmployees == null || branchHasEmployees.isEmpty()) {
             return null;
@@ -67,8 +67,8 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
 
     @Override
     public void saveEntity(BranchHasEmployee branchHasEmployee) {
-        String query =  "INSERT INTO branch_has_employees (branch_id, staff_id) " +
-                        "VALUES ((?), (?))";
+        String query = "INSERT INTO branch_has_employees (branch_id, staff_id) " +
+                "VALUES ((?), (?))";
         executeStatement(query, "saveEntity", branchHasEmployee);
     }
 
@@ -91,8 +91,8 @@ public class BranchHasEmployeeDAO extends BaseClassDAO<BranchHasEmployee> implem
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM branch_has_employees " +
-                        "WHERE staff_id = (?);";
+        String query = "DELETE FROM branch_has_employees " +
+                "WHERE staff_id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

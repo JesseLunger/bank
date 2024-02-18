@@ -3,7 +3,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ILocationDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,16 +16,15 @@ import java.util.List;
 public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO {
 
     @Override
-    public void updateCity(Location location, City city) {
-        String query =  "UPDATE locations " +
-                        "SET city_id = (?) " +
-                        "WHERE id = (?)";
+    public void updateCity(Location location) {
+        String query = "UPDATE locations " +
+                "SET city_id = (?) " +
+                "WHERE id = (?)";
         try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setDouble(1, city.getId());
+             PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+            preparedStatement.setInt(1, location.getCity().getId());
             preparedStatement.setInt(2, location.getId());
             preparedStatement.executeUpdate();
-            location.setCity(city);
         } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
@@ -49,8 +49,8 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
 
     @Override
     public Location getEntityById(int id) {
-        String query =  "SELECT * FROM locations " +
-                        "WHERE id = ?";
+        String query = "SELECT * FROM locations " +
+                "WHERE id = ?";
         ArrayList<Location> locations = executeStatement(query, "getEntityById", id);
         if (locations == null || locations.isEmpty()) {
             return null;
@@ -65,8 +65,8 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
 
     @Override
     public void saveEntity(Location location) {
-        String query =  "INSERT INTO locations (city_id, zip_code, address) " +
-                        "VALUES (?, ?, ?);";
+        String query = "INSERT INTO locations (city_id, zip_code, address) " +
+                "VALUES (?, ?, ?);";
         executeStatement(query, "saveEntity", location);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -83,8 +83,8 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
 
     @Override
     public void updateEntity(Location location) {
-        String query =  "UPDATE locations SET city_id = (?), zip_code = (?), address = (?) " +
-                        "WHERE id = (?);";
+        String query = "UPDATE locations SET city_id = (?), zip_code = (?), address = (?) " +
+                "WHERE id = (?);";
         executeStatement(query, "updateEntity", location);
     }
 
@@ -98,8 +98,8 @@ public class LocationDAO extends BaseClassDAO<Location> implements ILocationDAO 
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM locations " +
-                        "WHERE id = ?";
+        String query = "DELETE FROM locations " +
+                "WHERE id = ?";
         executeStatement(query, "removeEntityById", id);
     }
 

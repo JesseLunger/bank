@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CountriesService {
-    private ICountryDAO countryDAO;
+    private final ICountryDAO countryDAO;
 
     public CountriesService() {
         this.countryDAO = new CountryDAO();

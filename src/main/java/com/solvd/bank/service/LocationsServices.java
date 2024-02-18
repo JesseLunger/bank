@@ -1,6 +1,5 @@
 package com.solvd.bank.service;
 
-import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ILocationDAO;
 import com.solvd.bank.persistence.mybatisImpl.LocationDAO;
@@ -9,14 +8,14 @@ import java.util.List;
 
 public class LocationsServices {
 
-    private ILocationDAO locationDAO;
+    private final ILocationDAO locationDAO;
 
     public LocationsServices() {
         locationDAO = new LocationDAO();
     }
 
-    public void updateCity(Location location, City city) {
-        locationDAO.updateCity(location, city);
+    public void updateCity(Location location) {
+        locationDAO.updateCity(location);
     }
 
     public List<Location> getAllLocations() {

@@ -2,7 +2,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Customer;
 import com.solvd.bank.persistence.ICustomerDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,9 +16,9 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomerDAO 
 
     @Override
     public void updateCreditScore(Customer customer, double newScore) {
-        String query =  "UPDATE customers " +
-                        "SET credit_score = (?) " +
-                        "WHERE associate_id = (?)";
+        String query = "UPDATE customers " +
+                "SET credit_score = (?) " +
+                "WHERE associate_id = (?)";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, newScore);
@@ -45,8 +46,8 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomerDAO 
 
     @Override
     public Customer getEntityById(int id) {
-        String query =  "SELECT * FROM customers " +
-                        "WHERE associate_id = (?);";
+        String query = "SELECT * FROM customers " +
+                "WHERE associate_id = (?);";
         ArrayList<Customer> customers = executeStatement(query, "getEntityById", id);
         if (customers == null || customers.isEmpty()) {
             return null;
@@ -61,8 +62,8 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomerDAO 
 
     @Override
     public void saveEntity(Customer customer) {
-        String query =  "INSERT INTO customers (associate_id, credit_score) " +
-                        "VALUES ((?), (?))";
+        String query = "INSERT INTO customers (associate_id, credit_score) " +
+                "VALUES ((?), (?))";
         executeStatement(query, "saveEntity", customer);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -78,8 +79,8 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomerDAO 
 
     @Override
     public void updateEntity(Customer customer) {
-        String query =  "UPDATE customers SET associate_id = (?), credit_score = (?) " +
-                        "WHERE associate_id = (?)";
+        String query = "UPDATE customers SET associate_id = (?), credit_score = (?) " +
+                "WHERE associate_id = (?)";
         executeStatement(query, "updateEntity", customer);
     }
 
@@ -92,8 +93,8 @@ public class CustomerDAO extends BaseClassDAO<Customer> implements ICustomerDAO 
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM customers " +
-                        "WHERE associate_id = (?);";
+        String query = "DELETE FROM customers " +
+                "WHERE associate_id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

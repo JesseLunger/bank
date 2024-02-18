@@ -2,23 +2,21 @@ package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Transfer;
 import com.solvd.bank.persistence.ITransferDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.List;
 
 public class TransferDAO implements ITransferDAO {
 
-    private ITransferDAO mapper;
+    private final ITransferDAO mapper;
 
     public TransferDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ITransferDAO.class);
     }
 
     @Override
-    public void removeDeclinedTransfers(Transfer transfer) {
-        if (transfer.getTransferStatus().getStatus().equals("declined")) {
-            mapper.removeEntityById(transfer.getId());
-        }
+    public void removeDeclinedTransfers() {
+        mapper.removeDeclinedTransfers();
     }
 
     @Override

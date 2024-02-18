@@ -1,9 +1,9 @@
 package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Transaction;
-import com.solvd.bank.domain.TransferStatus;
 import com.solvd.bank.persistence.ITransactionDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,21 +15,18 @@ import java.util.List;
 public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransactionDAO {
 
     @Override
-    public void updateStatus(Transaction transaction, TransferStatus transferStatus) {
-        String query =  "UPDATE transactions " +
-                        "SET status_id = (?) " +
-                        "WHERE id = (?)";
+    public void updateStatus(Transaction transaction) {
+        String query = "UPDATE transactions " +
+                "SET status_id = (?) " +
+                "WHERE id = (?)";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setDouble(1, transferStatus.getId());
+            preparedStatement.setDouble(1, transaction.getTransferStatus().getId());
             preparedStatement.setInt(2, transaction.getId());
             preparedStatement.executeUpdate();
-            transaction.setTransferStatus(transferStatus);
         } catch (InterruptedException | SQLException e) {
             LOGGER.error(e.getMessage());
         }
-        transaction.setTransferStatus(transferStatus);
-        updateEntity(transaction);
     }
 
     @Override
@@ -52,8 +49,8 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
 
     @Override
     public Transaction getEntityById(int id) {
-        String query =  "SELECT * FROM transactions " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM transactions " +
+                "WHERE id = (?);";
         ArrayList<Transaction> transactions = executeStatement(query, "getEntityById", id);
         if (transactions == null || transactions.isEmpty()) {
             return null;
@@ -68,8 +65,8 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
 
     @Override
     public void saveEntity(Transaction transaction) {
-        String query =   "INSERT INTO transactions (card_id, merchant_id, status_id, transaction_time, amount) " +
-                         "VALUES ((?), (?), (?), (?), (?))";
+        String query = "INSERT INTO transactions (card_id, merchant_id, status_id, transaction_time, amount) " +
+                "VALUES ((?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", transaction);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -88,8 +85,8 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
 
     @Override
     public void updateEntity(Transaction transaction) {
-        String query =  "UPDATE transactions SET card_id = (?), merchant_id = (?), " +
-                        "status_id = (?), transaction_time = (?), amount = (?) WHERE id = (?);";
+        String query = "UPDATE transactions SET card_id = (?), merchant_id = (?), " +
+                "status_id = (?), transaction_time = (?), amount = (?) WHERE id = (?);";
         executeStatement(query, "updateEntity", transaction);
     }
 
@@ -105,8 +102,8 @@ public class TransactionDAO extends BaseClassDAO<Transaction> implements ITransa
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM transactions " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM transactions " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

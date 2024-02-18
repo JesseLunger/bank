@@ -2,7 +2,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Associate;
 import com.solvd.bank.domain.Location;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +17,8 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
     @Override
     public ArrayList<Associate> getAllAssociatesByLocationId(int id) {
         ArrayList<Associate> associates = new ArrayList<>();
-        String query =  "SELECT * FROM associates " +
-                        "Where location_id = (?);";
+        String query = "SELECT * FROM associates " +
+                "Where location_id = (?);";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
@@ -27,7 +28,7 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
                     associates.add(associateDAO.createEntity(resultSet));
                 }
             }
-        } catch (InterruptedException | SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             LOGGER.error(e.getMessage());
         }
         return associates;
@@ -55,8 +56,8 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
 
     @Override
     public Associate getEntityById(int id) {
-        String query =  "SELECT * FROM associates " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM associates " +
+                "WHERE id = (?);";
         ArrayList<Associate> associates = executeStatement(query, "getEntityById", id);
         if (associates == null || associates.isEmpty()) {
             return null;
@@ -71,8 +72,8 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
 
     @Override
     public void saveEntity(Associate associate) {
-        String query =  "INSERT INTO associates (location_id, primary_name, secondary_name, date_joined, email, phone_number) " +
-                        "VALUES ((?), (?), (?), (?), (?), (?))";
+        String query = "INSERT INTO associates (location_id, primary_name, secondary_name, date_joined, email, phone_number) " +
+                "VALUES ((?), (?), (?), (?), (?), (?))";
         executeStatement(query, "saveEntity", associate);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -92,8 +93,8 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
 
     @Override
     public void updateEntity(Associate associate) {
-        String query =  "UPDATE associates SET location_id = (?), primary_name = (?), secondary_name = (?), date_joined = (?), email = (?), phone_number = (?) " +
-                        "WHERE id = (?)";
+        String query = "UPDATE associates SET location_id = (?), primary_name = (?), secondary_name = (?), date_joined = (?), email = (?), phone_number = (?) " +
+                "WHERE id = (?)";
         executeStatement(query, "updateEntity", associate);
     }
 
@@ -110,8 +111,8 @@ public class AssociateDAO extends BaseClassDAO<Associate> implements com.solvd.b
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM associates " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM associates " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

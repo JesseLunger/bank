@@ -1,4 +1,4 @@
-package com.solvd.bank.utils;
+package com.solvd.bank.utils.jdbcconnectionutils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,8 +12,7 @@ public class DBConfig {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static final Properties PROPERTIES;
-
-    private static String propertiesPath = "/db.properties";
+    private static final String propertiesPath = "/db.properties";
 
     static {
         PROPERTIES = new Properties();
@@ -30,7 +29,6 @@ public class DBConfig {
         }
     }
     public static final String URL = PROPERTIES.getProperty("url");
-
     public static final String USERNAME = PROPERTIES.getProperty("username");
     public static final String PASSWORD = PROPERTIES.getProperty("password");
 }

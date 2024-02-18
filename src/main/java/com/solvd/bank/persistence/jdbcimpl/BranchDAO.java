@@ -2,7 +2,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.Staff;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +17,8 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
     @Override
     public ArrayList<Branch> getAllBranchesByLocationId(int id) {
         ArrayList<Branch> branches = new ArrayList<>();
-        String query =  "SELECT * FROM branches " +
-                        "WHERE location_id = (?)";
+        String query = "SELECT * FROM branches " +
+                "WHERE location_id = (?)";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
@@ -27,7 +28,7 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
                     branches.add(branchDAO.createEntity(resultSet));
                 }
             }
-        } catch (InterruptedException | SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             LOGGER.error(e.getMessage());
         }
         return branches;
@@ -52,8 +53,8 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
 
     @Override
     public Branch getEntityById(int id) {
-        String query =  "SELECT * FROM branches " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM branches " +
+                "WHERE id = (?);";
         ArrayList<Branch> branches = executeStatement(query, "getEntityById", id);
         if (branches == null || branches.isEmpty()) {
             return null;
@@ -68,8 +69,8 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
 
     @Override
     public void saveEntity(Branch branch) {
-        String query =  "INSERT INTO branches (location_id, branch_name) " +
-                        "VALUES ((?), (?))";
+        String query = "INSERT INTO branches (location_id, branch_name) " +
+                "VALUES ((?), (?))";
         executeStatement(query, "saveEntity", branch);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -85,8 +86,8 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
 
     @Override
     public void updateEntity(Branch branch) {
-        String query =  "UPDATE branches SET location_id = (?), branch_name = (?) " +
-                        "WHERE id = (?)";
+        String query = "UPDATE branches SET location_id = (?), branch_name = (?) " +
+                "WHERE id = (?)";
         executeStatement(query, "updateEntity", branch);
     }
 
@@ -99,8 +100,8 @@ public class BranchDAO extends BaseClassDAO<Branch> implements com.solvd.bank.pe
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM branches " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM branches " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

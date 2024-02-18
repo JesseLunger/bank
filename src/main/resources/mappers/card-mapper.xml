@@ -13,6 +13,10 @@
                      select="com.solvd.bank.persistence.IAccountDAO.getEntityById"/>
     </resultMap>
 
+    <select id="getAllTransactionsByCard" resultMap="com.solvd.bank.persistence.ITransactionDAO.TransactionResultMap">
+        SELECT * FROM transactions WHERE id = #{id};
+    </select>
+
     <select id="getAll" resultMap="CardResultMap">
         SELECT * FROM cards;
     </select>

@@ -2,14 +2,14 @@ package com.solvd.bank.persistence.mybatisImpl;
 
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.persistence.IBranchDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BranchDAO implements IBranchDAO {
 
-    private IBranchDAO mapper;
+    private final IBranchDAO mapper;
 
     public BranchDAO() {
         mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(IBranchDAO.class);
@@ -17,12 +17,7 @@ public class BranchDAO implements IBranchDAO {
 
     @Override
     public ArrayList<Branch> getAllBranchesByLocationId(int id) {
-        BranchHasEmployeeDAO branchHasEmployeeDAO = new BranchHasEmployeeDAO();
-        ArrayList<Branch> branches = new ArrayList<>(getAll());
-        for (Branch branch : branches) {
-            branch.setBranchStaff(branchHasEmployeeDAO.getAllStaffByBranchId(branch.getId()));
-        }
-        return branches;
+        return mapper.getAllBranchesByLocationId(id);
     }
 
     @Override
@@ -49,5 +44,4 @@ public class BranchDAO implements IBranchDAO {
     public void removeEntityById(int id) {
         mapper.removeEntityById(id);
     }
-
 }

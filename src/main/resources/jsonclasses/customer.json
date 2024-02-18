@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer>
+    <associate>
+        <id>1</id>
+        <location>
+            <id>1</id>
+            <city>
+                <id>1</id>
+                <country>
+                    <id>1</id>
+                    <name>ExampleCountry</name>
+                </country>
+                <name>ExampleCity</name>
+            </city>
+            <zipCode>1234</zipCode>
+            <address>ExampleAddress</address>
+        </location>
+        <primaryName>Example</primaryName>
+        <secondaryName>Associate</secondaryName>
+        <dateJoined>01-19-2024 18:09 PM PST</dateJoined>
+        <email>example@examplemail.com</email>
+        <phoneNumber>543-342-2342</phoneNumber>
+    </associate>
+    <creditScore>9000.0</creditScore>
+</customer>

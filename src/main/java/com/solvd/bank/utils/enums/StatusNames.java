@@ -1,18 +1,17 @@
 package com.solvd.bank.utils.enums;
 
 public enum StatusNames {
-        ACCEPTED("accepted"),
-        PENDING("pending"),
-        DECLINED("declined");
+    ACCEPTED("accepted"),
+    PENDING("pending"),
+    DECLINED("declined");
 
-        private final String STATUS;
+    private final String status;
 
-        StatusNames(String STATUS){
-            this.STATUS = STATUS;
-        }
+    StatusNames(String status) {
+        this.status = status;
+    }
 
-        public String getSTATUS(){
-            return STATUS;
-        }
-
+    public String getStatus() {
+        return status;
+    }
 }

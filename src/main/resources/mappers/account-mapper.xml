@@ -16,6 +16,12 @@
                      select="com.solvd.bank.persistence.ICustomerDAO.getEntityById"/>
     </resultMap>
 
+    <update id="addAmount" parameterType="double">
+        UPDATE accounts
+        SET amount = amount + #{amount}
+        WHERE id = #{id}
+    </update>
+
     <select id="getAll" resultMap="AccountResultMap">
         SELECT * FROM accounts;
     </select>

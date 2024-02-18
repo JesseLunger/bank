@@ -3,7 +3,8 @@ package com.solvd.bank.persistence.jdbcimpl;
 import com.solvd.bank.domain.Branch;
 import com.solvd.bank.domain.Position;
 import com.solvd.bank.persistence.IPositionDAO;
-import com.solvd.bank.utils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.ConnectionPool;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,12 +18,12 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
     @Override
     public ArrayList<Branch> getBranchesWithMissingPosition(String positionName) {
         ArrayList<Branch> branches = new ArrayList<>();
-        String query =  "SELECT * FROM branches br " +
-                        "WHERE NOT EXISTS ( " +
-                        "SELECT 1 FROM positions pos " +
-                        "LEFT JOIN staff st ON pos.id = st.position_id " +
-                        "LEFT JOIN branch_has_employees bhe ON st.associate_id = bhe.staff_id " +
-                        "WHERE bhe.branch_id = br.id AND pos.position = (?));";
+        String query = "SELECT * FROM branches br " +
+                "WHERE NOT EXISTS ( " +
+                "SELECT 1 FROM positions pos " +
+                "LEFT JOIN staff st ON pos.id = st.position_id " +
+                "LEFT JOIN branch_has_employees bhe ON st.associate_id = bhe.staff_id " +
+                "WHERE bhe.branch_id = br.id AND pos.position = (?));";
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, positionName);
@@ -56,8 +57,8 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
 
     @Override
     public Position getEntityById(int id) {
-        String query =  "SELECT * FROM positions " +
-                        "WHERE id = (?);";
+        String query = "SELECT * FROM positions " +
+                "WHERE id = (?);";
         ArrayList<Position> positions = executeStatement(query, "getEntityById", id);
         if (positions == null || positions.isEmpty()) {
             return null;
@@ -72,8 +73,8 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
 
     @Override
     public void saveEntity(Position position) {
-        String query =  "INSERT INTO positions (position, salary, hourly_wage) " +
-                        "VALUES ((?), (?), (?))";
+        String query = "INSERT INTO positions (position, salary, hourly_wage) " +
+                "VALUES ((?), (?), (?))";
         executeStatement(query, "saveEntity", position);
         Integer autoIncrementValue = getAutoIncrementValue();
         if (autoIncrementValue != null) {
@@ -90,8 +91,8 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
 
     @Override
     public void updateEntity(Position position) {
-        String query =  "UPDATE positions SET position = (?), salary = (?), hourly_wage = (?) " +
-                        "WHERE id = (?)";
+        String query = "UPDATE positions SET position = (?), salary = (?), hourly_wage = (?) " +
+                "WHERE id = (?)";
         executeStatement(query, "updateEntity", position);
     }
 
@@ -105,8 +106,8 @@ public class PositionDAO extends BaseClassDAO<Position> implements IPositionDAO 
 
     @Override
     public void removeEntityById(int id) {
-        String query =  "DELETE FROM positions " +
-                        "WHERE id = (?);";
+        String query = "DELETE FROM positions " +
+                "WHERE id = (?);";
         executeStatement(query, "removeEntityById", id);
     }
 

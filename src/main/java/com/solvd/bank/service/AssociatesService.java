@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AssociatesService {
-    private IAssociateDAO associateDAO = new AssociateDAO();
+    private final IAssociateDAO associateDAO = new AssociateDAO();
 
     public ArrayList<Associate> getAllByLocationId(int id) {
         return associateDAO.getAllAssociatesByLocationId(id);

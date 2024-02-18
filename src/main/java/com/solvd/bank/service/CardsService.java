@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CardsService {
 
-    private ICardDAO cardDAO;
+    private final ICardDAO cardDAO;
 
     public CardsService() {
         this.cardDAO = new CardDAO();

@@ -6,10 +6,6 @@
 
     <properties resource="db.properties"/>
 
-    <settings>
-        <setting name="lazyLoadingEnabled" value="true"/>
-    </settings>
-
     <typeAliases>
         <typeAlias alias="Account" type="com.solvd.bank.domain.Account"/>
         <typeAlias alias="Associate" type="com.solvd.bank.domain.Associate"/>

@@ -3,14 +3,14 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.City;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ICityDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CityDAO implements ICityDAO {
 
-    private ICityDAO mapper;
+    private final ICityDAO mapper;
 
     public CityDAO() {
         this.mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICityDAO.class);

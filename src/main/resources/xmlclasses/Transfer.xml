@@ -25,7 +25,7 @@
                         </location>
                         <primaryName>Example</primaryName>
                         <secondaryName>Associate</secondaryName>
-                        <dateJoined>1704588739414</dateJoined>
+                        <dateJoined>01-19-2024 14:12 PM PST</dateJoined>
                         <email>example@examplemail.com</email>
                         <phoneNumber>543-342-2342</phoneNumber>
                     </associate>
@@ -35,7 +35,7 @@
                         <salary>70000.0</salary>
                         <hourlyWage>0.0</hourlyWage>
                     </position>
-                    <dateHired>1704588739479</dateHired>
+                    <dateHired>01-19-2024 14:12 PM PST</dateHired>
                 </staff>
             </branchStaff>
         </branch>
@@ -57,14 +57,14 @@
                 </location>
                 <primaryName>Example</primaryName>
                 <secondaryName>Associate</secondaryName>
-                <dateJoined>1704588739414</dateJoined>
+                <dateJoined>01-19-2024 14:12 PM PST</dateJoined>
                 <email>example@examplemail.com</email>
                 <phoneNumber>543-342-2342</phoneNumber>
             </associate>
             <creditScore>9000.0</creditScore>
         </customer>
         <amount>800.3</amount>
-        <dateCreated>1704588739606</dateCreated>
+        <dateCreated>01-19-2024 14:12 PM PST</dateCreated>
         <holds>false</holds>
     </sender>
     <receiver>
@@ -91,7 +91,7 @@
                         </location>
                         <primaryName>Example</primaryName>
                         <secondaryName>Associate</secondaryName>
-                        <dateJoined>1704588739414</dateJoined>
+                        <dateJoined>01-19-2024 14:12 PM PST</dateJoined>
                         <email>example@examplemail.com</email>
                         <phoneNumber>543-342-2342</phoneNumber>
                     </associate>
@@ -101,7 +101,7 @@
                         <salary>70000.0</salary>
                         <hourlyWage>0.0</hourlyWage>
                     </position>
-                    <dateHired>1704588739479</dateHired>
+                    <dateHired>01-19-2024 14:12 PM PST</dateHired>
                 </staff>
             </branchStaff>
         </branch>
@@ -123,20 +123,20 @@
                 </location>
                 <primaryName>Example</primaryName>
                 <secondaryName>Associate</secondaryName>
-                <dateJoined>1704588739414</dateJoined>
+                <dateJoined>01-19-2024 14:12 PM PST</dateJoined>
                 <email>example@examplemail.com</email>
                 <phoneNumber>543-342-2342</phoneNumber>
             </associate>
             <creditScore>9000.0</creditScore>
         </customer>
         <amount>800.3</amount>
-        <dateCreated>1704588739606</dateCreated>
+        <dateCreated>01-19-2024 14:12 PM PST</dateCreated>
         <holds>false</holds>
     </receiver>
     <transferStatus>
         <id>1</id>
         <status>accepted</status>
     </transferStatus>
-    <transferTime>1704588739639</transferTime>
+    <transferTime>01-19-2024 14:12 PM PST</transferTime>
     <amount>400.0</amount>
 </transfer>

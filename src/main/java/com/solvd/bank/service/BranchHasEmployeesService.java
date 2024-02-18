@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BranchHasEmployeesService {
 
-    private IBranchHasEmployeeDAO branchHasEmployeeDAO;
+    private final IBranchHasEmployeeDAO branchHasEmployeeDAO;
 
     public BranchHasEmployeesService() {
         this.branchHasEmployeeDAO = new BranchHasEmployeeDAO();

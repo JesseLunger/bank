@@ -4,14 +4,14 @@ package com.solvd.bank.persistence.mybatisImpl;
 import com.solvd.bank.domain.Country;
 import com.solvd.bank.domain.Location;
 import com.solvd.bank.persistence.ICountryDAO;
-import com.solvd.bank.utils.MySQLFactory;
+import com.solvd.bank.utils.jdbcconnectionutils.MySQLFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CountryDAO implements ICountryDAO {
 
-    private ICountryDAO mapper;
+    private final ICountryDAO mapper;
 
     public CountryDAO() {
         this.mapper = MySQLFactory.getSqlSessionFactory().openSession(true).getMapper(ICountryDAO.class);
@@ -46,6 +46,4 @@ public class CountryDAO implements ICountryDAO {
     public void removeEntityById(int id) {
         mapper.removeEntityById(id);
     }
-
-
 }
